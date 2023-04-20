@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Tracker - Login</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script defer src="/js/handleAuth.js"></script>
+</head>
+<body>
+  <section class="login">
+    <h1>Job Tracker Login</h1>
+    <form class="auth-form" data-action="login">
+      <section id="errors"></section>
+      <fieldset>
+        <label for="">Email:</label><br>
+        <input type="text" name="email">
+      </fieldset>
+      <fieldset>
+        <label for="">Password: </label><br>
+        <input type="password" name="password">
+      </fieldset>
+      <button>Log in</button>
+      <p>No account? <a href="/signup.html">Sign up here</a></p>
+    </form>
+  </section>
+</body>
+</html>
