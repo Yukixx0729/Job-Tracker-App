@@ -3,7 +3,7 @@ const express = require('express')
 const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session)
 
-const db = require('./database/db')
+const db = require('./models/db')
 // const challengesController = require('./controllers/challenges')
 // const usersController = require('./controllers/users')
 // const sessionController = require('./controllers/session')
