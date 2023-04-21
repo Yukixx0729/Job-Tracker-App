@@ -6,28 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Job Tracker - Sign Up</title>
   <link rel="stylesheet" href="/css/styles.css">
-  <script defer src="/js/handleAuth.js"></script>
 </head>
 <body>
   <section class="signup">
-    <h1>Job Tracker Signup</h1>
+    <h1> Job Tracker Sign Up</h1>
     <form id="signup-form">
-      <section id="errors"></section>
-      <fieldset>
-        <label for="">Name:</label><br>
-        <input type="text" name="name">
-      </fieldset>
-      <fieldset>
-        <label for="">Email:</label><br>
-        <input type="text" name="email">
-      </fieldset>
-      <fieldset>
-        <label for="">Password: </label><br>
-        <input type="password" name="password">
-      </fieldset>
-      <button>Signup</button>
+      <div>
+        <label for="firstName"> First name </label>
+        <input type="text" name="firstName"></input>
+      </div>
+      <div>
+      <label for="lastName"> Last name </label>
+      <input type="text" name="lastName"></input>
+      </div>
+      <div>
+        <label for="email"> Email </label>
+        <input type="email" name="email"></input>
+      </div>
+      <div>
+        <label for="password"> Password </label>
+        <input type="password" name="password"></input>
+      </div>
+      <div>
+      <label for="passwordCheck"> Password Again </label>
+      <input type="password" name="passwordCheck"></input>
+      </div>
+      <button type ="submit"> Create Account </button>
+    </form>
+    <p id="message"></p>
+  </section>
       <p>Already have an account? <a href="/login.html">Login here</a></p>
     </form>
   </section>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./js/components/signUpForm.js"></script>
+
 </body>
 </html>

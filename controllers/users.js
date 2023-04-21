@@ -1,8 +1,84 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
-
-const db = require('../database/db')
-
+const { addUser, checkUserExists } = require('../models/usersTable.js')
 const router = express.Router()
 
 const generateHash = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+
+function checkValidPassword(password) {
+  const uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  const numbers = "0123456789"
+  const specialChars = "!@#$%^&*()"
+
+  let hasUpperCase = false
+  let hasNumber = false
+  let hasSpecialChar = false
+
+  for (const char of password) {
+    if (uppercaseLetters.includes(char)) {
+      hasUpperCase = true
+    } else if (numbers.includes(char)) {
+      hasNumber = true
+    } else if (specialChars.includes(char)) {
+      hasSpecialChar = true
+    }
+  }
+  return hasUpperCase && hasNumber && hasSpecialChar && password.length >= 8
+}
+
+function checkPasswordsMatch(password, passwordCheck) {
+  return password === passwordCheck
+}
+
+router.post('/users/signup', (req, res, next) => {
+  const { firstName, lastName, email, password, passwordCheck } = req.body
+  console.log(`Received body: `, { firstName, lastName, email })
+  if (firstName && lastName && email && password && passwordCheck) {
+    checkUserExists(email)
+    .then((result) => {
+      if (result.rowCount > 0) {
+        return res.status(409).json({ message: "User already exists, please login"})
+      }
+
+      if (!checkValidPassword(password)) {
+        return res.status(400).json({ message: "Password must be at least 8 characters long, with at least one capital, one number, and one special character" })
+      }
+        
+      if (!checkPasswordsMatch(password, passwordCheck)) {
+        return res.status(400).json({ message: "Passwords do not match"})
+      } else {
+        passwordHash = generateHash(password)
+      }
+
+      return addUser(firstName, lastName, email, passwordHash)
+        .then(() => {
+          return res.sendStatus(201)
+        })
+        .catch((err) => {
+          next(err)
+        })
+    })
+  } else if (!firstName || !lastName || !email || !password) {
+      const signupError = new Error("Missing field")
+      signupError.status = 400
+      return next(signupError)
+  }  
+})
+
+router.post('/users/login', (req, res) => {
+  const { loginEmail, loginPassword } = req.body
+  checkUserExists(loginEmail)
+  .then((result) => {
+    if (result.rowCount === 1) {
+      const user = result.rows[0]
+      if (bcrypt.compareSync(loginPassword, user.password_hash)) {
+        return res.status(200).json({ message: "Login successful" })
+      } else {
+        return res.status(401).json({ message: "Email or password invalid" })
+      }
+    }
+  })
+})
+
+
+module.exports = router
