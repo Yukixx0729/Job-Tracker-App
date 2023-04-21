@@ -71,8 +71,6 @@ ALTER SEQUENCE to_do_id_seq RESTART WITH 1;
 ALTER SEQUENCE contacts_id_seq RESTART WITH 1;
 
 
-
-
 INSERT INTO users (user_name, email, password_hash)
 VALUES 
   ('John', 'john@hotmail.com', ''),
