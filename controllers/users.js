@@ -3,8 +3,9 @@ const bcrypt = require('bcrypt')
 const { addUser, checkUserExists } = require('../models/usersTable.js')
 const router = express.Router()
 
-const generateHash = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
-
+function generateHash(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+}
 function checkValidPassword(password) {
   const uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   const numbers = "0123456789"
@@ -30,10 +31,11 @@ function checkPasswordsMatch(password, passwordCheck) {
   return password === passwordCheck
 }
 
-router.post('/users/signup', (req, res, next) => {
-  const { firstName, lastName, email, password, passwordCheck } = req.body
-  console.log(`Received body: `, { firstName, lastName, email })
-  if (firstName && lastName && email && password && passwordCheck) {
+router.post('/signup', (req, res, next) => {
+  const { userName, email, password, passwordCheck } = req.body
+  console.log(req.body)
+  console.log(`Received body: `, { userName, email })
+  if (userName && email && password && passwordCheck) {
     checkUserExists(email)
     .then((result) => {
       if (result.rowCount > 0) {
@@ -50,7 +52,7 @@ router.post('/users/signup', (req, res, next) => {
         passwordHash = generateHash(password)
       }
 
-      return addUser(firstName, lastName, email, passwordHash)
+      return addUser(userName, email, passwordHash)
         .then(() => {
           return res.sendStatus(201)
         })
@@ -58,14 +60,12 @@ router.post('/users/signup', (req, res, next) => {
           next(err)
         })
     })
-  } else if (!firstName || !lastName || !email || !password) {
-      const signupError = new Error("Missing field")
-      signupError.status = 400
-      return next(signupError)
+  } else if (!userName || !email || !password) {
+    return res.status(400).json({ message: "Missing field" })
   }  
 })
 
-router.post('/users/login', (req, res) => {
+router.post('/login', (req, res) => {
   const { loginEmail, loginPassword } = req.body
   checkUserExists(loginEmail)
   .then((result) => {

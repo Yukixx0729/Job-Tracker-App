@@ -1,7 +1,9 @@
-document.getElementById("login-form").addEventListener("submit", handleLogin)
-const loginMsg = document.getElementById("login-error")
+document.getElementById("login-form").addEventListener("submit", login)
+const loginMsg = document.getElementById("message")
 
-const login = (event) => {
+function login(event) {
+  event.preventDefault()
+  console.log(event)
   const formData = new FormData(event.target)
 
   const loginBody = {
@@ -16,12 +18,11 @@ const login = (event) => {
       // return window.location.replace("/")
     })
     .catch(err => {
+      console.log(err)
       loginMsg.textContent = err.response.data.message 
     })
 }
 
-const logout = () => {
+function logout() {
 
 }
-
-export { login, logout }
