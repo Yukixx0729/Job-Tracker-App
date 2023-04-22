@@ -5,6 +5,7 @@ const pgSession = require('connect-pg-simple')(session)
 
 const db = require('./models/db')
 // const challengesController = require('./controllers/challenges')
+const todosController = require('./controllers/todos')
 const usersController = require('./controllers/users')
 const httpLoggerMiddleware = require('./middleware/httpLogger')
 // const sessionController = require('./controllers/session')
@@ -14,7 +15,9 @@ const app = express()
 app.use(express.static('client'))
 app.use(express.json())
 
-app.use('/users', httpLoggerMiddleware, usersController)
+app.use(httpLoggerMiddleware)
+app.use('/users', usersController)
+app.use('/todos', todosController)
 
 app.use(session({
   secret: process.env.SECRET_KEY,
