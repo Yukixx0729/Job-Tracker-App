@@ -1,22 +1,25 @@
-document.getElementById("signup-form").addEventListener("submit", handleSignUpForm)
+document.getElementById("signup-form").addEventListener("submit", signUp)
 const signUpMsg = document.getElementById("message")
 const loginButton = document.createElement('button')
 loginButton.className = "loginButton"
 loginButton.textContent = "Login"
 
 
-const handleSignUpForm = (event) => {
+function signUp(event) {
+  event.preventDefault()
   console.log(event)
 
   const formData = new FormData(event.target)
+  console.log(formData)
 
   const body = {
-    firstName: formData.get("firstName"),
-    lastName: formData.get("lastName"),
+    userName: formData.get("userName"),
     email: formData.get("email"),
     password: formData.get("password"),
     passwordCheck: formData.get("passwordCheck")
   }
+
+  console.log(body)
 
   return axios.post('/users/signup', body)
   .then(res => {
