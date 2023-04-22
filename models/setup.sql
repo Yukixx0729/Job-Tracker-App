@@ -1,4 +1,3 @@
-
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS jobs CASCADE;
 DROP TABLE IF EXISTS to_do CASCADE;
@@ -52,7 +51,7 @@ id SERIAL PRIMARY KEY,
 contact_name TEXT NOT NULL,
 company_name TEXT,
 email TEXT,
-phone_number INT,
+phone_number VARCHAR,
 notes TEXT,
   user_id INT,
   CONSTRAINT fk_contacts_users
@@ -60,11 +59,12 @@ notes TEXT,
   REFERENCES users(id) ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS file CASCADE;
 CREATE TABLE file (
-id SERIAL PRIMARY KEY,
-name TEXT,
-url TEXT,
-  user_id INT,
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    url TEXT,
+    user_id INT,
   CONSTRAINT fk_file_users
   FOREIGN KEY(user_id)
   REFERENCES users(id) ON DELETE CASCADE
