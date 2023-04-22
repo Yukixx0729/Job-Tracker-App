@@ -1,6 +1,5 @@
 const db = require('./db.js')
 
-
 const getAllJobs = () =>{
     return db
     .query("SELECT * FROM jobs")
