@@ -1,5 +1,4 @@
 import renderHeader from "./components/header.js"
-import { login, logout } from "./components/auth.js"
 
 fetch('/api/session')
   .then((res) => res.json())
