@@ -15,7 +15,7 @@ const addContact = (contactName, companyName, email, phoneNumber, notes) => {
 // }
 
 const getAllContacts = () => {
-  return db.query('SELECT * FROM contacts')
+  return db.query('SELECT * FROM contacts ORDER BY contact_name ASC')
     .then((result) => result.rows)
 }
 
