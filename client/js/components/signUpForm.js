@@ -1,11 +1,4 @@
-document.getElementById("signup-form").addEventListener("submit", signUp)
-const signUpMsg = document.getElementById("message")
-const loginButton = document.createElement('button')
-loginButton.className = "loginButton"
-loginButton.textContent = "Login"
-
-
-function signUp(event) {
+const signUp = (event) => {
   event.preventDefault()
   console.log(event)
 
@@ -32,3 +25,9 @@ function signUp(event) {
     signUpMsg.textContent = err.response.data.message 
   })
 }
+
+document.getElementById("signup-form").addEventListener("submit", signUp)
+const signUpMsg = document.getElementById("message")
+const loginButton = document.createElement('button')
+loginButton.className = "loginButton"
+loginButton.textContent = "Login"
