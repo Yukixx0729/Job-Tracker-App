@@ -1,12 +1,14 @@
-import renderHeader from "./components/header.js"
+renderHeader()
 
-fetch('/api/session')
-  .then((res) => res.json())
-  .then((data) => {
-    if ('user' in data ) {
-      console.log(data)
-      renderHeader(data.user)
-    } else {
-      window.location ='/login.html'
-    }
-  })
+// axios.get('/')
+//   .then((res) => {
+//     if ('user' in data ) {
+//       console.log(data)
+//       renderHeader(data.user)
+//     } else {
+//       window.location ='/login.html'
+//     }
+//   })
+//   .catch((err)=> {
+//     console.log(err)
+//   })
