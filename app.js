@@ -20,7 +20,7 @@ app.use(httpLoggerMiddleware)
 app.use('/contacts', contactsController)
 app.use('/users', usersController)
 app.use('/todos', todosController)
-app.use('/jobs',jobsController)
+app.use('/jobs', jobsController)
 
 app.use(session({
   secret: process.env.SECRET_KEY,
