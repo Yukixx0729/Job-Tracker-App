@@ -4,6 +4,7 @@ const session = require('express-session')
 const pgSession = require('connect-pg-simple')(session)
 
 const db = require('./models/db')
+const todosController = require('./controllers/todos')
 const jobsController = require('./controllers/jobs')
 const usersController = require('./controllers/users')
 const httpLoggerMiddleware = require('./middleware/httpLogger')
@@ -17,6 +18,7 @@ app.use(express.json())
 
 app.use(httpLoggerMiddleware)
 app.use('/users', usersController)
+app.use('/todos', todosController)
 app.use('/jobs',jobsController)
 
 app.use(session({
