@@ -29,11 +29,11 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage, fileFilter });
 
 router.post("/upload", upload.single("pdf"), async (req, res) => {
-  console.log(req.file);
   const result = await s3Upload(req.file);
   res.json({ status: "success", result });
   const url = result.Location;
   const { name, user_id } = req.body;
+  console.log(name, user_id, url);
   return uploadFile(name, url, user_id)
     .then((dbRes) => res.json({ success: true, user: dbRes.rows[0] }))
     .catch((err) => {
@@ -52,7 +52,7 @@ router.get("/upload/:id", (req, res) => {
 });
 
 //delet the file by id
-router.delete("/upload/:id", (req, res) => {
+router.delete("/delete/:id", (req, res) => {
   const id = req.params.id;
   return deleteFile(id)
     .then((dbRes) => res.json({ success: true }))
