@@ -18,9 +18,6 @@ const app = express();
 app.use(express.static("client"));
 app.use(express.json());
 
-const app = express()
-app.use(express.static('client'))
-app.use(express.json())
 app.use(httpLoggerMiddleware)
 app.use('/contacts', contactsController)
 app.use('/users', usersController)
@@ -35,6 +32,7 @@ app.use(session({
     pool: db,
     createTableIfMissing: true
   })
+})
 );
 
 const PORT = process.env.PORT || 3000;
