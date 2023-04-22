@@ -62,6 +62,7 @@ const renderContacts = (event) => {
       deleteBtn.textContent = "Delete"
       deleteBtn.className = "deleteBtn"
       deleteBtn.style.display = "none"
+      deleteBtn.addEventListener("click", () => deleteContact(contact.id))
       btnDiv.appendChild(deleteBtn)
 
       h3.addEventListener('click', (e) => {

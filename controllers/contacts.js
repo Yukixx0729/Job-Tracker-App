@@ -44,8 +44,8 @@ router.put('/:id', (req, res, next) => {
   console.log(`Receievd body:`, {contactName, companyName, email, phoneNumber, notes })
 
   return updateContact(id, contactName, companyName, email, phoneNumber, notes )
-    .then((contact) => {
-      res.json(contact)
+    .then(() => {
+      res.sendStatus(200)
     })
     .catch((err) => {
       console.log(err.message)
@@ -55,8 +55,19 @@ router.put('/:id', (req, res, next) => {
     })
 })
 
-// router.delete('/:id' (res, req, next) => {
-//   const id = Number(req.)
-// })
+router.delete('/:id', (req, res, next) => {
+  const id = Number(req.params.id)
+  console.log(id)
+  return deleteContactById(id)
+    .then(() => {
+      res.sendStatus(204)
+    })
+    .catch((err) => {
+      console.log(err.message)
+      res.status(500).json({
+        message: "Unexpected error, please contact admin"
+      })
+    })
+})
 
 module.exports=router

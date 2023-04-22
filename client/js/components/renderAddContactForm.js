@@ -48,7 +48,7 @@ function handleAddContact(event) {
 
   return axios.post('/contacts', body)
   .then(res => {
-    console.log(res)
+    console.log(res.status)
     renderContacts()
   })
   .catch(err => {
