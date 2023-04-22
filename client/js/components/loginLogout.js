@@ -1,7 +1,4 @@
-document.getElementById("login-form").addEventListener("submit", login)
-const loginMsg = document.getElementById("message")
-
-function login(event) {
+const login = (event) => {
   event.preventDefault()
   console.log(event)
   const formData = new FormData(event.target)
@@ -23,6 +20,9 @@ function login(event) {
     })
 }
 
-function logout() {
+const logout = () => {
 
 }
+
+document.getElementById("login-form").addEventListener("submit", login)
+const loginMsg = document.getElementById("message")
