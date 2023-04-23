@@ -33,7 +33,7 @@ router.post("/upload", upload.single("pdf"), async (req, res) => {
   res.json({ status: "success", result });
   const url = result.Location;
   const { name, user_id } = req.body;
-  console.log(name, user_id, url);
+  // console.log(name, user_id, url);
   return uploadFile(name, url, user_id)
     .then((dbRes) => res.json({ success: true, user: dbRes.rows[0] }))
     .catch((err) => {

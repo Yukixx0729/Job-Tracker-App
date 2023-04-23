@@ -22,7 +22,6 @@ const renderHeader = () => {
 const renderQuote = () => {
   page.innerHTML = "";
   axios.get("https://api.goprogram.ai/inspiration").then((res) => {
-    page.innerHTML = res.data.quote;
-    console.log(res);
+    page.innerHTML = `${res.data.quote}  ----  ${res.data.author}`;
   });
 };
