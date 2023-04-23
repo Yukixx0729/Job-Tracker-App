@@ -1,5 +1,6 @@
 const filesBtn = document.getElementById("files");
 
+//get all files
 function renderFiles() {
   page.innerHTML = " ";
   axios
@@ -23,7 +24,7 @@ function renderFiles() {
         page.appendChild(fileList);
         document
           .getElementById(`${file.id}`)
-          .addEventListener("click", handleDelete);
+          .addEventListener("click", handleDeleteFile);
       }
     })
     .catch(function (error) {
@@ -33,7 +34,8 @@ function renderFiles() {
 
 filesBtn.addEventListener("click", renderFiles);
 
-function handleDelete(e) {
+//handle delete of the file
+function handleDeleteFile(e) {
   if (!document.querySelector(".deleteFileForm")) {
     const delForm = document.createElement("div");
     delForm.innerHTML = `<form  class="deleteFileForm">
@@ -47,7 +49,7 @@ function handleDelete(e) {
       .querySelector(".deleteFileForm")
       .addEventListener("submit", (event) => {
         event.preventDefault();
-        handleDelSubmit(`${e.target.id}`);
+        handleDelFileSubmit(`${e.target.id}`);
         renderFiles();
       });
     e.target.parentElement
@@ -58,11 +60,11 @@ function handleDelete(e) {
       });
   } else {
     document.querySelector(".deleteFileForm").remove();
-    handleDelete(e);
+    handleDeleteFile(e);
   }
 }
 
-function handleDelSubmit(id) {
+function handleDelFileSubmit(id) {
   return axios
     .delete(`/files/delete/${id}`)
     .then((res) => {})
