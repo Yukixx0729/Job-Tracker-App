@@ -5,8 +5,9 @@ const renderToDoList = (event) => {
     const page = document.getElementById('page');
     page.innerHTML = '';
     const addTaskBtn = document.createElement('button')
+    addTaskBtn.textContent = 'New Task'
     page.appendChild(addTaskBtn)
-    // addTaskBtn.addEventListener('click', renderCreateToDoForm)
+    addTaskBtn.addEventListener('click', renderCreateToDoForm)
   
     return axios.get('/todos')
     .then(res => {

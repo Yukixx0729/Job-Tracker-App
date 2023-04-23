@@ -1,4 +1,4 @@
-function renderCreateToDoForm() {
+const renderCreateToDoForm = () => {
     const header = document.getElementById('page')
     header.innerHTML = `
       <form id="create-todo-form">
@@ -53,10 +53,10 @@ function renderCreateToDoForm() {
       priority: formData.get('priority'),
       status: formData.get('status'),
     };
-  
-    return axios.post('/api/todos', body)
+    console.log(body)
+    return axios.post('/todos', body)
       .then(res => {
-        console.log(res);
+        console.log(res.status);
   
         renderToDoList();
       })
@@ -66,4 +66,3 @@ function renderCreateToDoForm() {
   
   }
   
-  export { renderCreateToDoForm, handleFormSubmit }
