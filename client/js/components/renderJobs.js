@@ -1,4 +1,6 @@
+
 const p = document.getElementById('page')
+
 const jobContainer = document.createElement('div')
 jobContainer.id = 'jobListContainer'
 let isDisplayed = false
@@ -20,8 +22,8 @@ const displayJobList = () =>{
                 const location = job.location
                 const description = job.description
                 const jobUrl = job.job_url
-                const dueDate = job.due_date
-                const stages = job.stages
+                const dueDate = new Date(job.due_date)
+                const stage = job.stages
 
                 const container = document.createElement('div')
                 const ul = document.createElement('ul')
@@ -32,9 +34,10 @@ const displayJobList = () =>{
                 <li>Location: ${location}</li>
                 <li>Description: ${description}</li>
                 <li>Job URL: ${jobUrl}</li>
-                <li>Due date: ${dueDate}</li>
-                <li>Stages: ${stages}</li>
+                <li>Due date: ${dueDate.toLocaleDateString()}</li>
+                <li>Stage: ${stage}</li>
                 `
+
 
                 const editButton = document.createElement("button");
                 editButton.textContent = "Edit";
@@ -62,6 +65,7 @@ const displayJobList = () =>{
                 container.appendChild(ul)
                 container.appendChild(editButton)
                 container.appendChild(deleteButton)
+
                 jobContainer.appendChild(container)
                 p.appendChild(jobContainer)
 
@@ -70,11 +74,13 @@ const displayJobList = () =>{
             p.appendChild(jobContainer)
             document.body.appendChild(p)
             isDisplayed = true
+
             }
           
         })
     }
     
+
 
 
 const jobsBtn = document.getElementById('jobs')
