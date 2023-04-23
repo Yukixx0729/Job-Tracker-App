@@ -4,6 +4,7 @@ const renderHeader = () => {
     <h1> Job Tracker </h1>  
     <nav class="nav-bar">
     <ul>
+      <li class="nav-item" id="homepage"> Homepage </li>
       <li class="nav-item" id="jobs"> Jobs </li>
       <li class="nav-item" id="todo"> To Do </li>
       <li class="nav-item" id="contacts"> Contacts </li>
@@ -14,6 +15,9 @@ const renderHeader = () => {
       </ul>
     </nav>
   `;
+  document.getElementById("homepage").addEventListener("click", (event) => {
+    renderQuote();
+  });
 };
 
 const renderQuote = () => {
