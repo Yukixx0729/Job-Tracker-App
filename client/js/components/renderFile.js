@@ -1,6 +1,6 @@
 const filesBtn = document.getElementById("files");
 
-//get all files
+//get all files and handle del btn function
 function renderFiles() {
   page.innerHTML = " ";
   axios
@@ -15,12 +15,12 @@ function renderFiles() {
         .querySelector("button")
         .addEventListener("click", renderUploadFileForm);
       if (!res.data.user[0]) {
-        note.innerHTML = "You haven't uploaded any file yet.";
+        note.innerHTML = `<h3>You haven't uploaded any file yet.<h3>`;
         page.appendChild(note);
       }
       for (let file of res.data.user) {
         const fileList = document.createElement("div");
-        fileList.innerHTML = `<a href="${file.url}">${file.name}</a>  <button class="deleteFile" id ="${file.id}">Delete</button>`;
+        fileList.innerHTML = `<h3><a href="${file.url}">${file.name}</a>  <button class="deleteFile" id ="${file.id}">Delete</button></h3>`;
         page.appendChild(fileList);
         document
           .getElementById(`${file.id}`)
@@ -73,11 +73,12 @@ function handleDelFileSubmit(id) {
     });
 }
 
-function cancelDel(e) {
-  console.log(e.parentElement.parentElement);
-  e.parentElement.parentElement.remove();
-}
+// function cancelDel(e) {
+//   console.log(e.parentElement.parentElement);
+//   e.parentElement.parentElement.remove();
+// }
 
+//handle upload the new file
 function renderUploadFileForm() {
   if (!document.getElementById("uploadFile").querySelector("form")) {
     const uploadDiv = document.createElement("div");
@@ -99,9 +100,12 @@ function renderUploadFileForm() {
         handleUploadFile(event);
       });
 
-    document.getElementById("cancelUpload").addEventListener("click", () => {
-      document.getElementById("uploadFileForm").remove();
-    });
+    document
+      .getElementById("cancelUpload")
+      .addEventListener("click", (event) => {
+        event.preventDefault();
+        document.getElementById("uploadFileForm").remove();
+      });
   } else {
     document.getElementById("uploadFile").querySelector("form").remove();
   }
@@ -119,11 +123,11 @@ async function handleUploadFile(event) {
     }
   }
 
-  console.log("before promise", formData);
+  // console.log("before promise", formData);
   return axios
     .post("/files/upload", formData)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       renderFiles();
     })
     .catch((err) => {
