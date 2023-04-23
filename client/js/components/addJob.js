@@ -1,5 +1,5 @@
 function addJobForm() {
-    const header = document.getElementById("page");
+    const header = document.getElementById("page")
     const form = `
         <form id="add-job-form">
           <h3>Add your jobs!</h3>
@@ -46,7 +46,7 @@ function addJobForm() {
         header.innerHTML += form;
         document
           .getElementById("add-job-form")
-          .addEventListener("submit", handleFormSubmit)
+          .addEventListener("submit", handleFormSubmitJob)
       } 
       else {
         
@@ -54,7 +54,7 @@ function addJobForm() {
       }
   }
   
-function handleFormSubmit(event) {
+function handleFormSubmitJob(event) {
     event.preventDefault()
   
     const formData = new FormData(event.target)
@@ -73,10 +73,7 @@ function handleFormSubmit(event) {
     .then((res) => {
         console.log(res)
         displayJobList()
-        addJobForm()
+        
     })
   }
   
-const addJobsBtn = document.getElementById('add-jobs')
-
-addJobsBtn.addEventListener('click', addJobForm)

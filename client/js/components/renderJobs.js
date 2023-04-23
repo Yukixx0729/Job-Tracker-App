@@ -6,10 +6,21 @@ jobContainer.id = 'jobListContainer'
 let isDisplayed = false
 
 
+
+
 const displayJobList = () =>{
         jobContainer.innerHTML =''
         p.innerHTML = ''
-    
+
+        const addJobBtn = document.createElement('button')
+        addJobBtn.id = "addJobBtn"
+        addJobBtn.textContent = "Add Job"
+        p.appendChild(addJobBtn)
+        addJobBtn.addEventListener('click', ()=>{
+            jobContainer.innerHTML =''
+            addJobForm()
+        })
+
         axios.get("/jobs")
             .then((result) =>{
                 const jobs = result.data
