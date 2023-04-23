@@ -73,11 +73,6 @@ function handleDelFileSubmit(id) {
     });
 }
 
-// function cancelDel(e) {
-//   console.log(e.parentElement.parentElement);
-//   e.parentElement.parentElement.remove();
-// }
-
 //handle upload the new file
 function renderUploadFileForm() {
   if (!document.getElementById("uploadFile").querySelector("form")) {
