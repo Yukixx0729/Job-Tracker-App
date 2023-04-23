@@ -1,5 +1,5 @@
-renderHeader()
-
+renderHeader();
+renderQuote();
 // axios.get('/')
 //   .then((res) => {
 //     if ('user' in data ) {

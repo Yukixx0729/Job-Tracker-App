@@ -81,10 +81,10 @@ function renderUploadFileForm() {
     const uploadDiv = document.createElement("div");
     uploadDiv.id = "uploadFileForm";
     uploadDiv.innerHTML = `<form action="/files/upload" method="post" enctype="multipart/form-data">
-    <div><label for="name"> Name </label>
+    <div><label for="name"> File Name </label>
     <input type="text" name="name" required/></div>
-   <div><label for="file"> file </label>
-    <input type="file" name="pdf" required/><div>
+   <div><label for="file"> File(only pdf) </label>
+    <input type="file" name="pdf" accept="application/pdf" required/><div>
     <input type="text" name="user_id" value = 1 hidden/>
     <div><button type="submit">Upload</button>
     <button id="cancelUpload">Cancel</button><div>
