@@ -4,7 +4,7 @@ const renderHeader = () => {
     <h1> Job Tracker </h1>
     <div class="nav-bar">
       <p class="nav-item" id="jobs"> Jobs </p>
-      <p class="nav-item" id="todo"> To Do </p>
+      <p class="nav-item" id="todo"> To Dos </p>
       <p class="nav-item" id="contacts"> Contacts </p>
       <p class="nav-item" id="files"> Files </p>
       <p class="nav-item" id="add-jobs"> Add jobs </p>
