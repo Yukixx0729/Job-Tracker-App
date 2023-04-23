@@ -9,7 +9,6 @@ const renderHeader = () => {
       <li class="nav-item" id="todo"> To Do </li>
       <li class="nav-item" id="contacts"> Contacts </li>
       <li class="nav-item" id="files"> Files </li>
-      <li class="nav-item" id="add-jobs"> Add jobs </li>
       <li><a href = "/signup.html" class="nav-item"> Sign Up </a></li>
       <li><a href = "/login.html" class="nav-item"> Login </a></li>
       </ul>
