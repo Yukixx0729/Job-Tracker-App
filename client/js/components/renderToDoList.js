@@ -30,14 +30,38 @@ const renderToDoList = (event) => {
             dueDate.innerText = `Due: ${dueDateStr}`;
            const description = document.createElement('p');
            description.innerText = task.description;
+
+           const btnDiv = document.createElement('div');
+           const deleteBtn = document.createElement('button')
+           deleteBtn.textContent = "Delete"
+           deleteBtn.className = "deleteBtn"
+           deleteBtn.style.display = "none"
+           deleteBtn.addEventListener("click", () => deleteToDo(task.id))
+           btnDiv.appendChild(deleteBtn)
+         
+           const editBtn = document.createElement('button')
+           editBtn.textContent = "Edit"
+           editBtn.className = "editBtn"
+           editBtn.style.display = "none"
+           editBtn.addEventListener("click", () => editToDoForm(task.id))
+           btnDiv.appendChild(editBtn)
+        
+
            container.appendChild(title);
            container.appendChild(dueDate);
            container.appendChild(description);
+           container.appendChild(deleteBtn);
+           container.appendChild(btnDiv);
+           container.addEventListener("mouseover", () => deleteBtn.style.display = "block");
+           container.addEventListener("mouseout", () => deleteBtn.style.display = "none");
+           container.addEventListener("mouseover", () => editBtn.style.display = "block");
+           container.addEventListener("mouseout", () => editBtn.style.display = "none");
            page.appendChild(container);
         })
+        
     })
   }
 
-  toDosBtn.addEventListener('click', renderToDoList)
+toDosBtn.addEventListener('click', renderToDoList)
   
   
