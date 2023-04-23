@@ -24,8 +24,8 @@ const updateJob = (title,company,location,description,job_url,due_date,stages,id
     const sql = `UPDATE jobs
                  SET title = $2, company = $3, location = $4, description = $5, job_url = $6, due_date = $7, stages = $8
                  WHERE id = $1
-                 RETURNING *;`
-                 return db.query(sql, [title, company, location, description, job_url, due_date, stages, id])
+                `
+                return db.query(sql, [title, company, location, description, job_url, due_date, stages, id])
                  .then(result => result.rows[0])
 }
 
