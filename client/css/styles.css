@@ -38,23 +38,98 @@ section {
 }
 
 .card {
-    max-width: 300px;
+  max-width: 300px;
 }
 .card-body {
-    overflow-y: auto;
+  overflow-y: auto;
 }
 .task-card.low {
-    background-color: #E6E6E6;
+  background-color: #e6e6e6;
 }
 .task-card.moderate {
-    background-color: #f2d378;
+  background-color: #f2d378;
 }
 .task-card.high {
-    background-color: #ee7a86;
+  background-color: #ee7a86;
 }
 .task-card.completed {
-    background-color: #99c684;
+  background-color: #99c684;
 }
 .hidden {
-    visibility: hidden;
+  visibility: hidden;
+}
+
+#dueDataBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 100px;
+}
+
+.dueItem {
+  list-style: none;
+  margin: 30px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  color: rgb(51, 36, 65);
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  box-shadow: 2px 3px 3px grey;
+}
+
+#fileContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 50px;
+}
+
+.fileList {
+  list-style: none;
+  margin: 30px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  color: rgb(51, 36, 65);
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  box-shadow: 2px 3px 3px grey;
+}
+
+.fileList a {
+  text-decoration: underline;
+  color: rgb(51, 36, 65);
+}
+#uploadForm {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  color: rgb(51, 36, 65);
+  padding: 5px;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  box-shadow: 2px 3px 3px grey;
+}
+
+#uploadFileForm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+#fileNote {
+  text-align: center;
+  color: rgb(51, 36, 65);
+  margin: 30px;
+}
+
+#uploadForm div {
+  padding: 10px;
 }
