@@ -1,7 +1,7 @@
 const p = document.getElementById("page")
 
 const jobContainer = document.createElement("div")
-jobContainer.className = "row justify-content-evenly"
+jobContainer.className = "row"
 jobContainer.id = "jobListContainer"
 
 const displayJobList = () => {
@@ -22,40 +22,15 @@ const displayJobList = () => {
     const jobs = result.data
     console.log(jobs)
   
-    const createColumn = (stages) => {
-      const filteredJobs = jobs.filter((job) => job.stages === stages)
+    const createColumn = (stage) => {
+      const filteredJobs = jobs.filter((job) => job.stages === stage)
       const column = document.createElement("div")
-      column.id = `${stages}`
-      column.className = "col mh-100"
+      column.id = `${stage}Column`
+      column.className = "col"
       jobContainer.appendChild(column)
       const heading = document.createElement("h2")
-      heading.textContent = stages
+      heading.textContent = stage
       column.appendChild(heading)
-
-      column.addEventListener("dragover", (event) => {
-        event.preventDefault()
-        const draggingJob = document.querySelector(".is-dragging")
-        column.appendChild(draggingJob)
-      })
-
-      column.addEventListener("drop", (event) => {
-        event.preventDefault()
-        const jobId = event.dataTransfer.getData('text/plain')
-        const body = {
-          id: jobId,
-          stages
-        }
-        console.log(body)
-        axios.put(`/jobs/${jobId}`, body) 
-        .then((response) => {
-          console.log(response.data)
-        //   displayJobList()
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-      })
-
       filteredJobs.forEach((job) => {
         const id = job.id
         const title = job.title
@@ -89,7 +64,7 @@ const displayJobList = () => {
         jobTitle.textContent = `${title}`
         jobCompany.innerHTML = `<span id=subheading> Company: </span>${company}`
         jobLocation.innerHTML = `<span id=subheading> Location: </span>${location}`
-        jobDescription.innerHTML = `<span id=subheading> Description: </span>${description}`
+        jobDescription.innerHTML = `<span id=subheading> Company: </span>${description}`
         jobURL.innerHTML = `<a href="${jobUrl}"> Link to job </a>`
         jobDueDate.innerHTML = `<span id=subheading> Due: </span>${dueDate.toLocaleDateString()}`
         jobStage.innerHTML = `<span id=subheading> Stage: </span>${stage}`
@@ -115,23 +90,45 @@ const displayJobList = () => {
         })
         column.appendChild(jobDiv)
 
-        jobDiv.addEventListener("dragstart", (event) => {
-            console.log(event.target)
-            jobDiv.classList.add("is-dragging")
-            event.dataTransfer.setData('text/plain', id)
-        })
-        jobDiv.addEventListener("dragend", (event) => {
-            console.log(event.target)
-            jobDiv.classList.remove("is-dragging")
-        })
+        // jobDiv.addEventListener("dragstart", (event) => {
+        //     console.log(event.target)
+        //     jobDiv.classList.add("is-dragging")
+        // jobDiv.addEventListener("dragend", (event) => {
+        //     console.log(event.target)
+        //     jobDiv.classList.remove("is-dragging")
+        // })
+
+        // column.addEventListener("dragover", (event) => {
+        //     event.preventDefault()
+        //     const draggingJob = document.querySelector(".is-dragging")
+        //     column.appendChild(draggingJob)
+
+        // })
+        
+        // jobDiv.addEventListener("drop", (event) => {
+        //     event.preventDefault()
+        //     const body = {
+        //         id: event.dataTransfer.getData("text"),
+        //         stage: event.currentTarget.parentElement.id
+        //     }
+        //     axios.put(`/jobs/${id}`, body) 
+        //       .then((response) => {
+        //         console.log(response.data)
+        //       })
+        //       .catch((error) => {
+        //         console.error(error)
+        //       })
+        //   })
+        // return jobDiv
+    //   })
     })
-  }
     createColumn("Application")
     createColumn("Phone Interview")
     createColumn("Interview")
     createColumn("Complete")
-  })
+  }
   p.appendChild(jobContainer)
+})
 }
 
 const jobsBtn = document.getElementById("jobs")

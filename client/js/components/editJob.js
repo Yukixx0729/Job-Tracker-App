@@ -1,6 +1,8 @@
 function editJob(jobData) {
     const id = jobData.data.id
     const p = document.getElementById("page")
+    const dueDateObj = new Date(jobData.data.due_date)
+    const formattedDueDate = dueDateObj.toISOString().substring(0, 10)
     const editForm = `
     <form id="edit-job-form" data-id="${id}">
       <h3>Update your jobs!</h3>
@@ -26,15 +28,15 @@ function editJob(jobData) {
         </p>
         <p> 
         <label for="due_date">Due date</label>  
-        <input type="date" name="due_date" value = "${jobData.data.due_date}"></input>
+        <input type="date" name="due_date" value = "${formattedDueDate}"></input>
         </p>
         <p> 
         <label for="stages">Stage</label>  
-        <select name="stages" value = "${jobData.data.stages}">
-        <option value="application">Application</option>
-        <option value="phone-interview">Phone interview</option>
-        <option value="interview">Interview</option>
-        <option value="complete">Complete</option>
+        <select name="stages">
+        <option value="Application" ${jobData.data.stages === 'Application' ? 'selected' : ''}>Application</option>
+        <option value="Phone Interview" ${jobData.data.stages === 'Phone Interview' ? 'selected' : ''}>Phone interview</option>
+        <option value="Interview" ${jobData.data.stages === 'Interview' ? 'selected' : ''}>Interview</option>
+        <option value="Complete" ${jobData.data.stages === 'Complete' ? 'selected' : ''}>Complete</option>
         </select>
         </p>
      
