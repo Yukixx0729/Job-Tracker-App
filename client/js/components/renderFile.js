@@ -37,7 +37,7 @@ function renderFiles() {
     });
 }
 
-filesBtn.addEventListener("click", renderFiles);
+// filesBtn.addEventListener("click", renderFiles);
 
 //handle delete of the file
 function handleDeleteFile(e) {
@@ -134,3 +134,5 @@ async function handleUploadFile(event) {
       console.error(err);
     });
 }
+
+export default renderFiles;
