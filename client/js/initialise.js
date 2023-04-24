@@ -1,6 +1,7 @@
 
 renderQuote();
 
+
 axios.get('/users/login')
   .then((res) => {
     const { user } = res.data
@@ -17,5 +18,6 @@ axios.get('/users/login')
       window.location.href = '/login.html'
   }
 })
+
 
 
