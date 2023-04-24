@@ -52,28 +52,27 @@ async function renderDueJobAndTodo() {
     .catch((err) => {
       console.error(err);
     });
+  console.log(dueDataJob, dueDataTodo);
   if (!dueDataJob && !dueDataTodo) {
     const reminder = document.createElement("div");
     reminder.innerHTML = "Nothing to worry about yet.";
     container.appendChild(reminder);
   } else {
-    if (dueDataJob.length === 1 && dueDataTodo.length === 1) {
-      dueData.push(dueDataJob);
-      dueData.push(dueDataTodo);
-    } else if (dueDataJob.length === 1 && dueDataTodo.length > 1) {
+    if (dueDataJob.length === 1 && dueDataTodo.length > 1) {
       dueData.push(dueDataJob);
       dueData = dueData.concat(dueDataTodo);
     } else if (dueDataJob.length > 1 && dueDataTodo.length === 1) {
       dueData.push(dueDataTodo);
       dueData = dueData.concat(dueDataJob);
     } else {
-      dueData = dueDataJob.concat(dueDataTodo);
+      dueData = dueData.concat(dueDataTodo);
+      dueData = dueData.concat(dueDataJob);
     }
     console.log(dueData);
     const sortedData = dueData.sort(
       (a, b) => new Date(a["due_date"]) - new Date(b["due_date"])
     );
-    // console.log(sortedData);
+    console.log(sortedData);
     for (let due of sortedData) {
       const dueItem = document.createElement("div");
       dueItem.className = "dueItem";
