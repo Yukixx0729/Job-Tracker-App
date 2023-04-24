@@ -5,8 +5,13 @@ const addUser = (userName, email, passwordHash) => {
     .then((result) => result)
 }
 
+const getAllusers = () => {
+  return db.query("SELECT * FROM users;").then((result) => result.rows);
+};
+
+
 const checkUserExists = (email) => {
-  return db.query('SELECT email, password_hash FROM users WHERE email = $1', [email])
+  return db.query('SELECT user_name, email, password_hash FROM users WHERE email = $1', [email])
     .then((result) => result)
 }
 
@@ -14,5 +19,6 @@ const checkUserExists = (email) => {
 
 module.exports = {
   addUser,
-  checkUserExists
+  checkUserExists,
+  getAllusers
 }
