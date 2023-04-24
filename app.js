@@ -19,13 +19,6 @@ const app = express();
 app.use(express.static("client"));
 app.use(express.json());
 
-app.use(httpLoggerMiddleware);
-app.use("/contacts", contactsController);
-app.use("/users", usersController);
-app.use("/todos", todosController);
-app.use("/jobs", jobsController);
-app.use("/files", fileController);
-
 app.use(
   session({
     secret: process.env.SECRET_KEY,
@@ -38,6 +31,12 @@ app.use(
   })
 );
 
+app.use(httpLoggerMiddleware);
+app.use("/contacts", contactsController);
+app.use("/users", usersController);
+app.use("/todos", todosController);
+app.use("/jobs", jobsController);
+app.use("/files", fileController);
 app.use(errorHandling);
 
 app.listen(PORT, () => {

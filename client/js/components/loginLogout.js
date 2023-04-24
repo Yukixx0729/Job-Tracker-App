@@ -1,6 +1,5 @@
 const login = (event) => {
   event.preventDefault()
-  console.log(event)
   const formData = new FormData(event.target)
 
   const loginBody = {
@@ -10,9 +9,8 @@ const login = (event) => {
 
   return axios.post('/users/login', loginBody)
     .then(res => {
-      console.log(res)
       loginMsg.textContent = "Login successful!"
-      // return window.location.replace("/")
+      return window.location.replace("/")
     })
     .catch(err => {
       console.log(err)
@@ -20,9 +18,6 @@ const login = (event) => {
     })
 }
 
-const logout = () => {
-
-}
 
 document.getElementById("login-form").addEventListener("submit", login)
 const loginMsg = document.getElementById("message")
