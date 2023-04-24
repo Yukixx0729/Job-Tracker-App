@@ -1,7 +1,7 @@
 const p = document.getElementById("page")
 
 const jobContainer = document.createElement("div")
-jobContainer.className = "row"
+jobContainer.className = "row justify-content-evenly"
 jobContainer.id = "jobListContainer"
 
 const displayJobList = () => {
@@ -22,15 +22,40 @@ const displayJobList = () => {
     const jobs = result.data
     console.log(jobs)
   
-    const createColumn = (stage) => {
-      const filteredJobs = jobs.filter((job) => job.stages === stage)
+    const createColumn = (stages) => {
+      const filteredJobs = jobs.filter((job) => job.stages === stages)
       const column = document.createElement("div")
-      column.id = `${stage}Column`
-      column.className = "col"
+      column.id = `${stages}`
+      column.className = "col mh-100"
       jobContainer.appendChild(column)
       const heading = document.createElement("h2")
-      heading.textContent = stage
+      heading.textContent = stages
       column.appendChild(heading)
+
+      column.addEventListener("dragover", (event) => {
+        event.preventDefault()
+        // column.style.backgroundColor = "green"
+        const draggingJob = document.querySelector(".is-dragging")
+        column.appendChild(draggingJob)
+      })
+
+      column.addEventListener("drop", (event) => {
+        event.preventDefault()
+        const jobId = event.dataTransfer.getData('text/plain')
+        const body = {
+          id: jobId,
+          stages
+        }
+        console.log(body)
+        axios.put(`/jobs/${jobId}`, body) 
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+      })
+
       filteredJobs.forEach((job) => {
         const id = job.id
         const title = job.title
@@ -44,6 +69,9 @@ const displayJobList = () => {
         const jobDiv = document.createElement("div")
         jobDiv.draggable = "true"
         jobDiv.classList = "job"
+        jobDiv.dataset.id = id
+        jobDiv.dataset.stage = stage
+
         const jobTitle = document.createElement("h4")
         const jobCompany = document.createElement("p")
         const jobLocation = document.createElement("p")
@@ -61,7 +89,7 @@ const displayJobList = () => {
         jobTitle.textContent = `${title}`
         jobCompany.innerHTML = `<span id=subheading> Company: </span>${company}`
         jobLocation.innerHTML = `<span id=subheading> Location: </span>${location}`
-        jobDescription.innerHTML = `<span id=subheading> Company: </span>${description}`
+        jobDescription.innerHTML = `<span id=subheading> Description: </span>${description}`
         jobURL.innerHTML = `<a href="${jobUrl}"> Link to job </a>`
         jobDueDate.innerHTML = `<span id=subheading> Due: </span>${dueDate.toLocaleDateString()}`
         jobStage.innerHTML = `<span id=subheading> Stage: </span>${stage}`
@@ -86,9 +114,19 @@ const displayJobList = () => {
             })
         })
         column.appendChild(jobDiv)
-      })
-    }
-  
+
+        jobDiv.addEventListener("dragstart", (event) => {
+            console.log(event.target)
+            jobDiv.classList.add("is-dragging")
+            event.dataTransfer.setData('text/plain', id)
+        })
+        jobDiv.addEventListener("dragend", (event) => {
+            console.log(event.target)
+            jobDiv.classList.remove("is-dragging")
+        })
+    })
+    
+  }
     createColumn("Application")
     createColumn("Phone Interview")
     createColumn("Interview")
@@ -96,6 +134,7 @@ const displayJobList = () => {
   })
   p.appendChild(jobContainer)
 }
+
 
 const jobsBtn = document.getElementById("jobs")
 jobsBtn.addEventListener("click", displayJobList)
