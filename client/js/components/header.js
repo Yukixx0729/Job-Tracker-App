@@ -1,4 +1,9 @@
-const renderHeader = (user) => {
+import renderFiles from "./renderFile.js";
+import displayJobList from "./renderJobs.js";
+import renderContacts from "./renderContactsList.js";
+import renderToDoList from "./renderToDoList.js";
+
+export const renderHeader = (user) => {
   const header = document.getElementById("header-nav");
   header.innerHTML = `
     <h1> Job Tracker </h1>  
@@ -6,33 +11,48 @@ const renderHeader = (user) => {
     <nav class="nav-bar">
     <ul>
       <li class="nav-item" id="homepage"> Homepage </li>
-      <li class="nav-item" id="jobs"> Jobs </li>
-      <li class="nav-item" id="todo"> To Do </li>
-      <li class="nav-item" id="contacts"> Contacts </li>
-      <li class="nav-item" id="files"> Files </li>
+      <li class="nav-item" role="button" data-render="jobs" > Jobs </li>
+      <li class="nav-item" role="button" data-render="todo" > To Do </li>
+      <li class="nav-item" role="button" data-render="contacts" > Contacts </li>
+      <li class="nav-item" role="button" data-render="files"> Files </li>
       <li><a href = "/signup.html" class="nav-item"> Sign Up </a></li>
       <li><a href = "/login.html" class="nav-item"> Login </a></li>
       </ul>
     </nav>
   `;
 
-  header.addEventListener('click', (event) =>{
-    const target = event.target
-    if(target.className === 'logout-btn'){
-      fetch('/users/login', {
-        method: 'DELETE'
-      }).then(()=>{
-        window.location = '/login.html'
-      })
+  header.addEventListener("click", (event) => {
+    const target = event.target;
+    if (target.className === "logout-btn") {
+      fetch("/users/login", {
+        method: "DELETE",
+      }).then(() => {
+        window.location = "/login.html";
+      });
     }
-  })
-    
+    const render = event.target.dataset.render;
+    switch (render) {
+      case "files":
+        renderFiles();
+        break;
+      case "jobs":
+        displayJobList();
+        break;
+      case "todo":
+        renderToDoList();
+        break;
+      case "contacts":
+        renderContacts();
+        break;
+    }
+  });
+
   document.getElementById("homepage").addEventListener("click", (event) => {
     renderQuote();
   });
 };
 
-const renderQuote = () => {
+export const renderQuote = () => {
   page.innerHTML = "";
   const quote = document.createElement("div");
   quote.id = "quoteBox";
@@ -65,7 +85,7 @@ async function renderDueJobAndTodo() {
     .catch((err) => {
       console.error(err);
     });
-  console.log(dueDataJob, dueDataTodo);
+  // console.log(dueDataJob, dueDataTodo);
   if (!dueDataJob && !dueDataTodo) {
     const reminder = document.createElement("div");
     reminder.innerHTML = "Nothing to worry about yet.";
@@ -81,11 +101,11 @@ async function renderDueJobAndTodo() {
       dueData = dueData.concat(dueDataTodo);
       dueData = dueData.concat(dueDataJob);
     }
-    console.log(dueData);
+    // console.log(dueData);
     const sortedData = dueData.sort(
       (a, b) => new Date(a["due_date"]) - new Date(b["due_date"])
     );
-    console.log(sortedData);
+    // console.log(sortedData);
     for (let due of sortedData) {
       const dueItem = document.createElement("div");
       dueItem.className = "dueItem";
@@ -103,3 +123,5 @@ async function renderDueJobAndTodo() {
     }
   }
 }
+
+// export default { renderHeader, renderQuote };
