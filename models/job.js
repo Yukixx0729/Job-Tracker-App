@@ -2,9 +2,8 @@ const db = require('./db.js')
 
 const getAllJobs = () =>{
     return db
-    .query("SELECT * FROM jobs")
+    .query("SELECT * FROM jobs ORDER BY due_date ASC;")
     .then(result => result.rows)
-
 }
 
 const getJobById = (id) =>{
@@ -23,8 +22,7 @@ const addJob = (title,company,location,description,job_url,due_date,stages) =>{
 const updateJob = (title,company,location,description,job_url,due_date,stages,id) =>{
     const sql = `UPDATE jobs
                  SET title = $2, company = $3, location = $4, description = $5, job_url = $6, due_date = $7, stages = $8
-                 WHERE id = $1
-                `
+                 WHERE id = $1;`
                 return db.query(sql, [title, company, location, description, job_url, due_date, stages, id])
                  .then(result => result.rows[0])
 }
