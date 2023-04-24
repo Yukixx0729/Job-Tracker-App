@@ -19,7 +19,6 @@
   color: #e6e6e6;
   font-weight: 400;
   font-size: 22px;
-}
 
 .nav-item:hover {
   transform: scale(1.2);
@@ -73,7 +72,6 @@
 
 .signup-body {
   background-color:#e1caca;
-}
 
 /* FILES PAGE */
 #uploadFile {

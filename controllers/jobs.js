@@ -46,8 +46,14 @@ const {
  router.put("/:id", (req,res)=>{
     const id = Number(req.params.id)
     const { title, company, location, description, job_url, due_date, stages } = req.body
+    console.log(req.body)
     return updateJob(id, title, company, location, description, job_url, due_date, stages)
-    .then(updatedJob => res.json(updatedJob))
+    .then(() => {
+        res.json({message: "Job updated"})
+    }) .catch(error => {
+        console.error(error)
+        res.status(500).send('Error updating job')
+    })
  })
 
  router.delete("/:id", (req,res) =>{
