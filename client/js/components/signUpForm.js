@@ -18,7 +18,7 @@ const signUp = (event) => {
   .then(res => {
     console.log(res)
     signUpMsg.textContent = "Sign up successful!"
-    signUpMsg.insertAdjacentElement('afterend', loginButton)
+    loginLink.innerHTML = `<a href="/login.html">Login here</a>`
   })
   .catch(err => {
     console.log(err)
@@ -28,6 +28,4 @@ const signUp = (event) => {
 
 document.getElementById("signup-form").addEventListener("submit", signUp)
 const signUpMsg = document.getElementById("message")
-const loginButton = document.createElement('button')
-loginButton.className = "loginButton"
-loginButton.textContent = "Login"
+const loginLink = document.getElementById("account")
