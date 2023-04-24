@@ -34,7 +34,6 @@ const displayJobList = () => {
 
       column.addEventListener("dragover", (event) => {
         event.preventDefault()
-        // column.style.backgroundColor = "green"
         const draggingJob = document.querySelector(".is-dragging")
         column.appendChild(draggingJob)
       })
@@ -50,6 +49,7 @@ const displayJobList = () => {
         axios.put(`/jobs/${jobId}`, body) 
         .then((response) => {
           console.log(response.data)
+        //   displayJobList()
         })
         .catch((error) => {
           console.error(error)
@@ -125,7 +125,6 @@ const displayJobList = () => {
             jobDiv.classList.remove("is-dragging")
         })
     })
-    
   }
     createColumn("Application")
     createColumn("Phone Interview")
@@ -134,7 +133,6 @@ const displayJobList = () => {
   })
   p.appendChild(jobContainer)
 }
-
 
 const jobsBtn = document.getElementById("jobs")
 jobsBtn.addEventListener("click", displayJobList)
