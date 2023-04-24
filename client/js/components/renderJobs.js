@@ -1,8 +1,8 @@
-// const { application } = require("express")
-
 const p = document.getElementById("page")
+p.className = "container"
 
 const jobContainer = document.createElement("div")
+jobContainer.className = "row"
 jobContainer.id = "jobListContainer"
 
 const displayJobList = () => {
@@ -24,23 +24,35 @@ const displayJobList = () => {
 
     const applicationColumn = document.createElement("div")
     applicationColumn.id = "applicationColumn"
-    applicationColumn.className = ""
+    applicationColumn.className = "col"
     jobContainer.appendChild(applicationColumn)
+    const applicationHeading = document.createElement("h2")
+    applicationHeading.textContent = "Application"
+    applicationColumn.appendChild(applicationHeading)
 
     const phoneIntColumn = document.createElement("div")
     phoneIntColumn.id = "phoneIntColumn"
-    phoneIntColumn.className = ""
+    phoneIntColumn.className = "col"
     jobContainer.appendChild(phoneIntColumn)
+    const phoneIntHeading = document.createElement("h2")
+    phoneIntHeading.textContent = "Phone Interview"
+    phoneIntColumn.appendChild(phoneIntHeading)
 
     const interviewColumn = document.createElement("div")
     interviewColumn.id = "interviewColumn"
-    interviewColumn.className = ""
+    interviewColumn.className = "col"
     jobContainer.appendChild(interviewColumn)
+    const interviewHeading = document.createElement("h2")
+    interviewHeading.textContent = "Interview"
+    interviewColumn.appendChild(interviewHeading)
 
     const completeColumn = document.createElement("div")
     completeColumn.id = "completeColumn"
-    completeColumn.className = ""
+    completeColumn.className = "col"
     jobContainer.appendChild(completeColumn)
+    const completeHeading = document.createElement("h2")
+    completeHeading.textContent = "Complete"
+    completeColumn.appendChild(completeHeading)
 
     jobs
       .filter((job) => job.stages === "Application")
@@ -55,7 +67,7 @@ const displayJobList = () => {
         const stage = job.stages
 
         const jobDiv = document.createElement("div")
-        const jobTitle = document.createElement("h3")
+        const jobTitle = document.createElement("h4")
         const jobCompany = document.createElement("p")
         const jobLocation = document.createElement("p")
         const jobDescription = document.createElement("p")
@@ -113,7 +125,7 @@ const displayJobList = () => {
         const stage = job.stages
 
         const jobDiv = document.createElement("div")
-        const jobTitle = document.createElement("h3")
+        const jobTitle = document.createElement("h4")
         const jobCompany = document.createElement("p")
         const jobLocation = document.createElement("p")
         const jobDescription = document.createElement("p")
@@ -131,7 +143,7 @@ const displayJobList = () => {
         jobTitle.textContent = `${title}`
         jobCompany.innerHTML = `<span id=subheading> Company: </span>${company}`
         jobLocation.innerHTML = `<span id=subheading> Location: </span>${location}`
-        jobDescription.innerHTML = `<span id=subheading> Company: </span>${description}`
+        jobDescription.innerHTML = `<span id=subheading> Description: </span>${description}`
         jobURL.innerHTML = `<a href="${jobUrl}"> Link to job </a>`
         jobDueDate.innerHTML = `<span id=subheading> Due: </span>${dueDate.toLocaleDateString()}`
         jobStage.innerHTML = `<span id=subheading> Stage: </span>${stage}`
@@ -170,7 +182,7 @@ const displayJobList = () => {
         const stage = job.stages
 
         const jobDiv = document.createElement("div")
-        const jobTitle = document.createElement("h3")
+        const jobTitle = document.createElement("h4")
         const jobCompany = document.createElement("p")
         const jobLocation = document.createElement("p")
         const jobDescription = document.createElement("p")
@@ -188,7 +200,7 @@ const displayJobList = () => {
         jobTitle.textContent = `${title}`
         jobCompany.innerHTML = `<span id=subheading> Company: </span>${company}`
         jobLocation.innerHTML = `<span id=subheading> Location: </span>${location}`
-        jobDescription.innerHTML = `<span id=subheading> Company: </span>${description}`
+        jobDescription.innerHTML = `<span id=subheading> Description: </span>${description}`
         jobURL.innerHTML = `<a href="${jobUrl}"> Link to job </a>`
         jobDueDate.innerHTML = `<span id=subheading> Due: </span>${dueDate.toLocaleDateString()}`
         jobStage.innerHTML = `<span id=subheading> Stage: </span>${stage}`
@@ -227,7 +239,7 @@ const displayJobList = () => {
         const stage = job.stages
 
         const jobDiv = document.createElement("div")
-        const jobTitle = document.createElement("h3")
+        const jobTitle = document.createElement("h4")
         const jobCompany = document.createElement("p")
         const jobLocation = document.createElement("p")
         const jobDescription = document.createElement("p")
@@ -245,7 +257,7 @@ const displayJobList = () => {
         jobTitle.textContent = `${title}`
         jobCompany.innerHTML = `<span id=subheading> Company: </span>${company}`
         jobLocation.innerHTML = `<span id=subheading> Location: </span>${location}`
-        jobDescription.innerHTML = `<span id=subheading> Company: </span>${description}`
+        jobDescription.innerHTML = `<span id=subheading> Description: </span>${description}`
         jobURL.innerHTML = `<a href="${jobUrl}"> Link to job </a>`
         jobDueDate.innerHTML = `<span id=subheading> Due: </span>${dueDate.toLocaleDateString()}`
         jobStage.innerHTML = `<span id=subheading> Stage: </span>${stage}`
@@ -270,7 +282,6 @@ const displayJobList = () => {
             })
         })
       })
-    
   })
   p.appendChild(jobContainer)
 }
