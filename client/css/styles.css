@@ -79,3 +79,57 @@ section {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   box-shadow: 2px 3px 3px grey;
 }
+
+#fileContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 50px;
+}
+
+.fileList {
+  list-style: none;
+  margin: 30px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  color: rgb(51, 36, 65);
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  box-shadow: 2px 3px 3px grey;
+}
+
+.fileList a {
+  text-decoration: underline;
+  color: rgb(51, 36, 65);
+}
+#uploadForm {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  color: rgb(51, 36, 65);
+  padding: 5px;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  box-shadow: 2px 3px 3px grey;
+}
+
+#uploadFileForm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+#fileNote {
+  text-align: center;
+  color: rgb(51, 36, 65);
+  margin: 30px;
+}
+
+#uploadForm div {
+  padding: 10px;
+}
