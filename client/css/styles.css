@@ -1,39 +1,83 @@
 * {
   box-sizing: border-box;
 }
-
-body {
-  margin: 0 auto;
+/* NAV BAR */
+#header-nav-row {
+  max-width: 100%;
+  background-color: #c5616b;
 }
-
-nav {
-  height: 100%;
-  margin-top: 50px;
-}
-
-nav ul {
-  width: 50%;
-  margin: auto;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  list-style-type: none;
+.nav-row {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #c5616b;
+  width: 100%;
 }
 
 .nav-item {
   cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  color: #e6e6e6;
+  font-weight: 400;
+  font-size: 22px;
+
+.nav-item:hover {
+  transform: scale(1.2);
+  font-weight: 900;
+  text-decoration: underline 6px;
+  text-decoration-color: #d1909c;
+  text-underline-offset: 15px;
 }
 
-nav li {
-  padding: 8px;
-  margin: 0 10px;
+#homepage {
+  font-family: 'Train One', cursive;
+  font-weight:900;
+  font-size: 40px;
+}
+
+#mainheading {
+  font-family: 'Train One', cursive;
+  font-weight:900;
+  font-size: 60px;
+  margin-top: 100px;
+  margin-bottom: 80px;
+}
+
+#welcome-row {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  background-color: #f7eaea;
+  width: 100%;
+}
+
+#welcome h6 {
+  font-weight: bold;
+}
+
+#quote-row {
+  width: 100%;
+  background-color:#7f9990;
+}
+#quoteBox {
+  font-style: italic;
   font-size: 20px;
 }
-
-section {
-  margin-top: 30px;
-  font-size: 18px;
+#quote,
+#author {
+  margin: 0;
 }
+/* LOGIN AND SIGNUP PAGE */
+.login-body {
+  background-color: #e1caca;
+}
+
+.signup-body {
+  background-color:#e1caca;
+
+/* FILES PAGE */
+#uploadFile {
+  margin-top: 40px;
+}
+
 
 .card {
   max-width: 300px;

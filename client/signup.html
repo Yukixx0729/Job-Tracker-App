@@ -6,32 +6,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Job Tracker - Sign Up</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+  crossorigin="anonymous"
+/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&family=Train+One&display=swap" rel="stylesheet">
+
 </head>
-<body>
-  <section class="signup">
-    <h1> Job Tracker Sign Up</h1>
-    <form id="signup-form">
-      <div>
-        <label for="userName"> Name </label>
-        <input type="text" name="userName"></input>
+<body class="signup-body">
+  <section class="signup container">
+    <h1 class="row justify-content-center" id="mainheading"> Job Tracker</h1>
+    <div class="row justify-content-center">
+      <div class="col-4 align-self-center">
+        <div class="p-5 border bg-light">
+        <h2 class="p-2"> Sign Up </h2>
+        <form id="signup-form">
+          <div class="p-2">
+            <label class="col" for="userName"> Name </label>
+            <input class="col-12 justify-content-center"t type="text" name="userName"></input>
+          </div>
+          <div class="p-2">
+            <label class="col" for="email"> Email </label>
+            <input class="col-12 justify-content-center"t type="email" name="email"></input>
+          </div>
+          <div class="p-2">
+            <label class="col" for="password"> Password </label>
+            <input class="col-12 justify-content-center"t type="password" name="password"></input>
+          </div>
+          <div class="p-2">
+            <label class="col" for="passwordCheck"> Password Again </label>
+            <input class="col-12 justify-content-center"t type="password" name="passwordCheck"></input>
+          </div>
+          <div class="p-2 justify-content-center">
+            </br>
+            <button class="col-12" type ="submit"> Create Account </button>
+          </div>
+          <div class="p-2">
+            <p id="message" class="justify-content-center"></p>
+            <p id="account" class="justify-content-center">Already have an account? <a href="/login.html">Login here</a></p>
+          </div>
+        </form>
+        </div>
       </div>
-      <div>
-        <label for="email"> Email </label>
-        <input type="email" name="email"></input>
-      </div>
-      <div>
-        <label for="password"> Password </label>
-        <input type="password" name="password"></input>
-      </div>
-      <div>
-      <label for="passwordCheck"> Password Again </label>
-      <input type="password" name="passwordCheck"></input>
-      </div>
-      <button type ="submit"> Create Account </button>
-    </form>
-    <p id="message"></p>
-    <p>Already have an account? <a href="/login.html">Login here</a></p>
+    </div>
+    
   </section>  
+  <script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+  integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+  crossorigin="anonymous"
+></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./js/components/signUpForm.js"></script>
 

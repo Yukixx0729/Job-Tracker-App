@@ -6,24 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Job Tracker - Login</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+  crossorigin="anonymous"
+/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&family=Train+One&display=swap" rel="stylesheet">
+
 </head>
-<body>
-  <section class="login">
-    <h1>Job Tracker Login</h1>
-    <form id="login-form">
-      <div>
-        <label for="email"> Email </label>
-        <input type="email" name="login-email"></input>
+<body class="login-body">
+  <section class="login container">
+  <h1 class="row justify-content-center" id="mainheading">Job Tracker </h1>
+  <div class="row justify-content-center">
+    <div class="col-4 align-self-center">
+      <div class="p-5 border bg-light">
+      <h2 class="p-2"> Login </h2>
+      <form id="login-form">
+        <div class="p-2">
+          <label class="col"for="email"> Email </label>
+          <input class="col-12 justify-content-center"type="email" name="login-email"></input>
+        </div>
+        <div class="p-2">
+          <label class="col" for="password"> Password </label>
+          <input class="col-12 justify-content-center"type="password" name="login-password"></input>
+        </div>
+        <div class="p-2 justify-content-center">
+          </br>
+          <button class="col-12"type ="submit"> Login </button>
+        </div>
+        <div class="p-2">
+        <p id="message" class="justify-content-center"></p>
+        <p id="account" class="justify-content-center">No account? <a href="/signup.html">Sign up here</a></p>
+        </div>
+      </form>
       </div>
-      <div>
-        <label for="password"> Password </label>
-        <input type="password" name="login-password"></input>
-      </div>
-      <button type ="submit"> Login </button>
-    </form>
-    <p id="message"></p>
-    <p>No account? <a href="/signup.html">Sign up here</a></p>
+    </div>
+  </div>
   </section>
+  <script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+  integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+  crossorigin="anonymous"
+  ></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="/js/components/loginLogout.js"></script>
 </body>

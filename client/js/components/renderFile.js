@@ -6,22 +6,29 @@ function renderFiles() {
   axios
     .get(`/files/upload/1`)
     .then((res) => {
+      const filePage = document.createElement("div")
+      filePage.classList = "container"
+      filePage.id = "filePageContainer"
+      page.appendChild(filePage)
+
       const uploadBtn = document.createElement("div");
-      uploadBtn.innerHTML = `<button>Upload your new file</button>`;
+      uploadBtn.innerHTML = `<button class="col-4 p-2 rounded-3">Upload file</button>`;
       uploadBtn.id = "uploadFile";
+      uploadBtn.classList="row justify-content-center"
+
       const note = document.createElement("div");
       note.id = "fileNote";
-      page.appendChild(uploadBtn);
+      filePage.appendChild(uploadBtn);
       uploadBtn
         .querySelector("button")
         .addEventListener("click", renderUploadFileForm);
       if (!res.data.user[0]) {
-        note.innerHTML = `<h3>You haven't uploaded any file yet.<h3>`;
-        page.appendChild(note);
+        note.innerHTML = `<h4>You have not uploaded any files. <h4>`;
+        filePage.appendChild(note);
       }
       const fileContainer = document.createElement("div");
       fileContainer.id = "fileContainer";
-      page.appendChild(fileContainer);
+      filePage.appendChild(fileContainer);
       for (let file of res.data.user) {
         const fileList = document.createElement("div");
         fileList.className = "fileList";

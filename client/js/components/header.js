@@ -5,25 +5,33 @@ import renderToDoList from "./renderToDoList.js";
 
 export const renderHeader = (user) => {
   const header = document.getElementById("header-nav");
+  header.id = "header-nav-row"
   header.innerHTML = `
-    <h1> Job Tracker </h1>  
-    <p>Logged in as ${user.user_name} <button class= 'logout-btn'>Logout</button></p>
-    <nav class="nav-bar">
-    <ul>
-      <li class="nav-item" id="homepage"> Homepage </li>
-      <li class="nav-item" role="button" data-render="jobs" > Jobs </li>
-      <li class="nav-item" role="button" data-render="todo" > To Do </li>
-      <li class="nav-item" role="button" data-render="contacts" > Contacts </li>
-      <li class="nav-item" role="button" data-render="files"> Files </li>
-      <li><a href = "/signup.html" class="nav-item"> Sign Up </a></li>
-      <li><a href = "/login.html" class="nav-item"> Login </a></li>
-      </ul>
-    </nav>
+    <div class="row-container container">
+      <div class="row nav-row align-items-center">
+        <h1 class="nav-item col-5 h-30" id="homepage"> Job Tracker </h1>
+        <h3 class="nav-item col h-30 justify-content-around text-center" role="button" data-render="jobs" > Jobs </h3>
+        <h3 class="nav-item col h-30 justify-content-around text-center" role="button" data-render="todo" > To Do </h3>
+        <h3 class="nav-item col h-30 justify-content-around text-center" role="button" data-render="contacts" > Contacts </h3>
+        <h3 class="nav-item col h-30 justify-content-around text-center" role="button" data-render="files"> Files </h3>
+        <h3 class="nav-item logout-btn col h-30 justify-content-around text-center" role="button"> Logout </h3>
+      </div>
+    </div>
   `;
+  const subheading = document.createElement("div")
+  subheading.id="welcome-row"
+  subheading.innerHTML = `
+  <div class="container" id="welcome"> 
+    <div class="row">
+      <h6 class="col justify-content-end"> Welcome ${user.user_name} </h6>
+    </div>
+  </div>
+  `
+  header.insertAdjacentElement('afterend', subheading)
 
   header.addEventListener("click", (event) => {
     const target = event.target;
-    if (target.className === "logout-btn") {
+    if (target.className.includes("logout-btn")) {
       fetch("/users/login", {
         method: "DELETE",
       }).then(() => {
@@ -48,17 +56,26 @@ export const renderHeader = (user) => {
   });
 
   document.getElementById("homepage").addEventListener("click", (event) => {
+    
     renderQuote();
   });
 };
 
+const quoteContainer = document.createElement("div")
+  quoteContainer.id="quote-row"
+
 export const renderQuote = () => {
   page.innerHTML = "";
+  quoteContainer.innerHTML=''
+
   const quote = document.createElement("div");
   quote.id = "quoteBox";
+  quote.classList="row justify-content-center"
+  quoteContainer.appendChild(quote)
+  
   return axios.get("https://api.goprogram.ai/inspiration").then((res) => {
-    quote.innerHTML = `${res.data.quote}  ----  ${res.data.author}`;
-    page.appendChild(quote);
+    quote.innerHTML = `<p id="quote" class="row justify-content-center" >${res.data.quote}</p> <p id="author" class="row justify-content-center">${res.data.author}</p>`;
+    page.insertAdjacentElement('beforebegin', quoteContainer);
     renderDueJobAndTodo();
   });
 };
@@ -66,8 +83,9 @@ export const renderQuote = () => {
 async function renderDueJobAndTodo() {
   const container = document.createElement("div");
   container.id = "dueDataBox";
-  const quote = document.getElementById("quoteBox");
-  quote.appendChild(container);
+  container.classList="container"
+  const page = document.getElementById("page");
+  page.appendChild(container);
   let dueData = [];
   const dueDataJob = await axios
     .get(`/jobs/1`)
