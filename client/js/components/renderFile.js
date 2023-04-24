@@ -10,6 +10,7 @@ function renderFiles() {
       uploadBtn.innerHTML = `<button>Upload your new file</button>`;
       uploadBtn.id = "uploadFile";
       const note = document.createElement("div");
+      note.id = "fileNote";
       page.appendChild(uploadBtn);
       uploadBtn
         .querySelector("button")
@@ -18,10 +19,14 @@ function renderFiles() {
         note.innerHTML = `<h3>You haven't uploaded any file yet.<h3>`;
         page.appendChild(note);
       }
+      const fileContainer = document.createElement("div");
+      fileContainer.id = "fileContainer";
+      page.appendChild(fileContainer);
       for (let file of res.data.user) {
         const fileList = document.createElement("div");
+        fileList.className = "fileList";
         fileList.innerHTML = `<h3><a href="${file.url}">${file.name}</a>  <button class="deleteFile" id ="${file.id}">Delete</button></h3>`;
-        page.appendChild(fileList);
+        fileContainer.appendChild(fileList);
         document
           .getElementById(`${file.id}`)
           .addEventListener("click", handleDeleteFile);
@@ -32,7 +37,7 @@ function renderFiles() {
     });
 }
 
-filesBtn.addEventListener("click", renderFiles);
+// filesBtn.addEventListener("click", renderFiles);
 
 //handle delete of the file
 function handleDeleteFile(e) {
@@ -73,24 +78,19 @@ function handleDelFileSubmit(id) {
     });
 }
 
-// function cancelDel(e) {
-//   console.log(e.parentElement.parentElement);
-//   e.parentElement.parentElement.remove();
-// }
-
 //handle upload the new file
 function renderUploadFileForm() {
-  if (!document.getElementById("uploadFile").querySelector("form")) {
+  if (!document.getElementById("uploadFile").querySelector("div")) {
     const uploadDiv = document.createElement("div");
     uploadDiv.id = "uploadFileForm";
-    uploadDiv.innerHTML = `<form action="/files/upload" method="post" enctype="multipart/form-data">
+    uploadDiv.innerHTML = `<form action="/files/upload" method="post" id="uploadForm"enctype="multipart/form-data">
     <div><label for="name"> File Name </label>
     <input type="text" name="name" required/></div>
    <div><label for="file"> File(only pdf) </label>
-    <input type="file" name="pdf" accept="application/pdf" required/><div>
+    <input type="file" name="pdf" accept="application/pdf" required/></div>
     <input type="text" name="user_id" value = 1 hidden/>
     <div><button type="submit">Upload</button>
-    <button id="cancelUpload">Cancel</button><div>
+    <button id="cancelUpload">Cancel</button></div>
   </form>`;
     document.getElementById("uploadFile").appendChild(uploadDiv);
 
@@ -107,7 +107,7 @@ function renderUploadFileForm() {
         document.getElementById("uploadFileForm").remove();
       });
   } else {
-    document.getElementById("uploadFile").querySelector("form").remove();
+    document.getElementById("uploadFile").querySelector("div").remove();
   }
 }
 
@@ -134,3 +134,5 @@ async function handleUploadFile(event) {
       console.error(err);
     });
 }
+
+export default renderFiles;

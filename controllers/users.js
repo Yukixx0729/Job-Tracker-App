@@ -1,6 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
 const { addUser, checkUserExists } = require('../models/usersTable.js')
+
 const router = express.Router()
 
 function generateHash(password) {
@@ -65,18 +66,36 @@ router.post('/signup', (req, res, next) => {
   }  
 })
 
+
 router.post('/login', (req, res) => {
   const { loginEmail, loginPassword } = req.body
   checkUserExists(loginEmail)
   .then((result) => {
     if (result.rowCount === 1) {
       const user = result.rows[0]
+      
       if (bcrypt.compareSync(loginPassword, user.password_hash)) {
+        req.session.user = user
         return res.status(200).json({ message: "Login successful" })
       } else {
         return res.status(401).json({ message: "Email or password invalid" })
       }
     }
+  })
+})
+
+router.get('/login', (req,res)=>{
+  const { user } = req.session
+  if (!req.session.user){
+    return res.status(401).json({ message: 'Not logged in'})
+  }
+  res.json({ user })
+})
+
+router.delete('/login', (req,res)=>{
+  req.session.destroy(() =>{
+    res.json({ message: 'logged out' })
+   
   })
 })
 
