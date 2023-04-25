@@ -49,7 +49,7 @@ const renderContacts = (event) => {
         contactName.textContent = `${contact.contact_name}  -  ${contact.company_name}`;;
 
         const contactDetailsBtn = document.createElement("button");
-        contactDetailsBtn.className = "btn btn-sm btn-secondary";
+        contactDetailsBtn.className = "btn btn-sm contact-custom-btn";
         contactDetailsBtn.textContent = "+";
 
         contactHeader.appendChild(contactName);
@@ -76,10 +76,24 @@ const renderContacts = (event) => {
         notes.className = "mb-1";
         notes.innerHTML = `<strong>Notes:</strong> ${contact.notes}`;
 
+        const editBtn = document.createElement('button')
+        editBtn.textContent = "Edit"
+        editBtn.className = "editBtn"
+        editBtn.addEventListener("click", () => editContactForm(contact.id))
+        
+
+        const deleteBtn = document.createElement('button')
+        deleteBtn.textContent = "Delete"
+        deleteBtn.className = "deleteBtn"
+        deleteBtn.addEventListener("click", () => deleteContact(contact.id))
+        
+
         contactDetails.appendChild(company);
         contactDetails.appendChild(email);
         contactDetails.appendChild(phoneNo);
         contactDetails.appendChild(notes);
+        contactDetails.appendChild(editBtn);
+        contactDetails.appendChild(deleteBtn);
         contactItem.appendChild(contactDetails);
       });
 
