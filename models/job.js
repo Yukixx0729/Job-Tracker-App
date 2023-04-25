@@ -8,7 +8,7 @@ const getAllJobs = () =>{
 
 const getJobById = (user_id) =>{
     return db
-    .query("SELECT * FROM file WHERE user_id=$1", [user_id])
+    .query("SELECT * FROM jobs WHERE user_id=$1", [user_id])
     .then((result) => result);
 }
 
