@@ -1,3 +1,6 @@
+import addJobForm from'./addJob.js'
+import editJob from'./editJob.js'
+
 const p = document.getElementById("page")
 
 const jobContainer = document.createElement("div")
@@ -110,7 +113,7 @@ const displayJobList = () => {
         deleteButton.addEventListener("click", () => {
           if (confirm("Are you sure you want to delete this job?"))
             return axios.delete(`/jobs/${id}`).then((res) => {
-              container.remove()
+              jobDiv.remove()
             })
         })
         column.appendChild(jobDiv)
@@ -137,4 +140,4 @@ const displayJobList = () => {
 // const jobsBtn = document.getElementById("jobs")
 // jobsBtn.addEventListener("click", displayJobList)
 
-export default displayJobList;
+export default displayJobList

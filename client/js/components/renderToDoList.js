@@ -1,4 +1,6 @@
-const toDosBtn = document.getElementById("todo");
+import renderCreateToDoForm from'./renderCreateToDoForm.js'
+import editToDoForm from'./renderEditToDoForm.js'
+import deleteToDo from'./deleteToDo.js'
 
 const renderToDoList = () => {
   const page = document.getElementById("page");
@@ -107,6 +109,7 @@ const renderToDoList = () => {
   });
 };
 
+// const toDosBtn = document.getElementById("todo");
 // toDosBtn.addEventListener('click', renderToDoList)
 
 export default renderToDoList;

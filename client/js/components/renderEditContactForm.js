@@ -1,3 +1,5 @@
+import renderContacts from "./renderContactsList.js"
+
 const editContactForm = (id) => {
   return axios.get(`/contacts/${id}`)
     .then(res => {
@@ -61,4 +63,5 @@ function handleEditContact(event, id) {
   })
 }
 
+export default editContactForm
 

@@ -1,3 +1,5 @@
+import displayJobList from'./renderJobs.js'
+
 function editJob(jobData) {
     const id = jobData.data.id
     const p = document.getElementById("page")
@@ -72,3 +74,5 @@ function editJob(jobData) {
   })
 })
 }
+
+export default editJob

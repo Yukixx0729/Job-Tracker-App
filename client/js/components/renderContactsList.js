@@ -1,5 +1,8 @@
+import addContactForm from "./renderAddContactForm.js";
+import editContactForm from "./renderEditContactForm.js";
+import deleteContact from "./deleteContact.js";
+
 const page = document.getElementById("page");
-const contactsBtn = document.getElementById("contacts");
 
 const toggleDetails = (contactItem) => {
   const contactDetails = contactItem.querySelector(".contact-details");
@@ -87,4 +90,9 @@ const renderContacts = (event) => {
     });
 };
 
+
+// const contactsBtn = document.getElementById("contacts");
+// contactsBtn.addEventListener('click', renderContacts)
+
 export default renderContacts;
+

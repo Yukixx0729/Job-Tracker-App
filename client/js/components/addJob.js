@@ -1,3 +1,5 @@
+import displayJobList from'./renderJobs.js'
+
 function addJobForm() {
   const header = document.getElementById("page")
   const form = `
@@ -70,4 +72,6 @@ function handleFormSubmitJob(event) {
     displayJobList()
   })
 }
+
+export default addJobForm
   
