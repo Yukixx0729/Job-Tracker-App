@@ -1,8 +1,8 @@
 * {
   box-sizing: border-box;
 }
-body  {
-    background: #f7eaea;
+body {
+  background: #f7eaea;
 }
 /* NAV BAR */
 #header-nav-row {
@@ -18,7 +18,7 @@ body  {
 
 .nav-item {
   cursor: pointer;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #e6e6e6;
   font-weight: 400;
   font-size: 22px;
@@ -33,8 +33,8 @@ body  {
 }
 
 #homepage {
-  font-family: 'Train One', cursive;
-  font-weight:900;
+  font-family: "Train One", cursive;
+  font-weight: 900;
   font-size: 40px;
 }
 
@@ -45,8 +45,8 @@ body  {
 }
 
 #mainheading {
-  font-family: 'Train One', cursive;
-  font-weight:900;
+  font-family: "Train One", cursive;
+  font-weight: 900;
   font-size: 60px;
   margin-top: 100px;
   margin-bottom: 80px;
@@ -65,7 +65,7 @@ body  {
 
 #quote-row {
   width: 100%;
-  background-color:#7f9990;
+  background-color: #7f9990;
 }
 #quoteBox {
   font-style: italic;
@@ -81,14 +81,13 @@ body  {
 }
 
 .signup-body {
-  background-color:#e1caca;
+  background-color: #e1caca;
 }
 
 /* FILES PAGE */
 #uploadFile {
   margin-top: 40px;
 }
-
 
 .card {
   max-width: 300px;
@@ -135,15 +134,15 @@ body  {
 
 #fileContainer {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
-  margin: 50px;
+  margin: 30px;
 }
 
 .fileList {
   list-style: none;
-  margin: 30px;
-  padding: 10px;
+  margin: 5px;
+  padding: 5px;
   border: 1px solid black;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -152,12 +151,34 @@ body  {
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   box-shadow: 2px 3px 3px grey;
+  text-align: left;
+  font-size: 20px;
+  /* display: flex;
+  justify-content: space-between; */
 }
 
 .fileList a {
-  text-decoration: underline;
-  color: rgb(51, 36, 65);
+  text-decoration: none;
+  color: black;
+  font-size: 23px;
+  padding: 3px;
 }
+
+.fileList a:hover {
+  color: grey;
+}
+.fileList button {
+  font-size: 15px;
+  float: right;
+  border-radius: 5px;
+  box-shadow: 3px 2px 2px grey;
+  padding: 3px;
+}
+.fileList button:active {
+  box-shadow: none;
+  transform: translate3d(2px, 2px, 3px);
+}
+
 #uploadForm {
   border: 1px solid black;
   border-radius: 10px;
@@ -183,28 +204,32 @@ body  {
   margin: 30px;
 }
 
+.deleteFileForm {
+  margin-top: 5px;
+  font-size: 15px;
+}
+
 #uploadForm div {
   padding: 10px;
 }
 
-
 /* Contacts Style */
-.contact-list { 
-    background-color: #f7eaea;
+.contact-list {
+  background-color: #f7eaea;
 }
 .list-group-item {
-    background-color: #f7eaea;
-    cursor: pointer;
+  background-color: #f7eaea;
+  cursor: pointer;
 }
 .contact-details {
-    padding: 1rem;
-    background-color: #f7eaea;
-    border: 1px solid #dee2e6;
-    border-top: none;
+  padding: 1rem;
+  background-color: #f7eaea;
+  border: 1px solid #dee2e6;
+  border-top: none;
 }
 .contact-details p {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
-.contact-custom-btn { 
-    background-color: #f7eaea;
+.contact-custom-btn {
+  background-color: #f7eaea;
 }

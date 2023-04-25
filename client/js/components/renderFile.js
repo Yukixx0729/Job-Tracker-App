@@ -32,7 +32,7 @@ function renderFiles(id) {
       for (let file of res.data.user) {
         const fileList = document.createElement("div");
         fileList.className = "fileList";
-        fileList.innerHTML = `<h3><a href="${file.url}">${file.name}</a>  <button class="deleteFile" id ="${file.id}">Delete</button></h3>`;
+        fileList.innerHTML = `<a href="${file.url}">${file.name}</a>  <button class="deleteFile" id ="${file.id}">Delete</button>`;
         fileContainer.appendChild(fileList);
         document.getElementById(`${file.id}`).addEventListener("click", (e) => {
           handleDeleteFile(e, id);
@@ -48,9 +48,10 @@ function renderFiles(id) {
 
 //handle delete of the file
 function handleDeleteFile(e, id) {
-  console.log(id);
+  console.log(e.target);
   if (!document.querySelector(".deleteFileForm")) {
     const delForm = document.createElement("div");
+    delForm.className = "delFormContainer";
     delForm.innerHTML = `<form  class="deleteFileForm">
     <p> <label >Are you sure to delete the file?</label>
     <input type= "text" name = "id" value = ${e.target.id} Hidden></input>
@@ -58,6 +59,7 @@ function handleDeleteFile(e, id) {
     <button type="submit"> Delete file</button><button class="cancel"> Cancel </button>
     </form>`;
     e.target.parentElement.appendChild(delForm);
+    e.target.style.display = "none";
     e.target.parentElement
       .querySelector(".deleteFileForm")
       .addEventListener("submit", (event) => {
@@ -69,10 +71,12 @@ function handleDeleteFile(e, id) {
       .querySelector(".cancel")
       .addEventListener("click", (event) => {
         event.preventDefault();
-        document.querySelector(".deleteFileForm").remove();
+        document.querySelector(".delFormContainer").remove();
+        e.target.style.display = "block";
       });
   } else {
-    document.querySelector(".deleteFileForm").remove();
+    document.querySelector(".delFormContainer").remove();
+    console.log(document.querySelector(".deleteFile"));
     handleDeleteFile(e, id);
   }
 }

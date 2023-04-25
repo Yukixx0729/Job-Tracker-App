@@ -56,15 +56,14 @@ export const renderHeader = (user) => {
   });
 
   document.getElementById("homepage").addEventListener("click", (event) => {
-    console.log("home", user.id);
-    renderQuote();
+    renderQuote(user.id);
   });
 };
 
 const quoteContainer = document.createElement("div");
 quoteContainer.id = "quote-row";
 
-export const renderQuote = () => {
+export const renderQuote = (id) => {
   page.innerHTML = "";
   quoteContainer.innerHTML = "";
 
@@ -76,12 +75,11 @@ export const renderQuote = () => {
   return axios.get("https://api.goprogram.ai/inspiration").then((res) => {
     quote.innerHTML = `<p id="quote" class="row justify-content-center" >${res.data.quote}</p> <p id="author" class="row justify-content-center">${res.data.author}</p>`;
     page.insertAdjacentElement("beforebegin", quoteContainer);
-    console.log("inside ");
-    renderDueJobAndTodo();
+    renderDueJobAndTodo(id);
   });
 };
 
-async function renderDueJobAndTodo() {
+async function renderDueJobAndTodo(id) {
   const container = document.createElement("div");
   container.id = "dueDataBox";
   container.classList = "container";
@@ -89,7 +87,7 @@ async function renderDueJobAndTodo() {
   page.appendChild(container);
   let dueData = [];
   const dueDataJob = await axios
-    .get(`/jobs/4`)
+    .get(`/jobs/user/${id}`)
     .then((res) => {
       return res.data;
     })
@@ -97,35 +95,41 @@ async function renderDueJobAndTodo() {
       console.error(err);
     });
   const dueDataTodo = await axios
-    .get(`/todos/4`)
+    .get(`/todos/user/${id}`)
     .then((res) => {
       return res.data;
     })
     .catch((err) => {
       console.error(err);
     });
-  // console.log(dueDataJob, dueDataTodo);
-  if (!dueDataJob && !dueDataTodo) {
+  const reminderTitle = document.createElement("div");
+  reminderTitle.innerHTML = "<h3>Due in 7 days:</h3>";
+  container.appendChild(reminderTitle);
+  if (!dueDataJob.rowCount && !dueDataTodo.rowCount) {
     const reminder = document.createElement("div");
     reminder.innerHTML = "Nothing to worry about yet.";
-    container.appendChild(reminder);
+    reminderTitle.appendChild(reminder);
   } else {
-    if (dueDataJob.length === 1 && dueDataTodo.length > 1) {
-      dueData.push(dueDataJob);
-      dueData = dueData.concat(dueDataTodo);
-    } else if (dueDataJob.length > 1 && dueDataTodo.length === 1) {
-      dueData.push(dueDataTodo);
-      dueData = dueData.concat(dueDataJob);
-    } else {
-      dueData = dueData.concat(dueDataTodo);
-      dueData = dueData.concat(dueDataJob);
+    for (let item of dueDataJob.rows) {
+      dueData.push(item);
     }
-    // console.log(dueData);
+    for (let item of dueDataTodo.rows) {
+      dueData.push(item);
+    }
     const sortedData = dueData.sort(
       (a, b) => new Date(a["due_date"]) - new Date(b["due_date"])
     );
-    // console.log(sortedData);
-    for (let due of sortedData) {
+    // console.log("result", sortedData);
+    const currentDate = new Date();
+    const dueDate7Days = new Date();
+    dueDate7Days.setDate(currentDate.getDate() + 7);
+    // console.log(dueDate7Days);
+    const filteredData = sortedData.filter((item) => {
+      const dueDate = new Date(item["due_date"]);
+      return dueDate <= dueDate7Days && dueDate >= currentDate;
+    });
+    // console.log("result", filteredData);
+    for (let due of filteredData) {
       const dueItem = document.createElement("div");
       dueItem.className = "dueItem";
       if (Object.keys(due)[2] === "description") {
@@ -142,5 +146,3 @@ async function renderDueJobAndTodo() {
     }
   }
 }
-
-// export default { renderHeader, renderQuote };
