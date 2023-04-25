@@ -35,6 +35,12 @@
   font-size: 40px;
 }
 
+#homepage:hover {
+  text-underline-offset: 0px;
+  text-decoration-color: none;
+  text-decoration: none;
+}
+
 #mainheading {
   font-family: 'Train One', cursive;
   font-weight:900;
