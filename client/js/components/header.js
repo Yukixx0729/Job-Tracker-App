@@ -56,14 +56,15 @@ export const renderHeader = (user) => {
   });
 
   document.getElementById("homepage").addEventListener("click", (event) => {
-    renderQuote(`${user.id}`);
+    console.log("home", user.id);
+    renderQuote();
   });
 };
 
 const quoteContainer = document.createElement("div");
 quoteContainer.id = "quote-row";
 
-export const renderQuote = (id) => {
+export const renderQuote = () => {
   page.innerHTML = "";
   quoteContainer.innerHTML = "";
 
@@ -75,12 +76,12 @@ export const renderQuote = (id) => {
   return axios.get("https://api.goprogram.ai/inspiration").then((res) => {
     quote.innerHTML = `<p id="quote" class="row justify-content-center" >${res.data.quote}</p> <p id="author" class="row justify-content-center">${res.data.author}</p>`;
     page.insertAdjacentElement("beforebegin", quoteContainer);
-    console.log(id);
-    renderDueJobAndTodo(id);
+    console.log("inside ");
+    renderDueJobAndTodo();
   });
 };
 
-async function renderDueJobAndTodo(id) {
+async function renderDueJobAndTodo() {
   const container = document.createElement("div");
   container.id = "dueDataBox";
   container.classList = "container";
@@ -88,7 +89,7 @@ async function renderDueJobAndTodo(id) {
   page.appendChild(container);
   let dueData = [];
   const dueDataJob = await axios
-    .get(`/jobs/${id}`)
+    .get(`/jobs/4`)
     .then((res) => {
       return res.data;
     })
@@ -96,7 +97,7 @@ async function renderDueJobAndTodo(id) {
       console.error(err);
     });
   const dueDataTodo = await axios
-    .get(`/todos/${id}`)
+    .get(`/todos/4`)
     .then((res) => {
       return res.data;
     })
