@@ -4,12 +4,23 @@ import deleteContact from "./deleteContact.js";
 
 const page = document.getElementById("page");
 
+const toggleDetails = (contactItem) => {
+  const contactDetails = contactItem.querySelector(".contact-details");
+  if (contactDetails.style.display === "none") {
+    contactDetails.style.display = "block";
+  } else {
+    contactDetails.style.display = "none";
+  }
+};
+
 const renderContacts = (event) => {
   console.log(event);
   page.innerHTML = "";
+
   const addContactBtn = document.createElement("button");
   addContactBtn.id = "addContactBtn";
   addContactBtn.textContent = "Add Contact";
+  addContactBtn.classList.add("btn", "btn-secondary", "mb-3");
   page.appendChild(addContactBtn);
   addContactBtn.addEventListener("click", addContactForm);
 
@@ -17,98 +28,71 @@ const renderContacts = (event) => {
     .get("/contacts")
     .then((res) => {
       const contacts = res.data;
-      contacts.forEach((contact) => {
-        console.log(contact);
-        const div = document.createElement("div");
-        page.appendChild(div);
+      const contactList = document.createElement("ul");
+      contactList.className = "list-group mx-auto";
+      contactList.style.maxWidth = "70%";
 
-        const h3 = document.createElement("h3");
-        h3.textContent = `${contact.contact_name}`;
-        h3.id = `${contact.id}`;
-        h3.className = "contact";
-        div.appendChild(h3);
+      contacts.forEach((contact) => {
+        const contactItem = document.createElement("li");
+        contactItem.className = "list-group-item";
+        contactList.appendChild(contactItem);
+
+        const contactHeader = document.createElement("div");
+        contactHeader.className =
+          "d-flex w-100 justify-content-between align-items-center";
+        contactHeader.addEventListener("click", () =>
+          toggleDetails(contactItem)
+        );
+
+        const contactName = document.createElement("h5");
+        contactName.className = "mb-1";
+        contactName.textContent = `${contact.contact_name}  -  ${contact.company_name}`;;
+
+        const contactDetailsBtn = document.createElement("button");
+        contactDetailsBtn.className = "btn btn-sm btn-secondary";
+        contactDetailsBtn.textContent = "+";
+
+        contactHeader.appendChild(contactName);
+        contactHeader.appendChild(contactDetailsBtn);
+        contactItem.appendChild(contactHeader);
+
+        const contactDetails = document.createElement("div");
+        contactDetails.className = "contact-details";
+        contactDetails.style.display = "none";
 
         const company = document.createElement("p");
-        company.textContent = `${contact.company_name}`;
-        company.className = "company";
-        div.appendChild(company);
+        company.className = "mb-1";
+        company.innerHTML = `<strong>Company:</strong> ${contact.company_name}`;
 
         const email = document.createElement("p");
-        email.textContent = `${contact.email}`;
-        email.className = "email";
-        email.style.display = "none";
-        div.appendChild(email);
+        email.className = "mb-1";
+        email.innerHTML = `<strong>Email:</strong> ${contact.email}`;
 
         const phoneNo = document.createElement("p");
-        phoneNo.textContent = `${contact.phone_number}`;
-        phoneNo.className = "phoneNo";
-        phoneNo.style.display = "none";
-        div.appendChild(phoneNo);
+        phoneNo.className = "mb-1";
+        phoneNo.innerHTML = `<strong>Phone:</strong> ${contact.phone_number}`;
 
         const notes = document.createElement("p");
-        notes.textContent = `${contact.notes}`;
-        notes.className = "notes";
-        notes.style.display = "none";
-        div.appendChild(notes);
+        notes.className = "mb-1";
+        notes.innerHTML = `<strong>Notes:</strong> ${contact.notes}`;
 
-        const btnDiv = document.createElement("div");
-        btnDiv.className = "buttonDiv";
-        div.appendChild(btnDiv);
-
-        const editBtn = document.createElement("button");
-        editBtn.textContent = "Edit";
-        editBtn.className = "editBtn";
-        editBtn.style.display = "none";
-        editBtn.addEventListener("click", () => editContactForm(contact.id));
-        btnDiv.appendChild(editBtn);
-
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
-        deleteBtn.className = "deleteBtn";
-        deleteBtn.style.display = "none";
-        deleteBtn.addEventListener("click", () => deleteContact(contact.id));
-        btnDiv.appendChild(deleteBtn);
-
-        h3.addEventListener("click", (e) => {
-          console.log(e.target);
-          if (email.style.display === "none") {
-            email.style.display = "block";
-          } else {
-            email.style.display = "none";
-          }
-
-          if (phoneNo.style.display === "none") {
-            phoneNo.style.display = "block";
-          } else {
-            phoneNo.style.display = "none";
-          }
-
-          if (notes.style.display === "none") {
-            notes.style.display = "block";
-          } else {
-            notes.style.display = "none";
-          }
-
-          if (editBtn.style.display === "none") {
-            editBtn.style.display = "block";
-          } else {
-            editBtn.style.display = "none";
-          }
-
-          if (deleteBtn.style.display === "none") {
-            deleteBtn.style.display = "block";
-          } else {
-            deleteBtn.style.display = "none";
-          }
-        });
+        contactDetails.appendChild(company);
+        contactDetails.appendChild(email);
+        contactDetails.appendChild(phoneNo);
+        contactDetails.appendChild(notes);
+        contactItem.appendChild(contactDetails);
       });
+
+      page.appendChild(contactList);
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
+
 // const contactsBtn = document.getElementById("contacts");
 // contactsBtn.addEventListener('click', renderContacts)
 
 export default renderContacts;
+
