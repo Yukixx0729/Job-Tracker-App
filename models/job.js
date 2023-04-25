@@ -6,10 +6,10 @@ const getAllJobs = () =>{
     .then(result => result.rows)
 }
 
-const getJobById = (id) =>{
+const getJobById = (user_id) =>{
     return db
-    .query("SELECT * FROM jobs WHERE id = $1;", [id])
-    .then((result) => result.rows[0])
+    .query("SELECT * FROM jobs WHERE user_id=$1", [user_id])
+    .then((result) => result);
 }
 
 const addJob = (title,company,location,description,job_url,due_date,stages) =>{
@@ -44,5 +44,5 @@ module.exports={
     getJobById,
     addJob,
     updateJob,
-    deleteJobById
+    deleteJobById,
 }

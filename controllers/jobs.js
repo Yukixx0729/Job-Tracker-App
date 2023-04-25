@@ -23,6 +23,8 @@ const {
     })
  })
 
+ 
+
  router.post("/", (req,res) =>{
     const {title,company,location,description,job_url,due_date,stages} = req.body
     console.log("Body received:", {title,company,location,description,job_url,due_date,stages})
