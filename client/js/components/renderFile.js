@@ -59,6 +59,7 @@ function handleDeleteFile(e, id) {
     <button type="submit"> Delete file</button><button class="cancel"> Cancel </button>
     </form>`;
     e.target.parentElement.appendChild(delForm);
+    e.target.style.display = "none";
     e.target.parentElement
       .querySelector(".deleteFileForm")
       .addEventListener("submit", (event) => {
@@ -71,9 +72,11 @@ function handleDeleteFile(e, id) {
       .addEventListener("click", (event) => {
         event.preventDefault();
         document.querySelector(".delFormContainer").remove();
+        e.target.style.display = "block";
       });
   } else {
     document.querySelector(".delFormContainer").remove();
+    console.log(document.querySelector(".deleteFile"));
     handleDeleteFile(e, id);
   }
 }
