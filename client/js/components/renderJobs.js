@@ -134,5 +134,7 @@ const displayJobList = () => {
   p.appendChild(jobContainer)
 }
 
-const jobsBtn = document.getElementById("jobs")
-jobsBtn.addEventListener("click", displayJobList)
+// const jobsBtn = document.getElementById("jobs")
+// jobsBtn.addEventListener("click", displayJobList)
+
+export default displayJobList;
