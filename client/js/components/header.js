@@ -5,7 +5,7 @@ import renderToDoList from "./renderToDoList.js";
 
 export const renderHeader = (user) => {
   const header = document.getElementById("header-nav");
-  header.id = "header-nav-row"
+  header.id = "header-nav-row";
   header.innerHTML = `
     <div class="row-container container">
       <div class="row nav-row align-items-center">
@@ -18,16 +18,16 @@ export const renderHeader = (user) => {
       </div>
     </div>
   `;
-  const subheading = document.createElement("div")
-  subheading.id="welcome-row"
+  const subheading = document.createElement("div");
+  subheading.id = "welcome-row";
   subheading.innerHTML = `
   <div class="container" id="welcome"> 
     <div class="row">
       <h6 class="col justify-content-end"> Welcome ${user.user_name} </h6>
     </div>
   </div>
-  `
-  header.insertAdjacentElement('afterend', subheading)
+  `;
+  header.insertAdjacentElement("afterend", subheading);
 
   header.addEventListener("click", (event) => {
     const target = event.target;
@@ -41,7 +41,7 @@ export const renderHeader = (user) => {
     const render = event.target.dataset.render;
     switch (render) {
       case "files":
-        renderFiles();
+        renderFiles(`${user.id}`);
         break;
       case "jobs":
         displayJobList();
@@ -56,39 +56,39 @@ export const renderHeader = (user) => {
   });
 
   document.getElementById("homepage").addEventListener("click", (event) => {
-    
-    renderQuote();
+    renderQuote(`${user.id}`);
   });
 };
 
-const quoteContainer = document.createElement("div")
-  quoteContainer.id="quote-row"
+const quoteContainer = document.createElement("div");
+quoteContainer.id = "quote-row";
 
-export const renderQuote = () => {
+export const renderQuote = (id) => {
   page.innerHTML = "";
-  quoteContainer.innerHTML=''
+  quoteContainer.innerHTML = "";
 
   const quote = document.createElement("div");
   quote.id = "quoteBox";
-  quote.classList="row justify-content-center"
-  quoteContainer.appendChild(quote)
-  
+  quote.classList = "row justify-content-center";
+  quoteContainer.appendChild(quote);
+
   return axios.get("https://api.goprogram.ai/inspiration").then((res) => {
     quote.innerHTML = `<p id="quote" class="row justify-content-center" >${res.data.quote}</p> <p id="author" class="row justify-content-center">${res.data.author}</p>`;
-    page.insertAdjacentElement('beforebegin', quoteContainer);
-    renderDueJobAndTodo();
+    page.insertAdjacentElement("beforebegin", quoteContainer);
+    console.log(id);
+    renderDueJobAndTodo(id);
   });
 };
 
-async function renderDueJobAndTodo() {
+async function renderDueJobAndTodo(id) {
   const container = document.createElement("div");
   container.id = "dueDataBox";
-  container.classList="container"
+  container.classList = "container";
   const page = document.getElementById("page");
   page.appendChild(container);
   let dueData = [];
   const dueDataJob = await axios
-    .get(`/jobs/1`)
+    .get(`/jobs/${id}`)
     .then((res) => {
       return res.data;
     })
@@ -96,7 +96,7 @@ async function renderDueJobAndTodo() {
       console.error(err);
     });
   const dueDataTodo = await axios
-    .get(`/todos/1`)
+    .get(`/todos/${id}`)
     .then((res) => {
       return res.data;
     })
