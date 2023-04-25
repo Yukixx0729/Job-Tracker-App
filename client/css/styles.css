@@ -195,16 +195,16 @@ body  {
 .list-group-item {
     background-color: #f7eaea;
     cursor: pointer;
-  }
-  
-  .contact-details {
+}
+.contact-details {
     padding: 1rem;
     background-color: #f7eaea;
     border: 1px solid #dee2e6;
     border-top: none;
-  }
-  
-  .contact-details p {
+}
+.contact-details p {
     margin-bottom: 0.5rem;
-  }
-  
+}
+.contact-custom-btn { 
+    background-color: #f7eaea;
+}
