@@ -1,7 +1,5 @@
 import { renderHeader, renderQuote } from "./components/header.js";
 
-renderQuote();
-
 axios
   .get("/users/login")
   .then((res) => {
@@ -9,6 +7,7 @@ axios
     console.log(user.id);
     if (user) {
       renderHeader(user);
+      renderQuote(user.id);
     } else {
       window.location.href = "/login.html";
     }
