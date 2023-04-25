@@ -9,6 +9,7 @@ const upload = multer({ storage, fileFilter });
 
 router.post("/upload", upload.single("pdf"), async (req, res, next) => {
   const result = await s3Upload(req.file);
+  req.file.buffer = null;
   const { Location: url } = result;
   const { name, user_id } = req.body;
   // console.log(name, user_id);
