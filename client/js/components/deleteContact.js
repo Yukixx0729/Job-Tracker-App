@@ -1,3 +1,5 @@
+import renderContacts from "./renderContactsList.js"
+
 const deleteContact = (id) => {
   console.log(id)
   return axios.delete(`/contacts/${id}`)
@@ -9,3 +11,5 @@ const deleteContact = (id) => {
     console.log(err)
   })
 }
+
+export default deleteContact

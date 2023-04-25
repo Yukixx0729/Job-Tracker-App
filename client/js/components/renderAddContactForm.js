@@ -1,3 +1,5 @@
+import renderContacts from "./renderContactsList.js"
+
 const addContactForm = () => {
   const page = document.getElementById('page')
   page.innerHTML = `
@@ -55,5 +57,7 @@ function handleAddContact(event) {
     console.error(err)
   })
 }
+
+export default addContactForm
 
 

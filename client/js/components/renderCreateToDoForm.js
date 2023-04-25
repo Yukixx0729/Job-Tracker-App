@@ -1,3 +1,5 @@
+import renderToDoList from'./renderToDoList.js'
+
 const renderCreateToDoForm = () => {
     const header = document.getElementById('page')
     header.innerHTML = `
@@ -66,3 +68,4 @@ const renderCreateToDoForm = () => {
   
   }
   
+  export default renderCreateToDoForm

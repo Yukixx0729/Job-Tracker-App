@@ -1,3 +1,5 @@
+import renderToDoList from'./renderToDoList.js'
+
 const editToDoForm = (id) => {
     return axios.get(`/todos/${id}`)
     .then(res => {
@@ -72,3 +74,5 @@ function handleEditToDo(event, id) {
       })
   
   }
+
+  export default editToDoForm
