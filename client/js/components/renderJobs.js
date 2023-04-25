@@ -7,6 +7,14 @@ const jobContainer = document.createElement("div")
 jobContainer.className = "row justify-content-evenly"
 jobContainer.id = "jobListContainer"
 
+const colors = ["#c3acb1", "#7f9990", "#b9d6c8", "#e1caca", "#d1909c"];
+
+const getRandomColor = () => {
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+};
+  
+
 const displayJobList = () => {
   jobContainer.innerHTML = ""
   p.innerHTML = ""
@@ -30,6 +38,7 @@ const displayJobList = () => {
       const column = document.createElement("div")
       column.id = `${stages}`
       column.className = "col mh-100"
+      column.classList.add("col", "text-center", 'border', 'border-secondary', 'mb-2', 'mx-2')
       jobContainer.appendChild(column)
       const heading = document.createElement("h2")
       heading.textContent = stages
@@ -72,6 +81,10 @@ const displayJobList = () => {
         const jobDiv = document.createElement("div")
         jobDiv.draggable = "true"
         jobDiv.classList = "job"
+        
+        const randomColor = getRandomColor();
+        jobDiv.style.backgroundColor = randomColor;
+        jobDiv.style.marginBottom = "10px";
         jobDiv.dataset.id = id
         jobDiv.dataset.stage = stage
 

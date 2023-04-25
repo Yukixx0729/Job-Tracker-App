@@ -5,6 +5,11 @@ const getAllToDos = () => {
         .then(result => result.rows)
 }
 
+// const getAllToDos = (userId) => {
+//     return db.query("SELECT * FROM to_do WHERE user_id =$1', [userId];")
+//         .then(result => result.rows)
+// }
+
 const getToDoById = (id) => {
     return db.query(`SELECT * FROM to_do WHERE id=${id};`)
         .then(result => result.rows[0])
