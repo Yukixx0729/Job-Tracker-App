@@ -21,7 +21,7 @@ const renderToDoList = () => {
 
   statuses.forEach((status) => {
     const col = document.createElement("div");
-    col.classList.add("col", "text-center");
+    col.classList.add("col", "text-center", 'border', 'border-secondary', 'mb-2', 'mx-2');
     const title = document.createElement("h2");
     title.classList.add("text-center");
     title.innerText = status.charAt(0).toUpperCase() + status.slice(1);
@@ -43,7 +43,7 @@ const renderToDoList = () => {
         .filter((task) => task.status === status)
         .forEach((task) => {
           const card = document.createElement("div");
-          card.classList.add("card", "mb-3");
+          card.classList.add("card", "mb-3", "mx-auto");
           if (task.status === "completed") {
             card.classList.add("task-card", "completed");
           } else {
@@ -60,7 +60,7 @@ const renderToDoList = () => {
             }
           }
           const cardBody = document.createElement("div");
-          cardBody.classList.add("card-body");
+          cardBody.classList.add("card-body", "mx-auto");
           const cardTitle = document.createElement("h5");
           cardTitle.classList.add("card-title");
           cardTitle.innerText = task.title;

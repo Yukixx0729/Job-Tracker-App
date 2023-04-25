@@ -9,7 +9,7 @@ const renderCreateToDoForm = () => {
         </p>
         <p> 
           <label for="description">Description</label>  
-          <input type="text" name="description"></input>
+          <textarea id="description" name="description" rows="5"></textarea>
         </p>
         <p> 
           <label for="due_date">Due Date</label>  

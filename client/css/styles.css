@@ -1,6 +1,9 @@
 * {
   box-sizing: border-box;
 }
+body  {
+    background: #f7eaea;
+}
 /* NAV BAR */
 #header-nav-row {
   max-width: 100%;
@@ -94,16 +97,16 @@
   overflow-y: auto;
 }
 .task-card.low {
-  background-color: #e6e6e6;
+  background-color: #e1caca;
 }
 .task-card.moderate {
-  background-color: #f2d378;
+  background-color: #d1909c;
 }
 .task-card.high {
-  background-color: #ee7a86;
+  background-color: #c5616b;
 }
 .task-card.completed {
-  background-color: #99c684;
+  background-color: #b9d6c8;
 }
 .hidden {
   visibility: hidden;
@@ -183,3 +186,25 @@
 #uploadForm div {
   padding: 10px;
 }
+
+
+/* Contacts Style */
+.contact-list { 
+    background-color: #f7eaea;
+}
+.list-group-item {
+    background-color: #f7eaea;
+    cursor: pointer;
+  }
+  
+  .contact-details {
+    padding: 1rem;
+    background-color: #f7eaea;
+    border: 1px solid #dee2e6;
+    border-top: none;
+  }
+  
+  .contact-details p {
+    margin-bottom: 0.5rem;
+  }
+  
