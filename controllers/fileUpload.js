@@ -32,10 +32,10 @@ router.post("/upload", upload.single("pdf"), async (req, res, next) => {
   const result = await s3Upload(req.file);
   const { Location: url } = result;
   const { name, user_id } = req.body;
+  // console.log(name, user_id);
   return uploadFile(name, url, user_id)
     .then(() => res.json({ success: true, url }))
     .catch((err) => {
-      console.log(error);
       next(err);
     });
 });

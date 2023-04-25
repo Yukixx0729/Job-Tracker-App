@@ -6,6 +6,7 @@ axios
   .get("/users/login")
   .then((res) => {
     const { user } = res.data;
+    console.log(user.id);
     if (user) {
       renderHeader(user);
     } else {
