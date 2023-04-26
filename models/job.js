@@ -9,7 +9,7 @@ const getAllJobs = (userId) => {
 const getJobById = (id) => {
   return db
     .query("SELECT * FROM jobs WHERE id=$1", [id])
-    .then((result) => result[0]);
+    .then((result) => result.rows[0]);
 };
 
 const getJobByUserId = (user_id) => {
