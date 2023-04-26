@@ -13,8 +13,37 @@ const toggleDetails = (contactItem) => {
   }
 };
 
+const showContactByLetter = (letter) => {
+  return axios.get(`/contacts?letter=${letter}`)
+  .then((res) => {
+    // console.log(res.data)
+    const contacts = res.data
+    console.log(res)
+    // renderContacts(contacts)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
+
+const renderLetterButtons = () => {
+    const alphabetArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    alphabetArray.forEach((letter) => {
+    const letterButton = document.createElement('button')
+    letterButton.textContent = letter
+    letterButton.id = letter
+    letterButton.classList = ""
+  
+    letterButton.addEventListener("click", (event) => showContactByLetter(event.target.id))
+    page.appendChild(letterButton)
+    })
+  }
+
 const renderContacts = () => {
   page.innerHTML = "";
+
+  renderLetterButtons()
 
   const addContactBtn = document.createElement("button");
   addContactBtn.id = "addContactBtn";
@@ -103,9 +132,4 @@ const renderContacts = () => {
     });
 };
 
-
-// const contactsBtn = document.getElementById("contacts");
-// contactsBtn.addEventListener('click', renderContacts)
-
 export default renderContacts;
-

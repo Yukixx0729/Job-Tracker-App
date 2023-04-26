@@ -2,18 +2,16 @@ const express = require('express')
 const { addContact, getAllContacts, getContactById, deleteContactById, updateContact } = require('../models/contactsTable.js')
 const router = express.Router()
 
-// router.get('/', (req, res, next)=> {
-//   return getAllContacts() 
-//     .then((contacts) => {
-//       res.json(contacts)
-//     })
-// })
-
 router.get('/', (req, res, next)=> {
   const userId = req.session.user.id
-  return getAllContacts(userId) 
+  const letter = req.query.letter
+  return getAllContacts(userId, letter) 
     .then((contacts) => {
       res.json(contacts)
+    })
+    .catch((err) => {
+      console.error(err)
+      next(err)
     })
 })
 
