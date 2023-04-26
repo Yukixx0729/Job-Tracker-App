@@ -1,15 +1,15 @@
 const db = require("./db.js");
 
-const getAllJobs = () => {
+const getAllJobs = (userId) => {
   return db
-    .query("SELECT * FROM jobs ORDER BY due_date ASC;")
-    .then((result) => result.rows);
+    .query("SELECT * FROM jobs WHERE user_id =$1;", [userId])
+    .then((result) => result);
 };
 
 const getJobById = (id) => {
   return db
     .query("SELECT * FROM jobs WHERE id=$1", [id])
-    .then((result) => result);
+    .then((result) => result[0]);
 };
 
 const getJobByUserId = (user_id) => {

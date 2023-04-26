@@ -1,9 +1,10 @@
 import displayJobList from'./renderJobs.js'
 
-function addJobForm() {
+function addJobForm(id) {
   const header = document.getElementById("page")
   const form = `
     <form id="add-job-form">
+    <input type="text" id="user_id" value =${id} hidden/>
       <h3>Add your jobs!</h3>
         <div> 
         <label for="title">Title</label>  
@@ -54,7 +55,8 @@ function addJobForm() {
   
 function handleFormSubmitJob(event) {
   event.preventDefault()
-  
+
+  const user_id = document.getElementById("user_id")
   const formData = new FormData(event.target)
   
   const body = {
@@ -64,12 +66,13 @@ function handleFormSubmitJob(event) {
     description: formData.get("description"),
     job_url: formData.get("job_url"),
     due_date: formData.get("due_date"),
-    stages: formData.get("stages")
+    stages: formData.get("stages"),
+    user_id: user_id.value
   }
   return axios.post("/jobs", body)
   .then((res) => {
     console.log(res)
-    displayJobList()
+    displayJobList(user_id.value)
   })
 }
 

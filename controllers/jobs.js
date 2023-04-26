@@ -11,11 +11,11 @@ const {
   getJobByUserId,
 } = require("../models/job");
 
-router.get("/", (req, res) => {
-  return getAllJobs().then((jobs) => {
-    res.json(jobs);
-  });
-});
+// router.get("/", (req, res) => {
+//   return getAllJobs().then((jobs) => {
+//     res.json(jobs);
+//   });
+// });
 
 router.get("/:id", (req, res) => {
   const id = Number(req.params.id);
@@ -25,10 +25,10 @@ router.get("/:id", (req, res) => {
 });
 
 //get jobs by user_id
-router.get("/user/:id", (req, res) => {
-  const id = Number(req.params.id);
-  return getJobByUserId(id).then((job) => {
-    res.json(job);
+router.get("/", (req, res) => {
+  const id = req.session.user.id 
+  return getAllJobs(id).then((jobs) => {
+    res.json(jobs);
   });
 });
 

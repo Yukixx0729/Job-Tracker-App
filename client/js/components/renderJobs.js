@@ -15,7 +15,7 @@ const getRandomColor = () => {
 };
   
 
-const displayJobList = () => {
+const displayJobList = (id) => {
   jobContainer.innerHTML = ""
   p.innerHTML = ""
   p.className = "container"
@@ -26,11 +26,11 @@ const displayJobList = () => {
   p.appendChild(addJobBtn)
   addJobBtn.addEventListener("click", () => {
     jobContainer.innerHTML = ""
-    addJobForm()
+    addJobForm(id)
   })
 
-  axios.get("/jobs").then((result) => {
-    const jobs = result.data
+  axios.get(`/jobs`).then((result) => {
+    const jobs = result.data.rows
     console.log(jobs)
   
     const createColumn = (stages) => {
@@ -113,10 +113,12 @@ const displayJobList = () => {
         const editButton = document.createElement("button")
         jobDiv.appendChild(editButton)
         editButton.textContent = "Edit"
+        console.log(id)
         editButton.addEventListener("click", () => {
           return axios.get(`/jobs/${id}`).then((res) => {
             p.innerHTML = ""
             editJob(res)
+            
           })
         })
   
