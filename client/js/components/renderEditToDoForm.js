@@ -39,6 +39,7 @@ const editToDoForm = (id) => {
             <option value="completed" ${task.status === 'completed' ? 'selected' : ''}>Completed</option>
           </select>
         </p>
+        <input type="text" id="user_id" value =${task.user_id} hidden/>
       <button type="submit">Update Task</button>
     </form>
   `;
@@ -67,7 +68,7 @@ function handleEditToDo(event, id) {
       .then(res => {
         console.log(res.status);
   
-        renderToDoList();
+        renderToDoList(user_id.value);
       })
       .catch(err => {
         console.error(err);

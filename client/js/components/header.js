@@ -47,7 +47,7 @@ export const renderHeader = (user) => {
         displayJobList();
         break;
       case "todo":
-        renderToDoList();
+        renderToDoList(`${user.id}`);
         break;
       case "contacts":
         renderContacts();

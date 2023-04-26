@@ -2,14 +2,14 @@ import renderCreateToDoForm from'./renderCreateToDoForm.js'
 import editToDoForm from'./renderEditToDoForm.js'
 import deleteToDo from'./deleteToDo.js'
 
-const renderToDoList = () => {
+const renderToDoList = (id) => {
   const page = document.getElementById("page");
   page.innerHTML = "";
   const addTaskBtn = document.createElement("button");
   addTaskBtn.textContent = "New Task";
   page.appendChild(addTaskBtn);
   addTaskBtn.classList.add("btn", "btn-secondary", "btn-sm");
-  addTaskBtn.addEventListener("click", renderCreateToDoForm);
+  addTaskBtn.addEventListener("click", () => {renderCreateToDoForm(id)});
 
   const container = document.createElement("div");
   container.classList.add("container");
@@ -29,8 +29,9 @@ const renderToDoList = () => {
     title.innerText = status.charAt(0).toUpperCase() + status.slice(1);
     col.appendChild(title);
     row.appendChild(col);
-    axios.get("/todos").then((res) => {
+    axios.get(`/todos/user/${id}`).then((res) => {
       const tasks = res.data;
+      console.log(tasks)
       tasks.sort((a, b) => {
         if (a.priority === "high" && b.priority !== "high") {
           return -1;
