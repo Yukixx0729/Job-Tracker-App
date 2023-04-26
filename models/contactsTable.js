@@ -5,15 +5,41 @@ const addContact = (contactName, companyName, email, phoneNumber, notes, userId)
     .then((result) => result)
 }
 
-const getAllContacts = (userId) => {
-  return db.query('SELECT * FROM contacts WHERE user_id =$1 ORDER BY contact_name ASC', [userId])
+const getAllContacts = (userId, letter) => {
+  let sql
+  let params
+
+  if (userId && letter) {
+    sql = `SELECT * FROM contacts WHERE user_id = $1 AND contact_name ILIKE $2 ORDER BY contact_name ASC;`
+    params = [userId, `${letter}%`]
+  } else {
+    sql = 'SELECT * FROM contacts WHERE user_id =$1 ORDER BY contact_name ASC;'
+    params = [userId]
+  }
+  return db.query(sql, params)
     .then((result) => result.rows)
 }
+
+// SELECT * FROM contacts WHERE user_id = 4 AND contact_name ILIKE 'B%' ORDER BY contact_name ASC;
+// SELECT * FROM contacts WHERE user_id = 4 AND contact_name ILIKE B% ORDER BY contact_name ASC;
+
+// const getAllContacts = (userId, letter) => {
+//   return db.query('SELECT * FROM contacts WHERE user_id = $1 AND contact_name ILIKE $2 ORDER BY contact_name ASC', [userId, `${letter}%`])
+//     .then((result) => result.rows)
+// }
 
 const getContactById = (id, userId) => {
   return db.query('SELECT * FROM contacts WHERE id =$1 AND user_id = $2', [id, userId])
     .then((result) => result.rows[0])
 }
+
+// const getContactByLetter = (letter, userId) => {
+//   const pattern = `${letter}%`
+//   const sql = 'SELECT * FROM contacts WHERE user_id = $1 AND contact_name LIKE $2 ORDER BY contact_name ASC';
+//   return db.query(sql, [userId, pattern])
+//     .then((result) => result.rows);
+// }
+
 
 const deleteContactById = (id, userId) => {
   return db.query('DELETE FROM contacts WHERE id =$1 AND user_id = $2', [id, userId])
@@ -32,3 +58,5 @@ module.exports = {
   deleteContactById,
   updateContact
 }
+
+
