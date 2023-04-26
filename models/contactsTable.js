@@ -11,7 +11,7 @@ const getAllContacts = (userId, letter) => {
 
   if (userId && letter) {
     sql = `SELECT * FROM contacts WHERE user_id = $1 AND contact_name ILIKE $2 ORDER BY contact_name ASC;`
-    params = [userId, `'${letter}'`]
+    params = [userId, `${letter}%`]
   } else {
     sql = 'SELECT * FROM contacts WHERE user_id =$1 ORDER BY contact_name ASC;'
     params = [userId]
