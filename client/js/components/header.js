@@ -44,7 +44,7 @@ export const renderHeader = (user) => {
         renderFiles(`${user.id}`);
         break;
       case "jobs":
-        displayJobList();
+        displayJobList(`${user.id}`);
         break;
       case "todo":
         renderToDoList();
