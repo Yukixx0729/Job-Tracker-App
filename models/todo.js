@@ -4,17 +4,17 @@ const getAllToDos = () => {
   return db.query("SELECT * FROM to_do;").then((result) => result.rows);
 };
 
-const getAllToDosByUserId = (userId) => {
+const getAllToDosByUserId = (user_id) => {
   return db
-    .query("SELECT * FROM to_do WHERE user_id =$1;", [userId])
-    .then((result) => result);
+    .query("SELECT * FROM to_do WHERE user_id =$1;", [user_id])
+    .then((result) => result.rows);
 };
 
 const getToDoById = (id) => {
-  return db
-    .query(`SELECT * FROM to_do WHERE id=${id};`)
-    .then((result) => result.rows[0]);
-};
+    return db
+      .query(`SELECT * FROM to_do WHERE id=${id};`)
+      .then((result) => result.rows[0]);
+  };
 
 const deleteToDoById = (id) => {
   return db.query("DELETE from to_do WHERE id=$1", [id]);

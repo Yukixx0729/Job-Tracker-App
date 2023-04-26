@@ -1,6 +1,6 @@
 import renderToDoList from'./renderToDoList.js'
 
-const renderCreateToDoForm = () => {
+const renderCreateToDoForm = (id) => {
     const header = document.getElementById('page')
     header.innerHTML = `
       <form id="create-todo-form">
@@ -33,6 +33,7 @@ const renderCreateToDoForm = () => {
             <option value="completed">Completed</option>
         </select>
         </p>
+        <input type="text" id="user_id" value =${id} hidden/>
         <button type="submit"> Create Task</button>
       </form>
     `;
@@ -43,7 +44,8 @@ const renderCreateToDoForm = () => {
   
   function handleFormSubmit(event) {
     event.preventDefault();
-  
+    const user_id = document.getElementById("user_id")
+    console.log(user_id)
     const formData = new FormData(event.target);
   
     console.log(formData);
@@ -54,13 +56,14 @@ const renderCreateToDoForm = () => {
       due_date: formData.get('due_date'),
       priority: formData.get('priority'),
       status: formData.get('status'),
+      user_id: user_id.value
     };
     console.log(body)
-    return axios.post('/todos', body)
+    return axios.post(`/todos`, body)
       .then(res => {
         console.log(res.status);
   
-        renderToDoList();
+        renderToDoList(user_id.value);
       })
       .catch(err => {
         console.error(err);
