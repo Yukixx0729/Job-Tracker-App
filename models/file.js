@@ -16,9 +16,9 @@ const getAllFileById = (user_id) => {
     .then((result) => result);
 };
 
-const deleteFile = (id) => {
+const deleteFile = (id, userId) => {
   return db
-    .query("DELETE FROM file WHERE id = $1", [id])
+    .query("DELETE FROM file WHERE id = $1 and user_id = $2", [id, userId])
     .then((result) => result);
 };
 module.exports = {

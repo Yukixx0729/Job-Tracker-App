@@ -41,7 +41,7 @@ export const renderHeader = (user) => {
     const render = event.target.dataset.render;
     switch (render) {
       case "files":
-        renderFiles(`${user.id}`);
+        renderFiles();
         break;
       case "jobs":
         displayJobList(`${user.id}`);
@@ -56,14 +56,14 @@ export const renderHeader = (user) => {
   });
 
   document.getElementById("homepage").addEventListener("click", (event) => {
-    renderQuote(user.id);
+    renderQuote();
   });
 };
 
 const quoteContainer = document.createElement("div");
 quoteContainer.id = "quote-row";
 
-export const renderQuote = (id) => {
+export const renderQuote = () => {
   page.innerHTML = "";
   quoteContainer.innerHTML = "";
 
@@ -75,11 +75,11 @@ export const renderQuote = (id) => {
   return axios.get("https://api.goprogram.ai/inspiration").then((res) => {
     quote.innerHTML = `<p id="quote" class="row justify-content-center" >${res.data.quote}</p> <p id="author" class="row justify-content-center">${res.data.author}</p>`;
     page.insertAdjacentElement("beforebegin", quoteContainer);
-    renderDueJobAndTodo(id);
+    renderDueJobAndTodo();
   });
 };
 
-async function renderDueJobAndTodo(id) {
+async function renderDueJobAndTodo() {
   const container = document.createElement("div");
   container.id = "dueDataBox";
   container.classList = "container";
@@ -87,7 +87,7 @@ async function renderDueJobAndTodo(id) {
   page.appendChild(container);
   let dueData = [];
   const dueDataJob = await axios
-    .get(`/jobs/user/${id}`)
+    .get(`/jobs`)
     .then((res) => {
       return res.data;
     })
@@ -95,17 +95,18 @@ async function renderDueJobAndTodo(id) {
       console.error(err);
     });
   const dueDataTodo = await axios
-    .get(`/todos/user/${id}`)
+    .get(`/todos`)
     .then((res) => {
       return res.data;
     })
     .catch((err) => {
       console.error(err);
     });
+  // console.log("funny", dueDataTodo);
   const reminderTitle = document.createElement("div");
-  reminderTitle.innerHTML = "<h3>Due in 7 days:</h3>";
+  reminderTitle.innerHTML = `<h3>Due in 7 days:</h3>`;
   container.appendChild(reminderTitle);
-  if (!dueDataJob.rowCount && !dueDataTodo.rowCount) {
+  if (!dueDataJob.rowCount && !dueDataTodo.length) {
     const reminder = document.createElement("div");
     reminder.innerHTML = "Nothing to worry about yet.";
     reminderTitle.appendChild(reminder);
@@ -113,8 +114,10 @@ async function renderDueJobAndTodo(id) {
     for (let item of dueDataJob.rows) {
       dueData.push(item);
     }
-    for (let item of dueDataTodo.rows) {
-      dueData.push(item);
+    for (let item of dueDataTodo) {
+      if (item.status !== "completed") {
+        dueData.push(item);
+      }
     }
     const sortedData = dueData.sort(
       (a, b) => new Date(a["due_date"]) - new Date(b["due_date"])
@@ -133,14 +136,30 @@ async function renderDueJobAndTodo(id) {
       const dueItem = document.createElement("div");
       dueItem.className = "dueItem";
       if (Object.keys(due)[2] === "description") {
-        dueItem.innerHTML = `<p>${due.title}</p> <p> Priority : ${
+        dueItem.innerHTML = `<p>Task: ${due.title}</p> <p> Priority : ${
           due.priority
-        }</p><p>${due.due_date.substring(0, 10)}</p> `;
+        }</p><p>Due date: ${due.due_date.substring(0, 10)}</p> <p>Status: ${
+          due.status
+        }</p>`;
+        dueItem.style.backgroundColor = "#c3acb1";
       }
       if (Object.keys(due)[2] === "company") {
-        dueItem.innerHTML = `<p>${due.company}</p> <p> ${
-          due.title
-        }</p> <p>${due.due_date.substring(0, 10)}</p>`;
+        if (!due.stages) {
+          dueItem.innerHTML = `<p>Job company: ${
+            due.company
+          }</p> <p>Job title:  ${
+            due.title
+          }</p> <p>Due date: ${due.due_date.substring(0, 10)}</p>`;
+        } else {
+          dueItem.innerHTML = `<p>Job company: ${
+            due.company
+          }</p> <p>Job title: ${
+            due.title
+          }</p> <p>Due date: ${due.due_date.substring(0, 10)}</p><p>Stage: ${
+            due.stages
+          }</p>`;
+        }
+        dueItem.style.backgroundColor = "#7f9990";
       }
       container.appendChild(dueItem);
     }

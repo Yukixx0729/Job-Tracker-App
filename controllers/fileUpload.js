@@ -11,9 +11,10 @@ router.post("/upload", upload.single("pdf"), async (req, res, next) => {
   const result = await s3Upload(req.file);
   req.file.buffer = null;
   const { Location: url } = result;
-  const { name, user_id } = req.body;
+  const id = req.session.user.id;
+  const { name } = req.body;
   // console.log(name, user_id);
-  return uploadFile(name, url, user_id)
+  return uploadFile(name, url, id)
     .then(() => res.json({ success: true, url }))
     .catch((err) => {
       next(err);
@@ -21,8 +22,8 @@ router.post("/upload", upload.single("pdf"), async (req, res, next) => {
 });
 
 //get all the file by id
-router.get("/upload/:id", (req, res, next) => {
-  const id = req.params.id;
+router.get("/upload", (req, res, next) => {
+  const id = req.session.user.id;
   return getAllFileById(id)
     .then((dbRes) => res.json({ success: true, user: dbRes.rows }))
     .catch((err) => {
@@ -32,10 +33,11 @@ router.get("/upload/:id", (req, res, next) => {
 
 //delet the file by id
 router.delete("/delete/:id", (req, res, next) => {
-  const id = req.params.id;
-  return deleteFile(id)
+  const id = Number(req.params.id);
+  const userId = req.session.user.id;
+  return deleteFile(id, userId)
     .then((dbRes) => {
-      if (!dbRes.rowCount) throw Error("No ID found");
+      if (!dbRes.rowCount) throw Error("Not found");
       return res.json({ success: true });
     })
     .catch((err) => {
