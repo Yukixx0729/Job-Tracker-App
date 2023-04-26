@@ -2,8 +2,16 @@ const express = require('express')
 const { addContact, getAllContacts, getContactById, deleteContactById, updateContact } = require('../models/contactsTable.js')
 const router = express.Router()
 
+// router.get('/', (req, res, next)=> {
+//   return getAllContacts() 
+//     .then((contacts) => {
+//       res.json(contacts)
+//     })
+// })
+
 router.get('/', (req, res, next)=> {
-  return getAllContacts() 
+  const userId = req.session.user.id
+  return getAllContacts(userId) 
     .then((contacts) => {
       res.json(contacts)
     })
@@ -19,14 +27,15 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const { contactName, companyName, email, phoneNumber, notes } = req.body
-  console.log(`Receievd body:`, {contactName, companyName, email, phoneNumber, notes })
+  const userId = req.session.user.id
+  console.log(`Received body:`, {contactName, companyName, email, phoneNumber, notes, userId })
 
   if (!contactName) {
     const customError = new Error("Name cannot be empty")
     customError.status = 400
     return next(customError)
   }
-  return addContact(contactName, companyName, email, phoneNumber, notes)
+  return addContact(contactName, companyName, email, phoneNumber, notes, userId)
     .then((contact) => {
       res.json(contact)
     }) 

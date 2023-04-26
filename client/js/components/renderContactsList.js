@@ -13,8 +13,7 @@ const toggleDetails = (contactItem) => {
   }
 };
 
-const renderContacts = (event) => {
-  console.log(event);
+const renderContacts = () => {
   page.innerHTML = "";
 
   const addContactBtn = document.createElement("button");
