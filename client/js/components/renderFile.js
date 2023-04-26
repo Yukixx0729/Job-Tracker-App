@@ -1,10 +1,10 @@
 const filesBtn = document.getElementById("files");
 
 //get all files and handle del btn function
-function renderFiles(id) {
+function renderFiles() {
   page.innerHTML = " ";
   axios
-    .get(`/files/upload/${id}`)
+    .get(`/files/upload`)
     .then((res) => {
       const filePage = document.createElement("div");
       filePage.classList = "container";
@@ -20,7 +20,7 @@ function renderFiles(id) {
       note.id = "fileNote";
       filePage.appendChild(uploadBtn);
       uploadBtn.querySelector("button").addEventListener("click", () => {
-        renderUploadFileForm(id);
+        renderUploadFileForm();
       });
       if (!res.data.user[0]) {
         note.innerHTML = `<h4>You have not uploaded any files. <h4>`;
@@ -35,7 +35,7 @@ function renderFiles(id) {
         fileList.innerHTML = `<a href="${file.url}">${file.name}</a>  <button class="deleteFile" id ="${file.id}">Delete</button>`;
         fileContainer.appendChild(fileList);
         document.getElementById(`${file.id}`).addEventListener("click", (e) => {
-          handleDeleteFile(e, id);
+          handleDeleteFile(e);
         });
       }
     })
@@ -47,8 +47,8 @@ function renderFiles(id) {
 // filesBtn.addEventListener("click", renderFiles);
 
 //handle delete of the file
-function handleDeleteFile(e, id) {
-  console.log(e.target);
+function handleDeleteFile(e) {
+  // console.log(e.target);
   if (!document.querySelector(".deleteFileForm")) {
     const delForm = document.createElement("div");
     delForm.className = "delFormContainer";
@@ -65,7 +65,7 @@ function handleDeleteFile(e, id) {
       .addEventListener("submit", (event) => {
         event.preventDefault();
         handleDelFileSubmit(`${e.target.id}`);
-        renderFiles(id);
+        renderFiles();
       });
     e.target.parentElement
       .querySelector(".cancel")
@@ -100,7 +100,6 @@ function renderUploadFileForm(id) {
     <input type="text" name="name" required/></div>
    <div><label for="file"> File(only pdf) </label>
     <input type="file" name="pdf" accept="application/pdf" required/></div>
-    <input type="text" id="user_id" value =${id} hidden/>
     <div><button type="submit">Upload</button>
     <button id="cancelUpload">Cancel</button></div>
   </form>`;
@@ -109,7 +108,6 @@ function renderUploadFileForm(id) {
     uploadDiv
       .querySelector("form")
       .addEventListener("submit", async (event) => {
-        console.log(id);
         handleUploadFile(event);
       });
 
@@ -129,7 +127,7 @@ async function handleUploadFile(event) {
   const formData = new FormData();
   const fileInput = document.querySelector('input[type="file"]');
   const user_id = document.getElementById("user_id");
-  console.log(user_id.value);
+  // console.log(user_id.value);
   formData.append("pdf", fileInput.files[0]);
   const data = new FormData(event.target);
   for (const key of data.keys()) {
@@ -138,13 +136,13 @@ async function handleUploadFile(event) {
     }
   }
 
-  formData.append("user_id", user_id.value);
-  console.log("before promise", formData);
+  // formData.append("user_id", user_id.value);
+  // console.log("before promise", formData);
   return axios
     .post("/files/upload", formData)
     .then((res) => {
       // console.log(res);
-      renderFiles(user_id.value);
+      renderFiles();
     })
     .catch((err) => {
       console.error(err);

@@ -45,12 +45,10 @@ router.post("/signup", (req, res, next) => {
       }
 
       if (!checkValidPassword(password)) {
-        return res
-          .status(400)
-          .json({
-            message:
-              "Password must be at least 8 characters long, with at least one capital, one number, and one special character",
-          });
+        return res.status(400).json({
+          message:
+            "Password must be at least 8 characters long, with at least one capital, one number, and one special character",
+        });
       }
 
       if (!checkPasswordsMatch(password, passwordCheck)) {
@@ -79,6 +77,7 @@ router.post("/login", (req, res) => {
       const user = result.rows[0];
 
       if (bcrypt.compareSync(loginPassword, user.password_hash)) {
+        delete user.password_hash;
         req.session.user = user;
         return res.status(200).json({ message: "Login successful" });
       } else {
