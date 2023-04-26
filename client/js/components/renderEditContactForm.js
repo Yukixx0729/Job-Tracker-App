@@ -4,6 +4,7 @@ const editContactForm = (id) => {
   return axios.get(`/contacts/${id}`)
     .then(res => {
     const contact = res.data 
+    console.log(res.data)
     const page = document.getElementById('page')
     page.innerHTML = `
     <form id="edit-contact-form">
@@ -35,7 +36,6 @@ const editContactForm = (id) => {
 
   })
 }
-
 
 function handleEditContact(event, id) {
   event.preventDefault()

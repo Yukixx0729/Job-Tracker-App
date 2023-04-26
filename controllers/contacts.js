@@ -19,7 +19,8 @@ router.get('/', (req, res, next)=> {
 
 router.get('/:id', (req, res, next) => {
   const id = Number(req.params.id)
-  return getContactById(id)
+  const session_id = req.session.user.id
+  return getContactById(id, session_id)
     .then((contact) => {
       res.json(contact)
     })
@@ -27,15 +28,15 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const { contactName, companyName, email, phoneNumber, notes } = req.body
-  const userId = req.session.user.id
-  console.log(`Received body:`, {contactName, companyName, email, phoneNumber, notes, userId })
+  const session_id = req.session.user.id
+  console.log(`Received body:`, {contactName, companyName, email, phoneNumber, notes, session_id })
 
   if (!contactName) {
     const customError = new Error("Name cannot be empty")
     customError.status = 400
     return next(customError)
   }
-  return addContact(contactName, companyName, email, phoneNumber, notes, userId)
+  return addContact(contactName, companyName, email, phoneNumber, notes, session_id)
     .then((contact) => {
       res.json(contact)
     }) 
@@ -49,10 +50,11 @@ router.post('/', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
   const id = Number(req.params.id)
+  const session_id = req.session.user.id
   const { contactName, companyName, email, phoneNumber, notes } = req.body
-  console.log(`Receievd body:`, {contactName, companyName, email, phoneNumber, notes })
+  console.log(`Received body:`, {contactName, companyName, email, phoneNumber, notes })
 
-  return updateContact(id, contactName, companyName, email, phoneNumber, notes )
+  return updateContact(id, session_id, contactName, companyName, email, phoneNumber, notes )
     .then(() => {
       res.sendStatus(200)
     })
@@ -66,8 +68,9 @@ router.put('/:id', (req, res, next) => {
 
 router.delete('/:id', (req, res, next) => {
   const id = Number(req.params.id)
+  const session_id = req.session.user.id
   console.log(id)
-  return deleteContactById(id)
+  return deleteContactById(id, session_id)
     .then(() => {
       res.sendStatus(204)
     })
