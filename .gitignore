@@ -1,6 +1,5 @@
 node_modules
 .env
-.dummyfile.js
 
 # Logs
 logs
