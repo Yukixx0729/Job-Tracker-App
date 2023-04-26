@@ -1,7 +1,6 @@
 const express = require("express");
 const db = require("../models/db");
 const {
-  getAllToDos,
   getToDoById,
   deleteToDoById,
   createToDo,
@@ -45,7 +44,7 @@ router.delete("/:id", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-    const { title, description, due_date, priority, status, user_id } = req.body;
+    const { title, description, due_date, priority, status, user_id, job_id } = req.body;
     console.log("Received body", {
       title,
       description,
@@ -53,6 +52,7 @@ router.post("/", (req, res, next) => {
       priority,
       status,
       user_id,
+      job_id
     });
   
     if (!title) {
@@ -60,7 +60,7 @@ router.post("/", (req, res, next) => {
       customError.status = 400;
       return next(customError);
     }
-    createToDo(title, description, due_date, priority, status, user_id)
+    createToDo(title, description, due_date, priority, status, user_id, job_id)
       .then((result) => {
         res.status(201);
         res.json({
@@ -71,6 +71,7 @@ router.post("/", (req, res, next) => {
           priority,
           status,
           user_id,
+          job_id
         });
       })
       .catch((err) => {

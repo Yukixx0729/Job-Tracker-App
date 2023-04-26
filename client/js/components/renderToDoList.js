@@ -29,7 +29,7 @@ const renderToDoList = (id) => {
     title.innerText = status.charAt(0).toUpperCase() + status.slice(1);
     col.appendChild(title);
     row.appendChild(col);
-    axios.get(`/todos/user/${id}`).then((res) => {
+    axios.get(`/todos`).then((res) => {
       const tasks = res.data;
       console.log(tasks)
       tasks.sort((a, b) => {
@@ -95,6 +95,15 @@ const renderToDoList = (id) => {
           cardBody.appendChild(editBtn);
           card.appendChild(cardBody);
           col.appendChild(card);
+          if (task.job_id) {
+            const jobId = document.createElement("p");
+            jobId.classList.add("card-text");
+            axios.get(`/jobs/${task.job_id}`).then((res) => {
+              const jobTitle = res.data.title;
+              jobId.innerText = `Job: ${jobTitle}`;
+              cardBody.appendChild(jobId);
+            });
+          }
 
           card.addEventListener("mouseenter", () => {
             deleteBtn.classList.remove("hidden");

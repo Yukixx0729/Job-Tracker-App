@@ -26,9 +26,10 @@ const createToDo = (
   due_date,
   priority,
   status,
-  user_id
+  user_id, 
+  job_id
 ) => {
-  const sql = `INSERT INTO to_do (title, description, due_date, priority, status,user_id) VALUES($1, $2, $3, $4, $5,$6) RETURNING id;`;
+  const sql = `INSERT INTO to_do (title, description, due_date, priority, status, user_id, job_id) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id;`;
   return db.query(sql, [
     title,
     description,
@@ -36,6 +37,7 @@ const createToDo = (
     priority,
     status,
     user_id,
+    job_id
   ]);
 };
 
