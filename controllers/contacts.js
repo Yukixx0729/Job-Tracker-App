@@ -5,7 +5,8 @@ const router = express.Router()
 router.get('/', (req, res, next)=> {
   const userId = req.session.user.id
   const letter = req.query.letter
-  return getAllContacts(userId, letter) 
+  const querySearch = req.query.search
+  return getAllContacts(userId, letter, querySearch) 
     .then((contacts) => {
       res.json(contacts)
     })
@@ -23,6 +24,7 @@ router.get('/:id', (req, res, next) => {
       res.json(contact)
     })
 })
+
 
 router.post('/', (req, res, next) => {
   const { contactName, companyName, email, phoneNumber, notes } = req.body
