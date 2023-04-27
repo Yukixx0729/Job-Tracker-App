@@ -81,19 +81,17 @@ router.post("/", (req, res, next) => {
 
 router.put("/:id", (req, res) => {
   const id = Number(req.params.id);
-
   const { title, description, due_date, priority, status } = req.body;
-  console.log("Received body", {
-    title,
-    description,
-    due_date,
-    priority,
-    status,
-  });
+  console.log(req.body)
 
-  return updateToDo(id, title, description, due_date, priority, status).then(
-    (updatedToDo) => res.json(updatedToDo)
-  );
-});
+  return updateToDo(id, title, description, due_date, priority, status)
+  .then(() => {
+    res.sendStatus(200)
+  })
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send("Error updating to-do")
+  })
+})
 
 module.exports = router;

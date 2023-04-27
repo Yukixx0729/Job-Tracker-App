@@ -89,7 +89,6 @@ const renderCreateToDoForm = (id) => {
       .catch(err => {
         console.error(err);
       })
-  
   }
   
   export default renderCreateToDoForm
