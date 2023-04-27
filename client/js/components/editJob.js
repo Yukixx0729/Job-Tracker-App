@@ -46,7 +46,7 @@ function editJob(jobData) {
      
       <button type="submit">Update</button>
     </form>
-      `;
+  `;
 
  
     const container = document.createElement("div")

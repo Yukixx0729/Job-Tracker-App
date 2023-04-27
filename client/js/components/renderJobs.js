@@ -36,9 +36,9 @@ const generateModal = () => {
       </div>
     </div>
     </div>
-  `
-    p.appendChild(modalDiv)
-  }
+  ` 
+  p.appendChild(modalDiv)  
+}
     
 const displayJobList = (id) => {
   jobContainer.innerHTML = ""
@@ -95,9 +95,6 @@ const displayJobList = (id) => {
         const id = job.id
         const title = job.title
         const company = job.company
-        const location = job.location
-        const description = job.description
-        const jobUrl = job.job_url
         const dueDate = new Date(job.due_date)
         const stage = job.stages
   
@@ -115,43 +112,34 @@ const displayJobList = (id) => {
 
         const jobTitle = document.createElement("h4")
         const jobCompany = document.createElement("p")
-        const jobLocation = document.createElement("p")
-        const jobDescription = document.createElement("p")
-        const jobURL = document.createElement("p")
         const jobDueDate = document.createElement("p")
         jobDiv.appendChild(jobTitle)
         jobDiv.appendChild(jobCompany)
-        jobDiv.appendChild(jobLocation)
-        jobDiv.appendChild(jobDescription)
-        jobDiv.appendChild(jobURL)
         jobDiv.appendChild(jobDueDate)
         jobTitle.textContent = `${title}`
         jobCompany.innerHTML = `<span id=subheading> Company: </span>${company}`
-        jobLocation.innerHTML = `<span id=subheading> Location: </span>${location}`
-        jobDescription.innerHTML = `<span id=subheading> Description: </span>${description}`
-        jobURL.innerHTML = `<a href="${jobUrl}"> Link to job </a>`
         jobDueDate.innerHTML = `<span id=subheading> Due: </span>${dueDate.toLocaleDateString()}`
   
-        const editButton = document.createElement("button")
-        jobDiv.appendChild(editButton)
-        editButton.textContent = "Edit"
-        editButton.addEventListener("click", () => {
-          return axios.get(`/jobs/${id}`).then((res) => {
-            p.innerHTML = ""
-            editJob(res)
+        // const editButton = document.createElement("button")
+        // jobDiv.appendChild(editButton)
+        // editButton.textContent = "Edit"
+        // editButton.addEventListener("click", () => {
+        //   return axios.get(`/jobs/${id}`).then((res) => {
+        //     p.innerHTML = ""
+        //     editJob(res)
             
-          })
-        })
+        //   })
+        // })
   
-        const deleteButton = document.createElement("button")
-        jobDiv.appendChild(deleteButton)
-        deleteButton.textContent = "Delete"
-        deleteButton.addEventListener("click", () => {
-          if (confirm("Are you sure you want to delete this job?"))
-            return axios.delete(`/jobs/${id}`).then((res) => {
-              jobDiv.remove()
-            })
-        })
+        // const deleteButton = document.createElement("button")
+        // jobDiv.appendChild(deleteButton)
+        // deleteButton.textContent = "Delete"
+        // deleteButton.addEventListener("click", () => {
+        //   if (confirm("Are you sure you want to delete this job?"))
+        //     return axios.delete(`/jobs/${id}`).then((res) => {
+        //       jobDiv.remove()
+        //     })
+        // })
         column.appendChild(jobDiv)
 
         jobDiv.addEventListener("dragstart", (event) => {
@@ -181,6 +169,26 @@ const displayJobList = (id) => {
               <a href="${jobData.job_url}"> Link to job </a>
               <p> <span class=subheading> Description: </span>${jobData.description} </p>
             `;
+            const modalFooter = document.querySelector(".modal-footer")
+            const editButton = document.createElement("button")
+            modalFooter.appendChild(editButton)
+            editButton.textContent = "Edit"
+            editButton.addEventListener("click", () => {
+              return axios.get(`/jobs/${id}`).then((res) => {
+                p.innerHTML = ""
+                editJob(res)
+              })
+            })
+          
+            const deleteButton = document.createElement("button")
+            modalFooter.appendChild(deleteButton)
+            deleteButton.textContent = "Delete"
+            deleteButton.addEventListener("click", () => {
+              if (confirm("Are you sure you want to delete this job?"))
+                return axios.delete(`/jobs/${id}`).then((res) => {
+                  jobDiv.remove()
+                })
+            })
             modalContainer.style.display = 'block';
           })
           .catch((err) => {
@@ -194,6 +202,7 @@ const displayJobList = (id) => {
     createColumn("Interview")
     createColumn("Complete")
     generateModal()
+
   })
   p.appendChild(jobContainer)
 }
