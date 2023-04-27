@@ -13,16 +13,20 @@ const toggleDetails = (contactItem) => {
   }
 }
 
-const showContactByLetter = (letter) => {
-  page.innerHTML = ''
-  renderAddContactAndLetterButtons()
+const displayAllContactsBtn = () => {
   const displayAllContactsBtn = document.createElement("button")
   displayAllContactsBtn.id = "displayAllContactsBtn"
   displayAllContactsBtn.textContent = "Return to Contacts"
   displayAllContactsBtn.classList.add("btn", "btn-secondary", "mb-3")
   page.appendChild(displayAllContactsBtn)
   displayAllContactsBtn.addEventListener("click", renderContacts)
+}
 
+const showContactByLetter = (letter) => {
+  page.innerHTML = ''
+  renderAddContactAndLetterButtons()
+  displayAllContactsBtn()
+  
   return axios.get(`/contacts?letter=${letter}`)
   .then((res) => {
     console.log(res)
@@ -53,6 +57,7 @@ const renderAddContactAndLetterButtons = () => {
 }
 
 const renderContactDisplay = (res) => {
+  // displayAllContactsBtn()
   const contacts = res.data
   const contactList = document.createElement("ul")
   contactList.className = "list-group mx-auto"
@@ -138,6 +143,7 @@ const renderContacts = () => {
 const renderSingleContact = (contact) => {
   page.innerHTML = ""
   renderAddContactAndLetterButtons()
+  displayAllContactsBtn()
 
   const contactList = document.createElement("ul")
   contactList.className = "list-group mx-auto"

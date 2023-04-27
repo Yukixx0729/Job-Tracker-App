@@ -8,7 +8,7 @@ const editContactForm = (id) => {
     const page = document.getElementById('page')
 
     page.innerHTML = `
-    <button id="displayAllContactsBtn" class="btn btn-secondary mb-3"> Show All Contacts </button>
+    <button id="displayAllContactsBtn" class="btn btn-secondary mb-3"> Return to Contacts </button>
     <form id="edit-contact-form">
     <h2>Edit Contact</h2>
     <div>
