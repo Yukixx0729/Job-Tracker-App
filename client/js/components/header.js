@@ -7,8 +7,8 @@ export const renderHeader = (user) => {
   const header = document.getElementById("header-nav");
   header.id = "header-nav-row";
   header.innerHTML = `
-    <div class="row-container container">
-      <div class="row nav-row align-items-center">
+    <div class="row-container container" id="nav-container">
+      <div class="row nav-row align-items-center" id="nav-bar">
         <h1 class="nav-item col-5 h-30" id="homepage"> Job Tracker </h1>
         <h3 class="nav-item col h-30 justify-content-around text-center" role="button" data-render="jobs" > Jobs </h3>
         <h3 class="nav-item col h-30 justify-content-around text-center" role="button" data-render="todo" > Tasks </h3>
@@ -31,6 +31,16 @@ export const renderHeader = (user) => {
 
   header.addEventListener("click", (event) => {
     const target = event.target;
+    console.log(target)
+
+    const activeNav = document.querySelector(".active")
+    if (activeNav) {
+      activeNav.classList.remove("active")
+    }
+    if (target.id !== "homepage" && target.id !== "nav-bar" && target.id !== "nav-container" && target.id!== "header-nav-row") {
+      target.classList.add("active")
+    }
+    
     if (target.className.includes("logout-btn")) {
       fetch("/users/login", {
         method: "DELETE",

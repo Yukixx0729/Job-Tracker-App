@@ -32,6 +32,14 @@ body {
   text-underline-offset: 15px;
 }
 
+.active {
+  transform: scale(1.2);
+  font-weight: 900;
+  text-decoration: underline 6px;
+  text-decoration-color: #7f9990;
+  text-underline-offset: 15px;
+}
+
 #homepage {
   font-family: "Train One", cursive;
   font-weight: 900;
