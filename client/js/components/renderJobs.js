@@ -121,27 +121,7 @@ const displayJobList = (id) => {
         jobTitle.textContent = `${title}`
         jobCompany.innerHTML = `<span id=subheading> Company: </span>${company}`
         jobDueDate.innerHTML = `<span id=subheading> Due: </span>${dueDate.toLocaleDateString()}`
-  
-        // const editButton = document.createElement("button")
-        // jobDiv.appendChild(editButton)
-        // editButton.textContent = "Edit"
-        // editButton.addEventListener("click", () => {
-        //   return axios.get(`/jobs/${id}`).then((res) => {
-        //     p.innerHTML = ""
-        //     editJob(res)
-            
-        //   })
-        // })
-  
-        // const deleteButton = document.createElement("button")
-        // jobDiv.appendChild(deleteButton)
-        // deleteButton.textContent = "Delete"
-        // deleteButton.addEventListener("click", () => {
-        //   if (confirm("Are you sure you want to delete this job?"))
-        //     return axios.delete(`/jobs/${id}`).then((res) => {
-        //       jobDiv.remove()
-        //     })
-        // })
+
         column.appendChild(jobDiv)
 
         jobDiv.addEventListener("dragstart", (event) => {
@@ -178,13 +158,10 @@ const displayJobList = (id) => {
             modalFooter.appendChild(editButton)
             editButton.textContent = "Edit"
             editButton.addEventListener("click", () => {
-              document.body.classList.remove('modal-open');
-              document.body.style.paddingRight = '';
-              document.body.style.overflow = 'auto';
+              document.querySelector(".modal-backdrop").classList = ""
               return axios.get(`/jobs/${id}`).then((res) => {
                 p.innerHTML = ""
                 editJob(res)
-                $('#modalBigDiv').modal('hide')
               })
             })
           
@@ -192,6 +169,7 @@ const displayJobList = (id) => {
             modalFooter.appendChild(deleteButton)
             deleteButton.textContent = "Delete"
             deleteButton.addEventListener("click", () => {
+              document.querySelector(".modal-backdrop").classList = ""
               if (confirm("Are you sure you want to delete this job?"))
                 return axios.delete(`/jobs/${id}`).then((res) => {
                   jobDiv.remove()
