@@ -165,8 +165,6 @@ body {
   box-shadow: 2px 3px 3px grey;
   text-align: left;
   font-size: 20px;
-  /* display: flex;
-  justify-content: space-between; */
 }
 
 .fileList a {
@@ -244,6 +242,10 @@ body {
 }
 .contact-custom-btn {
   background-color: #f7eaea;
+}
+
+.contact-edit-delete {
+  background-color:#d1909c;
 }
 
 /*Form styling */
