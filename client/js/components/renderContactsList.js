@@ -212,4 +212,4 @@ const renderSingleContact = (contact) => {
   page.appendChild(contactList)
 }
 
-export { renderContactDisplay, renderContacts, renderSingleContact } 
+export { renderContactDisplay, renderContacts, renderSingleContact, createButtonContainer, displayAllContactsBtn } 
