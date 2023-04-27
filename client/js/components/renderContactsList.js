@@ -38,21 +38,33 @@ const showContactByLetter = (letter) => {
 }
 
 const renderAddContactAndLetterButtons = () => {
+  const buttonContainer = document.createElement("div")
+  buttonContainer.classList = "container"
+  page.appendChild(buttonContainer)
+
+  const addContactBtnContainer = document.createElement("div")
+  addContactBtnContainer.classList = "row justify-content-end"
+  buttonContainer.appendChild(addContactBtnContainer)
+
   const addContactBtn = document.createElement("button")
   addContactBtn.id = "addContactBtn"
   addContactBtn.textContent = "Add Contact +"
-  addContactBtn.classList.add("btn", "btn-secondary", "mb-3")
-  page.appendChild(addContactBtn)
+  addContactBtn.classList= "btn btn-secondary mb-3 col-lg-2 col-sm-3 col-12"
+  addContactBtnContainer.appendChild(addContactBtn)
   addContactBtn.addEventListener("click", addContactForm)
+
+  const letterButtonContainer = document.createElement("div")
+  letterButtonContainer.classList = "row"
+  buttonContainer.appendChild(letterButtonContainer)
 
   const alphabetArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
   alphabetArray.forEach((letter) => {
   const letterButton = document.createElement('button')
   letterButton.textContent = letter
   letterButton.id = letter
-  letterButton.classList = ""
+  letterButton.classList = "col"
   letterButton.addEventListener("click", (event) => showContactByLetter(event.target.id))
-  page.appendChild(letterButton)
+  letterButtonContainer.appendChild(letterButton)
   })
 }
 
@@ -64,7 +76,7 @@ const renderContactDisplay = (res) => {
 
   contacts.forEach((contact) => {
   const contactItem = document.createElement("li")
-  contactItem.className = "container list-group-item col-8 col-sm-10 col-lg-12"
+  contactItem.className = "container list-group-item col-8 col-sm-11 col-lg-12"
   contactItem.addEventListener("click", () => toggleDetails(contactItem))
   contactList.appendChild(contactItem)
 
@@ -72,18 +84,18 @@ const renderContactDisplay = (res) => {
   contactHeader.classList = "row d-flex align-items-center justify-content-between"
   contactItem.appendChild(contactHeader)
 
-  const contactName = document.createElement("h5")
-  contactName.className = "mb-1 col-4"
+  const contactName = document.createElement("p")
+  contactName.className = "mb-1 col-8 col-sm-4 text-capitalize h5"
   contactName.textContent = `${contact.contact_name}`
   contactHeader.appendChild(contactName)
 
   const company = document.createElement("p")
-  company.classList = "mb-1 col-sm-4 d-none d-sm-none d-md-block"
+  company.classList = "mb-1 col-sm-4 d-none d-sm-block"
   company.innerHTML = `${contact.company_name}`
   contactHeader.appendChild(company)
   
   const contactDetailsBtn = document.createElement("button")
-  contactDetailsBtn.className = "col-1 offset-3 align-self-end btn btn-sm contact-custom-btn"
+  contactDetailsBtn.className = "col-1 offset-sm-3 align-self-end btn btn-sm contact-custom-btn"
   contactDetailsBtn.textContent = "+"
   contactHeader.appendChild(contactDetailsBtn)
 
@@ -113,7 +125,6 @@ const renderContactDisplay = (res) => {
   deleteBtn.className = "deleteBtn"
   deleteBtn.addEventListener("click", () => deleteContact(contact.id))
       
-  // contactDetails.appendChild(company)
   contactDetails.appendChild(email)
   contactDetails.appendChild(phoneNo)
   contactDetails.appendChild(notes)
