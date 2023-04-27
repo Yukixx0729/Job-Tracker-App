@@ -138,10 +138,17 @@ const renderContacts = () => {
 const renderSingleContact = (contact) => {
   page.innerHTML = ""
   renderAddContactAndLetterButtons()
-  const containerBox = document.createElement("div")
-  containerBox.classList = ""
-  containerBox.id = "containerBox"
-  page.appendChild(containerBox)
+
+  const contactList = document.createElement("ul")
+  contactList.className = "list-group mx-auto"
+  contactList.style.maxWidth = "70%"
+
+  const contactItem = document.createElement("li")
+  contactItem.className = "list-group-item"
+  contactList.appendChild(contactItem)
+
+  const contactHeader = document.createElement("div")
+  contactHeader.className = "d-flex w-100 justify-content-between"
 
   const contactName = document.createElement("h5")
   contactName.className = "mb-1"
@@ -173,13 +180,14 @@ const renderSingleContact = (contact) => {
   deleteBtn.className = "deleteBtn"
   deleteBtn.addEventListener("click", () => deleteContact(contact.id))
   
-  containerBox.appendChild(contactName)
-  containerBox.appendChild(company)
-  containerBox.appendChild(email)
-  containerBox.appendChild(phoneNo)
-  containerBox.appendChild(notes)
-  containerBox.appendChild(editBtn)
-  containerBox.appendChild(deleteBtn)
+  contactItem.appendChild(contactName)
+  contactItem.appendChild(company)
+  contactItem.appendChild(email)
+  contactItem.appendChild(phoneNo)
+  contactItem.appendChild(notes)
+  contactItem.appendChild(editBtn)
+  contactItem.appendChild(deleteBtn)
+  page.appendChild(contactList)
 }
 
 export { renderContactDisplay, renderContacts, renderSingleContact } 
