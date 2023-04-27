@@ -13,6 +13,51 @@ const getRandomColor = () => {
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
 };
+
+const generateModal = (id) => {
+  return axios.get(`/jobs/${id}`)
+  .then((res) => {
+    const jobData = res.data
+    console.log(jobData)
+    const modalContainer = document.createElement('div')
+    modalContainer.classList = "modal fade"
+    modalContainer.id = "modalContainer"
+    modalContainer.tabindex = "-1"
+    modalContainer.role="dialog"
+    modalContainer.setAttribute('aria-labelledby', "modalLabel")
+    modalContainer.setAttribute('aria-hidden', 'true')
+    modalContainer.innerHTML = `
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" id=${jobData.id}>
+        <div class="modal-header">
+          <h5 class="modal-title row"> ${jobData.title} </h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h8 class=""> ${jobData.company} </h8>
+        </div>
+        <div class="modal-body">
+        <p> <span id=subheading> Due: </span>${new Date (jobData.due_date).toLocaleDateString()} </p>
+        <p> <span id=subheading> Location: </span>${jobData.location} </p>
+        <a href="${jobData.job_url}"> Link to job </a>
+        <p> <span id=subheading> Description: </span>${jobData.description} </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+    `
+    p.appendChild(modalContainer)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  }
+  
+
+
   
 const displayJobList = (id) => {
   jobContainer.innerHTML = ""
@@ -84,6 +129,8 @@ const displayJobList = (id) => {
         jobDiv.style.marginBottom = "10px";
         jobDiv.dataset.id = id
         jobDiv.dataset.stage = stage
+        jobDiv.setAttribute('data-bs-toggle', 'modal')
+        jobDiv.setAttribute('data-bs-target', '#modalContainer')
 
         const jobTitle = document.createElement("h4")
         const jobCompany = document.createElement("p")
@@ -91,26 +138,22 @@ const displayJobList = (id) => {
         const jobDescription = document.createElement("p")
         const jobURL = document.createElement("p")
         const jobDueDate = document.createElement("p")
-        const jobStage = document.createElement("p")
         jobDiv.appendChild(jobTitle)
         jobDiv.appendChild(jobCompany)
         jobDiv.appendChild(jobLocation)
         jobDiv.appendChild(jobDescription)
         jobDiv.appendChild(jobURL)
         jobDiv.appendChild(jobDueDate)
-        jobDiv.appendChild(jobStage)
         jobTitle.textContent = `${title}`
         jobCompany.innerHTML = `<span id=subheading> Company: </span>${company}`
         jobLocation.innerHTML = `<span id=subheading> Location: </span>${location}`
         jobDescription.innerHTML = `<span id=subheading> Description: </span>${description}`
         jobURL.innerHTML = `<a href="${jobUrl}"> Link to job </a>`
         jobDueDate.innerHTML = `<span id=subheading> Due: </span>${dueDate.toLocaleDateString()}`
-        jobStage.innerHTML = `<span id=subheading> Stage: </span>${stage}`
   
         const editButton = document.createElement("button")
         jobDiv.appendChild(editButton)
         editButton.textContent = "Edit"
-        // console.log(id)
         editButton.addEventListener("click", () => {
           return axios.get(`/jobs/${id}`).then((res) => {
             p.innerHTML = ""
@@ -138,6 +181,10 @@ const displayJobList = (id) => {
         jobDiv.addEventListener("dragend", (event) => {
             console.log(event.target)
             jobDiv.classList.remove("is-dragging")
+        })
+        jobDiv.addEventListener("click", (event) => {
+          const jobId = event.currentTarget.dataset.id
+          generateModal(jobId)
         })
     })
   }

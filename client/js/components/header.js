@@ -31,7 +31,6 @@ export const renderHeader = (user) => {
 
   header.addEventListener("click", (event) => {
     const target = event.target;
-    console.log(target)
 
     const activeNav = document.querySelector(".active")
     if (activeNav) {
