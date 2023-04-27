@@ -14,7 +14,6 @@ const getRandomColor = () => {
     return colors[randomIndex];
 };
   
-
 const displayJobList = (id) => {
   jobContainer.innerHTML = ""
   p.innerHTML = ""
@@ -31,7 +30,6 @@ const displayJobList = (id) => {
 
   axios.get(`/jobs`).then((result) => {
     const jobs = result.data.rows
-    console.log(jobs)
   
     const createColumn = (stages) => {
       const filteredJobs = jobs.filter((job) => job.stages === stages)
@@ -61,7 +59,6 @@ const displayJobList = (id) => {
         axios.put(`/jobs/${jobId}`, body) 
         .then((response) => {
           console.log(response.data)
-        //   displayJobList()
         })
         .catch((error) => {
           console.error(error)
@@ -113,7 +110,7 @@ const displayJobList = (id) => {
         const editButton = document.createElement("button")
         jobDiv.appendChild(editButton)
         editButton.textContent = "Edit"
-        console.log(id)
+        // console.log(id)
         editButton.addEventListener("click", () => {
           return axios.get(`/jobs/${id}`).then((res) => {
             p.innerHTML = ""
@@ -151,8 +148,5 @@ const displayJobList = (id) => {
   })
   p.appendChild(jobContainer)
 }
-
-// const jobsBtn = document.getElementById("jobs")
-// jobsBtn.addEventListener("click", displayJobList)
 
 export default displayJobList

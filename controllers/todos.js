@@ -9,7 +9,6 @@ const {
 } = require("../models/todo");
 const router = express.Router();
 
-
 router.get("/:id", (req, res, next) => {
   id = Number(req.params.id);
   return getToDoById(id).then((todo) => res.json(todo));

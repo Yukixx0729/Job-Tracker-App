@@ -16,6 +16,13 @@ const toggleDetails = (contactItem) => {
 const showContactByLetter = (letter) => {
   page.innerHTML = ''
   renderAddContactAndLetterButtons()
+  const displayAllContactsBtn = document.createElement("button")
+  displayAllContactsBtn.id = "displayAllContactsBtn"
+  displayAllContactsBtn.textContent = "Return to Contacts"
+  displayAllContactsBtn.classList.add("btn", "btn-secondary", "mb-3")
+  page.appendChild(displayAllContactsBtn)
+  displayAllContactsBtn.addEventListener("click", renderContacts)
+
   return axios.get(`/contacts?letter=${letter}`)
   .then((res) => {
     console.log(res)
@@ -34,13 +41,6 @@ const renderAddContactAndLetterButtons = () => {
   page.appendChild(addContactBtn)
   addContactBtn.addEventListener("click", addContactForm)
 
-  const displayAllContactsBtn = document.createElement("button")
-  displayAllContactsBtn.id = "displayAllContactsBtn"
-  displayAllContactsBtn.textContent = "Show All Contacts"
-  displayAllContactsBtn.classList.add("btn", "btn-secondary", "mb-3")
-  page.appendChild(displayAllContactsBtn)
-  displayAllContactsBtn.addEventListener("click", renderContacts)
-
   const alphabetArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
   alphabetArray.forEach((letter) => {
   const letterButton = document.createElement('button')
@@ -49,8 +49,6 @@ const renderAddContactAndLetterButtons = () => {
   letterButton.classList = ""
   letterButton.addEventListener("click", (event) => showContactByLetter(event.target.id))
   page.appendChild(letterButton)
-
-  
   })
 }
 
@@ -182,8 +180,6 @@ const renderSingleContact = (contact) => {
   containerBox.appendChild(notes)
   containerBox.appendChild(editBtn)
   containerBox.appendChild(deleteBtn)
-  }
-
-
+}
 
 export { renderContactDisplay, renderContacts, renderSingleContact } 

@@ -11,7 +11,7 @@ export const renderHeader = (user) => {
       <div class="row nav-row align-items-center">
         <h1 class="nav-item col-5 h-30" id="homepage"> Job Tracker </h1>
         <h3 class="nav-item col h-30 justify-content-around text-center" role="button" data-render="jobs" > Jobs </h3>
-        <h3 class="nav-item col h-30 justify-content-around text-center" role="button" data-render="todo" > To Do </h3>
+        <h3 class="nav-item col h-30 justify-content-around text-center" role="button" data-render="todo" > Tasks </h3>
         <h3 class="nav-item col h-30 justify-content-around text-center" role="button" data-render="contacts" > Contacts </h3>
         <h3 class="nav-item col h-30 justify-content-around text-center" role="button" data-render="files"> Files </h3>
         <h3 class="nav-item logout-btn col h-30 justify-content-around text-center" role="button"> Logout </h3>
