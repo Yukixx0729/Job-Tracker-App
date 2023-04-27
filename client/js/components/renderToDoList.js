@@ -118,11 +118,11 @@ const renderToDoList = (id) => {
           cardText.innerText = task.description;
           const deleteBtn = document.createElement("button");
           deleteBtn.textContent = "Delete";
-          deleteBtn.classList.add("btn", "btn-light", "btn-sm", "hidden");
+          deleteBtn.classList.add("btn", "btn-outline-dark", "btn-sm", "hidden", "card-btn");
           deleteBtn.addEventListener("click", () => deleteToDo(task.id));
           const editBtn = document.createElement("button");
           editBtn.textContent = "Edit";
-          editBtn.classList.add("btn", "btn-light", "btn-sm", "mx-2", "hidden");
+          editBtn.classList.add("btn", "btn-outline-dark", "btn-sm", "mx-2", "hidden", "card-btn");
           editBtn.addEventListener("click", () => editToDoForm(task.id));
           cardBody.appendChild(cardTitle);
           cardBody.appendChild(cardSubtitle);
