@@ -1,4 +1,4 @@
-import renderContacts from "./renderContactsList.js"
+import { renderContacts } from "./renderContactsList.js"
 
 const addContactForm = () => {
   const page = document.getElementById('page')

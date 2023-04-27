@@ -1,6 +1,6 @@
 import renderFiles from "./renderFile.js";
 import displayJobList from "./renderJobs.js";
-import renderContacts from "./renderContactsList.js";
+import { renderContacts } from "./renderContactsList.js";
 import renderToDoList from "./renderToDoList.js";
 
 export const renderHeader = (user) => {

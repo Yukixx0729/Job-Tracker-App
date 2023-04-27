@@ -1,4 +1,4 @@
-import renderContacts from "./renderContactsList.js"
+import { renderSingleContact, renderContacts } from "./renderContactsList.js"
 
 const editContactForm = (id) => {
   return axios.get(`/contacts/${id}`)
@@ -6,7 +6,9 @@ const editContactForm = (id) => {
     const contact = res.data 
     console.log(res.data)
     const page = document.getElementById('page')
+
     page.innerHTML = `
+    <button id="displayAllContactsBtn" class="btn btn-secondary mb-3"> Show All Contacts </button>
     <form id="edit-contact-form">
     <h2>Edit Contact</h2>
     <div>
@@ -33,7 +35,7 @@ const editContactForm = (id) => {
   </form>
   `
   document.getElementById("edit-contact-form").addEventListener("submit", (event) => handleEditContact(event, contact.id))
-
+  document.getElementById("displayAllContactsBtn").addEventListener("click", renderContacts)
   })
 }
 
@@ -54,9 +56,16 @@ function handleEditContact(event, id) {
   console.log(body)
 
   return axios.put(`/contacts/${id}`, body)
-  .then(res => {
-    console.log(res)
-    renderContacts()
+  .then(() => {
+    return axios.get(`/contacts/${id}`)
+    .then((contactData) => {
+      const contact = contactData.data
+      renderSingleContact(contact)
+      console.log(contact)
+    })
+    .catch(err => {
+      console.error(err)
+    })
   })
   .catch(err => {
     console.error(err)
