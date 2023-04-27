@@ -7,10 +7,12 @@ const renderCreateToDoForm = (id) => {
     .then(res => {
       const jobs = res.data.rows;
 
-      // Generate job options markup
-      const jobOptions = jobs.filter(job => job.id !== null).map(job => `<option value="${job.id}">${job.title}</option>`).join('');
+      jobs.sort((a, b) => a.title.localeCompare(b.title));
 
-      // Update form markup
+    const jobOptions = jobs
+      .map(job => `<option value="${job.id}">${job.title}</option>`)
+      .join('') + `<option value="0" selected>Unassigned</option>`;
+
       header.innerHTML = `
         <form id="create-todo-form">
           <h2>Create new task </h2>
@@ -65,7 +67,7 @@ const renderCreateToDoForm = (id) => {
   function handleFormSubmit(event) {
     event.preventDefault();
     const user_id = document.getElementById("user_id")
-    const job_id = document.getElementById("job_id")
+    const job_id = document.getElementById("job_id").value;
     console.log(user_id)
     console.log(job_id)
     const formData = new FormData(event.target);
@@ -79,7 +81,7 @@ const renderCreateToDoForm = (id) => {
       priority: formData.get('priority'),
       status: formData.get('status'),
       user_id: user_id.value,
-      job_id: job_id.value
+      job_id: job_id === '0' ? null : job_id
     };
     console.log(body)
     return axios.post(`/todos`, body)
