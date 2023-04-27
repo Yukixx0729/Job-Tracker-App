@@ -5,42 +5,43 @@ function addJobForm(id) {
   const form = `
     <form id="add-job-form">
     <input type="text" id="user_id" value =${id} hidden/>
-      <h3>Add your jobs!</h3>
-        <div> 
+        <div class="form-group"> 
         <label for="title">Title</label>  
         <input type="text" name="title"></input>
         </div>
-        <div> 
+        <div class="form-group"> 
         <label for="company">Company</label>  
         <input type="text" name="company"></input>
         </div>
-        <div> 
+        <div class="form-group"> 
           <label for="location">Location</label>  
           <input type="text" name="location"></input>
         </div>
-        <div> 
+        <div class="form-group"> 
           <label for="description">Description</label>  
-          <textarea id="description" name="description" rows="5"></textarea>
+          <textarea id="description" name="description" rows="6"></textarea>
         </div>
-        <div> 
+        <div class="form-group"> 
           <label for="job_url">Job url</label>  
           <input type="url" name="job_url"></input>
         </div>
-        <div> 
+        <div class="form-group"> 
           <label for="due_date">Due date</label>  
           <input type="date" name="due_date"></input>
         </div>
-        <div> 
+        <div class="form-group"> 
           <label for="stages">Stage</label>  
-          <select name="stages">
+          <select name="stages" class="form-control">
             <option value="Application">Application</option>
             <option value="Phone Interview">Phone interview</option>
             <option value="Interview">Interview</option>
             <option value="Complete">Complete</option>
           </select>
         </div>
-        <button type="submit">Add job</button>
-        </form>
+        <div class="form-group">
+        <button type="submit">Add</button>
+        </div>
+    </form>
       `
 
   if (!header.contains(document.getElementById("add-job-form"))) {

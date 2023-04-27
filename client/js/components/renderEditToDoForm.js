@@ -10,37 +10,38 @@ const editToDoForm = (id) => {
 
     page.innerHTML = `
     <form id="update-todo-form">
-      <h2>Update your Task</h2>
-      <p> 
+      <div class="form-group"> 
         <label for="title">Title</label>  
         <input type="text" name="title" value="${task.title}"></input>
-      </p>
-      <p> 
+      </div>
+      <div class="form-group"> 
         <label for="description">Description</label>  
         <input type="text" name="description" value="${task.description}"></input>
-      </p>
-      <p> 
+      </div>
+      <div class="form-group">  
         <label for="due_date">Due Date</label>  
         <input type="date" name="due_date" value="${formattedDueDate}"></input>
-      </p>
-      <p> 
+      </div>
+      <div class="form-group">  
           <label for="priority">Priority</label>  
-          <select name="priority">
+          <select name="priority" class="form-control">
             <option value="low" ${task.priority === 'low' ? 'selected' : ''}>Low</option>
             <option value="moderate" ${task.priority === 'moderate' ? 'selected' : ''}>Moderate</option>
             <option value="high" ${task.priority === 'high' ? 'selected' : ''}>High</option>
           </select>
-        </p>
-        <p> 
+        </div>
+        <div class="form-group"> 
           <label for="status">Status</label>  
-          <select name="status">
+          <select name="status" class="form-control">
             <option value="planned" ${task.status === 'planned' ? 'selected' : ''}>Planned</option>
             <option value="in progress" ${task.status === 'in progress' ? 'selected' : ''}>In Progress</option>
             <option value="completed" ${task.status === 'completed' ? 'selected' : ''}>Completed</option>
           </select>
-        </p>
+        </div>
         <input type="text" id="user_id" value =${task.user_id} hidden/>
-      <button type="submit">Update Task</button>
+        <div class="form-group">   
+      <button type="submit">Update</button>
+      </div>
     </form>
   `;
 

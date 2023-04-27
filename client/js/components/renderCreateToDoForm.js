@@ -14,42 +14,44 @@ const renderCreateToDoForm = (id) => {
       header.innerHTML = `
         <form id="create-todo-form">
           <h2>Create new task </h2>
-          <p> 
+          <div class="form-group"> 
             <label for="title">Title</label>  
             <input type="text" name="title"></input>
-          </p>
-          <p> 
+          </div>
+          <div class="form-group"> 
             <label for="description">Description</label>  
             <textarea id="description" name="description" rows="5"></textarea>
-          </p>
-          <p> 
+          </div>
+          <div class="form-group"> 
             <label for="due_date">Due Date</label>  
             <input type="date" name="due_date"></input>
-          </p>
-          <p> 
+          </div>
+          <div class="form-group">  
           <label for="priority">Priority</label>  
-          <select name="priority">
+          <select name="priority" class="form-control">
               <option value="low">Low</option>
               <option value="moderate">Moderate</option>
               <option value="high">High</option>
           </select>
-          </p>
-          <p> 
+          </div>
+          <div class="form-group"> 
           <label for="status">Status</label>  
-          <select name="status">
+          <select name="status" class="form-control">
               <option value="planned">Planned</option>
               <option value="in progress">In Progress</option>
               <option value="completed">Completed</option>
           </select>
-          </p>
-          <p>
+          </div>
+          <div class="form-group"> 
           <label for="job_id">Job</label>
           <select name="job_id" id="job_id">
             ${jobOptions}
           </select>
-          </p>
+          </div>
           <input type="text" id="user_id" value=${id} hidden/>
+          <div class="form-group"> 
           <button type="submit"> Create Task</button>
+          </div>
         </form>
       `;
 

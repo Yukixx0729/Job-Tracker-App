@@ -9,27 +9,29 @@ const editContactForm = (id) => {
     page.innerHTML = `
     <form id="edit-contact-form">
     <h2>Edit Contact</h2>
-    <div>
+    <div class="form-group"> 
       <label for="contactName"> Name </label>
       <input type="text" name="contactName" value="${contact.contact_name}"></input>
     </div>
-    <div>
+    <div class="form-group"> 
       <label for="companyName"> Company </label>
       <input type="text" name="companyName" value="${contact.company_name}"></input>
     </div>
-    <div>
+    <div class="form-group"> 
       <label for="email"> Email </label>
       <input type="email" name="email" value="${contact.email}"></input>
     </div>
-    <div>
+    <div class="form-group"> 
     <label for="phoneNumber"> Phone No. </label>
     <input type="number" name="phoneNumber" value="${contact.phone_number}"></input>
   </div>
-  <div>
+  <div class="form-group"> 
   <label for="notes"> Notes </label>
-  <input type="text" name="notes" value="${contact.notes}"></input>
+  <textarea id="notes" name="notes" rows ="6" value="${contact.notes}"></textarea>
   </div>
+  <div class="form-group"> 
     <button type ="submit"> Save </button>
+  </div>
   </form>
   `
   document.getElementById("edit-contact-form").addEventListener("submit", (event) => handleEditContact(event, contact.id))
