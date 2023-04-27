@@ -9,42 +9,42 @@ function editJob(jobData) {
     const editForm = `
     <form id="edit-job-form" data-id="${id}">
     <input type="text" id="user_id" value =${jobData.data.user_id} hidden/>
-      <h3>Update your jobs!</h3>
-        <p> 
+      <div class="form-group"> 
         <label for="title">Title</label>  
         <input type="text" name="title" value = "${jobData.data.title}"></input>
-        </p>
-        <p> 
+        </div>
+        <div class="form-group"> 
         <label for="company">Company</label>  
         <input type="text" name="company" value = "${jobData.data.company}"></input>
-        </p>
-         <p> 
+        </div>
+        <div class="form-group"> 
         <label for="location">Location</label>  
         <input type="text" name="location" value = "${jobData.data.location}"></input>
-        </p>
-        <p> 
+        </div>
+        <div class="form-group"> 
         <label for="description">Description</label>  
         <textarea id="description" name="description" rows="5">${jobData.data.description}</textarea>
-        </p>
-        <p> 
+        </div>
+        <div class="form-group">  
         <label for="job_url">Job url</label>  
         <input type="url" name="job_url" value = "${jobData.data.job_url}"></input>
-        </p>
-        <p> 
+        </div>
+        <div class="form-group">  
         <label for="due_date">Due date</label>  
         <input type="date" name="due_date" value = "${formattedDueDate}"></input>
-        </p>
-        <p> 
+        </div>
+        <div class="form-group"> 
         <label for="stages">Stage</label>  
-        <select name="stages">
+        <select name="stages" class="form-control">
         <option value="Application" ${jobData.data.stages === 'Application' ? 'selected' : ''}>Application</option>
         <option value="Phone Interview" ${jobData.data.stages === 'Phone Interview' ? 'selected' : ''}>Phone interview</option>
         <option value="Interview" ${jobData.data.stages === 'Interview' ? 'selected' : ''}>Interview</option>
         <option value="Complete" ${jobData.data.stages === 'Complete' ? 'selected' : ''}>Complete</option>
         </select>
-        </p>
-     
+        </div>
+      <div class="form-group"> 
       <button type="submit">Update</button>
+      </div>
     </form>
       `;
 

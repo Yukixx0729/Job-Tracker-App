@@ -5,27 +5,29 @@ const addContactForm = () => {
   page.innerHTML = `
   <form id="add-contact-form">
   <h2>Add New Contact</h2>
-  <div>
+  <div class="form-group"> 
     <label for="contactName"> Name </label>
     <input type="text" name="contactName"></input>
   </div>
-  <div>
+  <div class="form-group"> 
     <label for="companyName"> Company </label>
     <input type="text" name="companyName"></input>
   </div>
-  <div>
+  <div class="form-group"> 
     <label for="email"> Email </label>
     <input type="email" name="email"></input>
   </div>
-  <div>
+  <div class="form-group"> 
   <label for="phoneNumber"> Phone No. </label>
   <input type="number" name="phoneNumber"></input>
 </div>
-<div>
+<div class="form-group"> 
 <label for="notes"> Notes </label>
-<input type="text" name="notes"></input>
+<textarea id="notes" name="notes" rows ="6"></textarea>
 </div>
+<div class="form-group"> 
   <button type ="submit"> Add Contact </button>
+<div class="form-group">   
 </form>
 `
 console.log(document.getElementById("add-contact-form"))

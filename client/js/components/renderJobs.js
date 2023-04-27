@@ -26,6 +26,7 @@ const displayJobList = (id) => {
   p.appendChild(addJobBtn)
   addJobBtn.addEventListener("click", () => {
     jobContainer.innerHTML = ""
+    p.removeChild(addJobBtn)
     addJobForm(id)
   })
 
