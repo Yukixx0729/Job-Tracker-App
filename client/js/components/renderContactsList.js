@@ -3,6 +3,18 @@ import editContactForm from "./renderEditContactForm.js"
 import deleteContact from "./deleteContact.js"
 
 const page = document.getElementById("page")
+const createButtonContainer = () =>{
+  const buttonContainer = document.createElement("div")
+  buttonContainer.classList = "container"
+  buttonContainer.id = "buttonContainer"
+  page.appendChild(buttonContainer)
+
+  const nonLetterContainer = document.createElement("div")
+  nonLetterContainer.classList = "row justify-content-sm-between justify-content-center"
+  nonLetterContainer.id="nonLetterContainer"
+  buttonContainer.appendChild(nonLetterContainer)
+}
+
 
 const toggleDetails = (contactItem) => {
   const contactDetails = contactItem.querySelector(".contact-details")
@@ -17,13 +29,14 @@ const displayAllContactsBtn = () => {
   const displayAllContactsBtn = document.createElement("button")
   displayAllContactsBtn.id = "displayAllContactsBtn"
   displayAllContactsBtn.textContent = "Return to Contacts"
-  displayAllContactsBtn.classList.add("btn", "btn-secondary", "mb-3")
-  page.appendChild(displayAllContactsBtn)
+  displayAllContactsBtn.classList = "mb-1 mt-3 btn btn-secondary col-sm-3 col-11"
+  document.getElementById("nonLetterContainer").appendChild(displayAllContactsBtn)
   displayAllContactsBtn.addEventListener("click", renderContacts)
 }
 
 const showContactByLetter = (letter) => {
   page.innerHTML = ''
+  createButtonContainer()
   renderAddContactAndLetterButtons()
   displayAllContactsBtn()
   
@@ -38,23 +51,15 @@ const showContactByLetter = (letter) => {
 }
 
 const renderAddContactAndLetterButtons = () => {
-  const buttonContainer = document.createElement("div")
-  buttonContainer.classList = "container"
-  page.appendChild(buttonContainer)
-
-  const addContactBtnContainer = document.createElement("div")
-  addContactBtnContainer.classList = "row justify-content-center justify-content-sm-end"
-  buttonContainer.appendChild(addContactBtnContainer)
-
   const addContactBtn = document.createElement("button")
   addContactBtn.id = "addContactBtn"
   addContactBtn.textContent = "Add Contact +"
-  addContactBtn.classList= "mb-1 mt-3 btn btn-secondary mb-3 col-lg-2 col-sm-3 col-11"
-  addContactBtnContainer.appendChild(addContactBtn)
+  addContactBtn.classList= "mb-1 mt-3 btn btn-secondary col-lg-2 col-sm-3 col-11"
+  document.getElementById("nonLetterContainer").insertAdjacentElement("beforeend", addContactBtn)
   addContactBtn.addEventListener("click", addContactForm)
 
   const letterButtonContainer = document.createElement("div")
-  letterButtonContainer.classList = "row"
+  letterButtonContainer.classList = "d-flex justify-content-center flex-wrap mb-1 mb-sm-4"
   buttonContainer.appendChild(letterButtonContainer)
 
   const alphabetArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -62,7 +67,7 @@ const renderAddContactAndLetterButtons = () => {
   const letterButton = document.createElement('button')
   letterButton.textContent = letter
   letterButton.id = letter
-  letterButton.classList = "col"
+  letterButton.classList = "col-auto btn"
   letterButton.addEventListener("click", (event) => showContactByLetter(event.target.id))
   letterButtonContainer.appendChild(letterButton)
   })
@@ -137,7 +142,7 @@ const renderContactDisplay = (res) => {
       
 const renderContacts = () => {
   page.innerHTML = ""
-
+  createButtonContainer()
   renderAddContactAndLetterButtons()
 
   return axios
@@ -152,6 +157,7 @@ const renderContacts = () => {
 
 const renderSingleContact = (contact) => {
   page.innerHTML = ""
+  createButtonContainer()
   renderAddContactAndLetterButtons()
   displayAllContactsBtn()
 
