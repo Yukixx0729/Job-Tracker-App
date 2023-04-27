@@ -59,35 +59,33 @@ const renderAddContactAndLetterButtons = () => {
 const renderContactDisplay = (res) => {
   const contacts = res.data
   const contactList = document.createElement("ul")
-  contactList.className = "list-group mx-auto"
-  contactList.style.maxWidth = "70%"
+  contactList.className = "list-group mx-auto row"
+  contactList.style.maxWidth = "700px"
 
   contacts.forEach((contact) => {
   const contactItem = document.createElement("li")
-  contactItem.className = "list-group-item"
+  contactItem.className = "container list-group-item col-8 col-sm-10 col-lg-12"
+  contactItem.addEventListener("click", () => toggleDetails(contactItem))
   contactList.appendChild(contactItem)
 
   const contactHeader = document.createElement("div")
-  contactHeader.classList = "container d-flex w-100 justify-content-between align-items-center "
-  contactHeader.addEventListener("click", () => toggleDetails(contactItem))
+  contactHeader.classList = "row d-flex align-items-center justify-content-between"
+  contactItem.appendChild(contactHeader)
 
   const contactName = document.createElement("h5")
-  contactName.className = "mb-1 row"
+  contactName.className = "mb-1 col-4"
   contactName.textContent = `${contact.contact_name}`
-  
-  const company = document.createElement("p")
-  company.className = "mb-1 row"
-  company.innerHTML = `${contact.company_name}`
-
-  const contactDetailsBtn = document.createElement("button")
-  contactDetailsBtn.className = "btn btn-sm contact-custom-btn"
-  contactDetailsBtn.textContent = "+"
-
   contactHeader.appendChild(contactName)
+
+  const company = document.createElement("p")
+  company.classList = "mb-1 col-sm-4 d-none d-sm-none d-md-block"
+  company.innerHTML = `${contact.company_name}`
   contactHeader.appendChild(company)
-  contactHeader.appendChild(contactDetailsBtn)
   
-  contactItem.appendChild(contactHeader)
+  const contactDetailsBtn = document.createElement("button")
+  contactDetailsBtn.className = "col-1 offset-3 align-self-end btn btn-sm contact-custom-btn"
+  contactDetailsBtn.textContent = "+"
+  contactHeader.appendChild(contactDetailsBtn)
 
   const contactDetails = document.createElement("div")
   contactDetails.className = "contact-details"
