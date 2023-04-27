@@ -13,8 +13,34 @@ const getRandomColor = () => {
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
 };
-  
 
+const generateModal = () => {
+    const modalDiv = document.createElement('div')
+    modalDiv.id = "modalBigDiv"
+    modalDiv.innerHTML = `
+    <div class="modal fade" id="modalContainer" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" id="">
+        <div class="modal-header">
+          <h5 class="modal-title row"> </h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h8 class="modal-company"> </h8>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  ` 
+  p.appendChild(modalDiv)  
+}
+    
 const displayJobList = (id) => {
   jobContainer.innerHTML = ""
   p.innerHTML = ""
@@ -32,7 +58,6 @@ const displayJobList = (id) => {
 
   axios.get(`/jobs`).then((result) => {
     const jobs = result.data.rows
-    console.log(jobs)
   
     const createColumn = (stages) => {
       const filteredJobs = jobs.filter((job) => job.stages === stages)
@@ -62,7 +87,6 @@ const displayJobList = (id) => {
         axios.put(`/jobs/${jobId}`, body) 
         .then((response) => {
           console.log(response.data)
-        //   displayJobList()
         })
         .catch((error) => {
           console.error(error)
@@ -73,9 +97,6 @@ const displayJobList = (id) => {
         const id = job.id
         const title = job.title
         const company = job.company
-        const location = job.location
-        const description = job.description
-        const jobUrl = job.job_url
         const dueDate = new Date(job.due_date)
         const stage = job.stages
   
@@ -88,50 +109,39 @@ const displayJobList = (id) => {
         jobDiv.style.marginBottom = "10px";
         jobDiv.dataset.id = id
         jobDiv.dataset.stage = stage
+        jobDiv.setAttribute('data-bs-toggle', 'modal')
+        jobDiv.setAttribute('data-bs-target', '#modalContainer')
 
         const jobTitle = document.createElement("h4")
         const jobCompany = document.createElement("p")
-        const jobLocation = document.createElement("p")
-        const jobDescription = document.createElement("p")
-        const jobURL = document.createElement("p")
         const jobDueDate = document.createElement("p")
-        const jobStage = document.createElement("p")
         jobDiv.appendChild(jobTitle)
         jobDiv.appendChild(jobCompany)
-        jobDiv.appendChild(jobLocation)
-        jobDiv.appendChild(jobDescription)
-        jobDiv.appendChild(jobURL)
         jobDiv.appendChild(jobDueDate)
-        jobDiv.appendChild(jobStage)
         jobTitle.textContent = `${title}`
         jobCompany.innerHTML = `<span id=subheading> Company: </span>${company}`
-        jobLocation.innerHTML = `<span id=subheading> Location: </span>${location}`
-        jobDescription.innerHTML = `<span id=subheading> Description: </span>${description}`
-        jobURL.innerHTML = `<a href="${jobUrl}"> Link to job </a>`
         jobDueDate.innerHTML = `<span id=subheading> Due: </span>${dueDate.toLocaleDateString()}`
-        jobStage.innerHTML = `<span id=subheading> Stage: </span>${stage}`
   
-        const editButton = document.createElement("button")
-        jobDiv.appendChild(editButton)
-        editButton.textContent = "Edit"
-        console.log(id)
-        editButton.addEventListener("click", () => {
-          return axios.get(`/jobs/${id}`).then((res) => {
-            p.innerHTML = ""
-            editJob(res)
+        // const editButton = document.createElement("button")
+        // jobDiv.appendChild(editButton)
+        // editButton.textContent = "Edit"
+        // editButton.addEventListener("click", () => {
+        //   return axios.get(`/jobs/${id}`).then((res) => {
+        //     p.innerHTML = ""
+        //     editJob(res)
             
-          })
-        })
+        //   })
+        // })
   
-        const deleteButton = document.createElement("button")
-        jobDiv.appendChild(deleteButton)
-        deleteButton.textContent = "Delete"
-        deleteButton.addEventListener("click", () => {
-          if (confirm("Are you sure you want to delete this job?"))
-            return axios.delete(`/jobs/${id}`).then((res) => {
-              jobDiv.remove()
-            })
-        })
+        // const deleteButton = document.createElement("button")
+        // jobDiv.appendChild(deleteButton)
+        // deleteButton.textContent = "Delete"
+        // deleteButton.addEventListener("click", () => {
+        //   if (confirm("Are you sure you want to delete this job?"))
+        //     return axios.delete(`/jobs/${id}`).then((res) => {
+        //       jobDiv.remove()
+        //     })
+        // })
         column.appendChild(jobDiv)
 
         jobDiv.addEventListener("dragstart", (event) => {
@@ -143,17 +153,66 @@ const displayJobList = (id) => {
             console.log(event.target)
             jobDiv.classList.remove("is-dragging")
         })
+
+        
+        jobDiv.addEventListener("click", (event) => {
+          const jobId = event.currentTarget.dataset.id
+          axios.get(`/jobs/${jobId}`)
+          .then((res) => {
+            const jobData = res.data;
+            console.log(jobData);
+            modalContainer.querySelector('.modal-content').id = jobData.id;
+            modalContainer.querySelector('.modal-title').textContent = jobData.title;
+            modalContainer.querySelector('.modal-company').textContent = jobData.company
+            modalContainer.querySelector('.modal-body').innerHTML = `
+              <p> <span class=subheading> Due: </span>${new Date (jobData.due_date).toLocaleDateString()} </p>
+              <p> <span class=subheading> Stage: </span> ${jobData.stages}
+              <p> <span class=subheading> Location: </span>${jobData.location} </p>
+              <a href="${jobData.job_url}"> Link to job </a>
+              <p> <span class=subheading> Description: </span>${jobData.description} </p>
+            `;
+            const modalFooter = document.querySelector(".modal-footer")
+            modalFooter.innerHTML = ''
+            
+            const editButton = document.createElement("button")
+            modalFooter.appendChild(editButton)
+            editButton.textContent = "Edit"
+            editButton.addEventListener("click", () => {
+              document.body.classList.remove('modal-open');
+              document.body.style.paddingRight = '';
+              document.body.style.overflow = 'auto';
+              return axios.get(`/jobs/${id}`).then((res) => {
+                p.innerHTML = ""
+                editJob(res)
+                $('#modalBigDiv').modal('hide')
+              })
+            })
+          
+            const deleteButton = document.createElement("button")
+            modalFooter.appendChild(deleteButton)
+            deleteButton.textContent = "Delete"
+            deleteButton.addEventListener("click", () => {
+              if (confirm("Are you sure you want to delete this job?"))
+                return axios.delete(`/jobs/${id}`).then((res) => {
+                  jobDiv.remove()
+                })
+            })
+            modalContainer.style.display = 'block';
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        })
     })
   }
     createColumn("Application")
     createColumn("Phone Interview")
     createColumn("Interview")
     createColumn("Complete")
+    generateModal()
+
   })
   p.appendChild(jobContainer)
 }
-
-// const jobsBtn = document.getElementById("jobs")
-// jobsBtn.addEventListener("click", displayJobList)
 
 export default displayJobList

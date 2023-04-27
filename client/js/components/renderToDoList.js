@@ -23,15 +23,38 @@ const renderToDoList = (id) => {
 
   statuses.forEach((status) => {
     const col = document.createElement("div");
+    col.id = status
     col.classList.add("col", "text-center", 'border', 'border-secondary', 'mb-2', 'mx-2');
     const title = document.createElement("h2");
     title.classList.add("text-center");
     title.innerText = status.charAt(0).toUpperCase() + status.slice(1);
     col.appendChild(title);
     row.appendChild(col);
+
+    col.addEventListener("dragover", (event) => {
+      event.preventDefault()
+      const draggingJob = document.querySelector(".is-dragging")
+      col.appendChild(draggingJob)
+    })
+
+    col.addEventListener("drop", (event) => {
+      event.preventDefault()
+      const todoId = event.dataTransfer.getData('text/plain')
+      const body = {
+        id: Number(todoId),
+        status
+      }
+      axios.put(`/todos/${todoId}`, body)
+      .then(() => {
+        renderToDoList()
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+    })
+
     axios.get(`/todos`).then((res) => {
       const tasks = res.data;
-      console.log(tasks)
       tasks.sort((a, b) => {
         if (a.priority === "high" && b.priority !== "high") {
           return -1;
@@ -46,6 +69,8 @@ const renderToDoList = (id) => {
         .filter((task) => task.status === status)
         .forEach((task) => {
           const card = document.createElement("div");
+          card.draggable = "true"
+          card.id = task.id
           card.classList.add("card", "mb-3", "mx-auto");
           if (task.status === "completed") {
             card.classList.add("task-card", "completed");
@@ -77,6 +102,17 @@ const renderToDoList = (id) => {
             .toString()
             .padStart(2, "0")}/${dueDateObj.getFullYear()}`;
           cardSubtitle.innerText = `Due: ${dueDateStr}`;
+
+          if (task.job_id) {
+            const jobId = document.createElement("p");
+            jobId.classList.add("card-text");
+            axios.get(`/jobs/${task.job_id}`).then((res) => {
+              const jobTitle = res.data.title;
+              jobId.innerText = `Job: ${jobTitle}`;
+              cardSubtitle.insertAdjacentElement('afterend', jobId);
+            });
+          }
+
           const cardText = document.createElement("p");
           cardText.classList.add("card-text");
           cardText.innerText = task.description;
@@ -95,15 +131,6 @@ const renderToDoList = (id) => {
           cardBody.appendChild(editBtn);
           card.appendChild(cardBody);
           col.appendChild(card);
-          if (task.job_id) {
-            const jobId = document.createElement("p");
-            jobId.classList.add("card-text");
-            axios.get(`/jobs/${task.job_id}`).then((res) => {
-              const jobTitle = res.data.title;
-              jobId.innerText = `Job: ${jobTitle}`;
-              cardBody.appendChild(jobId);
-            });
-          }
 
           card.addEventListener("mouseenter", () => {
             deleteBtn.classList.remove("hidden");
@@ -114,12 +141,17 @@ const renderToDoList = (id) => {
             deleteBtn.classList.add("hidden");
             editBtn.classList.add("hidden");
           });
+
+          card.addEventListener("dragstart", (event) => {
+            card.classList.add("is-dragging")
+            event.dataTransfer.setData('text/plain', task.id)
+        })
+          card.addEventListener("dragend", (event) => {
+            card.classList.remove("is-dragging")
+        })
         });
     });
   });
 };
-
-// const toDosBtn = document.getElementById("todo");
-// toDosBtn.addEventListener('click', renderToDoList)
 
 export default renderToDoList;

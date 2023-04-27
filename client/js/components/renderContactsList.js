@@ -13,9 +13,20 @@ const toggleDetails = (contactItem) => {
   }
 }
 
+const displayAllContactsBtn = () => {
+  const displayAllContactsBtn = document.createElement("button")
+  displayAllContactsBtn.id = "displayAllContactsBtn"
+  displayAllContactsBtn.textContent = "Return to Contacts"
+  displayAllContactsBtn.classList.add("btn", "btn-secondary", "mb-3")
+  page.appendChild(displayAllContactsBtn)
+  displayAllContactsBtn.addEventListener("click", renderContacts)
+}
+
 const showContactByLetter = (letter) => {
   page.innerHTML = ''
-  renderLetterButtons()
+  renderAddContactAndLetterButtons()
+  displayAllContactsBtn()
+  
   return axios.get(`/contacts?letter=${letter}`)
   .then((res) => {
     console.log(res)
@@ -26,7 +37,14 @@ const showContactByLetter = (letter) => {
   })
 }
 
-const renderLetterButtons = () => {
+const renderAddContactAndLetterButtons = () => {
+  const addContactBtn = document.createElement("button")
+  addContactBtn.id = "addContactBtn"
+  addContactBtn.textContent = "Add Contact +"
+  addContactBtn.classList.add("btn", "btn-secondary", "mb-3")
+  page.appendChild(addContactBtn)
+  addContactBtn.addEventListener("click", addContactForm)
+
   const alphabetArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
   alphabetArray.forEach((letter) => {
   const letterButton = document.createElement('button')
@@ -39,6 +57,7 @@ const renderLetterButtons = () => {
 }
 
 const renderContactDisplay = (res) => {
+  // displayAllContactsBtn()
   const contacts = res.data
   const contactList = document.createElement("ul")
   contactList.className = "list-group mx-auto"
@@ -106,19 +125,10 @@ const renderContactDisplay = (res) => {
   page.appendChild(contactList)
 }
       
-
-
 const renderContacts = () => {
   page.innerHTML = ""
 
-  renderLetterButtons()
-
-  const addContactBtn = document.createElement("button")
-  addContactBtn.id = "addContactBtn"
-  addContactBtn.textContent = "Add Contact"
-  addContactBtn.classList.add("btn", "btn-secondary", "mb-3")
-  page.appendChild(addContactBtn)
-  addContactBtn.addEventListener("click", addContactForm)
+  renderAddContactAndLetterButtons()
 
   return axios
   .get("/contacts")
@@ -130,4 +140,60 @@ const renderContacts = () => {
   })
 }
 
-export default renderContacts
+const renderSingleContact = (contact) => {
+  page.innerHTML = ""
+  renderAddContactAndLetterButtons()
+  displayAllContactsBtn()
+
+  const contactList = document.createElement("ul")
+  contactList.className = "list-group mx-auto"
+  contactList.style.maxWidth = "70%"
+
+  const contactItem = document.createElement("li")
+  contactItem.className = "list-group-item"
+  contactList.appendChild(contactItem)
+
+  const contactHeader = document.createElement("div")
+  contactHeader.className = "d-flex w-100 justify-content-between"
+
+  const contactName = document.createElement("h5")
+  contactName.className = "mb-1"
+  contactName.textContent = `${contact.contact_name}`
+
+  const company = document.createElement("p")
+  company.className = "mb-1"
+  company.innerHTML = `<strong>Company:</strong> ${contact.company_name}`
+
+  const email = document.createElement("p")
+  email.className = "mb-1"
+  email.innerHTML = `<strong>Email:</strong> ${contact.email}`
+
+  const phoneNo = document.createElement("p")
+  phoneNo.className = "mb-1"
+  phoneNo.innerHTML = `<strong>Phone:</strong> ${contact.phone_number}`
+
+  const notes = document.createElement("p")
+  notes.className = "mb-1"
+  notes.innerHTML = `<strong>Notes:</strong> ${contact.notes}`
+
+  const editBtn = document.createElement('button')
+  editBtn.textContent = "Edit"
+  editBtn.className = "editBtn"
+  editBtn.addEventListener("click", () => editContactForm(contact.id))
+
+  const deleteBtn = document.createElement('button')
+  deleteBtn.textContent = "Delete"
+  deleteBtn.className = "deleteBtn"
+  deleteBtn.addEventListener("click", () => deleteContact(contact.id))
+  
+  contactItem.appendChild(contactName)
+  contactItem.appendChild(company)
+  contactItem.appendChild(email)
+  contactItem.appendChild(phoneNo)
+  contactItem.appendChild(notes)
+  contactItem.appendChild(editBtn)
+  contactItem.appendChild(deleteBtn)
+  page.appendChild(contactList)
+}
+
+export { renderContactDisplay, renderContacts, renderSingleContact } 
