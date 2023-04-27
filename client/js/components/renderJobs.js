@@ -16,8 +16,9 @@ const getRandomColor = () => {
 
 const generateModal = () => {
     const modalDiv = document.createElement('div')
+    modalDiv.id = "modalBigDiv"
     modalDiv.innerHTML = `
-    <div class="modal fade" id="modalContainer" tabindex="-1" role="dialog" aria-labelledby="modalLavel" aria-hidden="true">
+    <div class="modal fade" id="modalContainer" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content" id="">
         <div class="modal-header">
@@ -170,13 +171,19 @@ const displayJobList = (id) => {
               <p> <span class=subheading> Description: </span>${jobData.description} </p>
             `;
             const modalFooter = document.querySelector(".modal-footer")
+            modalFooter.innerHTML = ''
+            
             const editButton = document.createElement("button")
             modalFooter.appendChild(editButton)
             editButton.textContent = "Edit"
             editButton.addEventListener("click", () => {
+              document.body.classList.remove('modal-open');
+              document.body.style.paddingRight = '';
+              document.body.style.overflow = 'auto';
               return axios.get(`/jobs/${id}`).then((res) => {
                 p.innerHTML = ""
                 editJob(res)
+                $('#modalBigDiv').modal('hide')
               })
             })
           
