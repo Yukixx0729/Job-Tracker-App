@@ -173,6 +173,7 @@ const displayJobList = (id) => {
               if (confirm("Are you sure you want to delete this job?"))
                 return axios.delete(`/jobs/${id}`).then((res) => {
                   jobDiv.remove()
+                  displayJobList()
                 })
             })
             modalContainer.style.display = 'block';
