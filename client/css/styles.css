@@ -248,6 +248,10 @@ body {
   background-color:#d1909c;
 }
 
+#searchBar {
+  border-radius: 0.5rem;
+}
+
 /*Form styling */
 form {
   max-width: 500px;

@@ -38,7 +38,7 @@ const showContactBySearch = (querySearch) => {
   document.getElementById('modalBigDiv').remove()
   return axios.get(`/contacts?search=${querySearch}`)
   .then((res) => {
-    console.log(res)
+    // console.log(res)
     renderContactDisplay(res)
   })
   .catch((err) => {
@@ -51,7 +51,7 @@ const searchBar = () => {
   searchBar.type="search"
   searchBar.placeholder="Search..."
   searchBar.id = "searchBar"
-  searchBar.classList = "mb-1 mt-3 col-sm-3 col-11"
+  searchBar.classList = "mb-1 mt-3 col-sm-4 col-11 "
   document.getElementById("nonLetterContainer").appendChild(searchBar)
   searchBar.addEventListener("input", (event) => {
     showContactBySearch(event.target.value)
