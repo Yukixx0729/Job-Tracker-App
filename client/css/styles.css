@@ -228,7 +228,7 @@ body {
   background-color: #f7eaea;
 }
 .list-group-item {
-  background-color: #f7eaea;
+  background-color: #f8f3f3;
   cursor: pointer;
 }
 .contact-details {
@@ -241,7 +241,7 @@ body {
   margin-bottom: 0.5rem;
 }
 .contact-custom-btn {
-  background-color: #f7eaea;
+  background-color:#f8f3f3;
 }
 
 .contact-edit-delete {

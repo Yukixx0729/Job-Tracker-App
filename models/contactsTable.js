@@ -13,8 +13,8 @@ const getAllContacts = (userId, letter, querySearch) => {
     sql = `SELECT * FROM contacts WHERE user_id = $1 AND contact_name ILIKE $2 ORDER BY contact_name ASC;`
     params = [userId, `${letter}%`]
   } else if (userId && querySearch) {
-    sql = 'SELECT * FROM contacts WHERE user_id = $1 AND (contact_name ILIKE $2 OR company_name ILIKE $2 OR email ILIKE $2 OR phone_number ILIKE $2 OR notes ILIKE $2);'
-    params = [userId, `%${querySearch}%`]
+    sql = 'SELECT * FROM contacts WHERE user_id = $1 AND (contact_name ILIKE $2 OR company_name ILIKE $2 OR email ILIKE $2 OR phone_number ILIKE $2);'
+    params = [userId, `${querySearch}%`]
   } else if (userId && !letter && !querySearch) {
     sql = 'SELECT * FROM contacts WHERE user_id =$1 ORDER BY contact_name ASC;'
     params = [userId]
