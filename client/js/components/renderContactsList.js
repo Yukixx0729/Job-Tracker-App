@@ -262,25 +262,42 @@ const renderSingleContact = (contact) => {
   notes.className = "mb-1"
   notes.innerHTML = `<strong>Notes:</strong> ${contact.notes}`
 
+  const buttonContainer = document.createElement("div")
+  buttonContainer.classList = "row justify-content-between"
+
   const editBtn = document.createElement('button')
   editBtn.textContent = "Edit"
-  editBtn.className = "editBtn"
+  editBtn.className = "editBtn btn-sm contact-edit-delete col-sm-2 col-3"
   editBtn.addEventListener("click", () => editContactForm(contact.id))
+  buttonContainer.appendChild(editBtn)
 
   const deleteBtn = document.createElement('button')
   deleteBtn.textContent = "Delete"
-  deleteBtn.className = "deleteBtn"
-  deleteBtn.addEventListener("click", () => modalContainer.style.display = 'block')
+  deleteBtn.className = "deleteBtn btn-sm contact-edit-delete col-sm-2 col-4"
+  deleteBtn.setAttribute('data-bs-toggle', 'modal')
+  deleteBtn.setAttribute('data-bs-target', '#modalContainer')
+  deleteBtn.dataset.id = contact.id
+  deleteBtn.addEventListener("click", (event) => {
+    modalContainer.style.display = 'block'
+    modalContainer.dataset.id = event.currentTarget.dataset.id
+  })
+  buttonContainer.appendChild(deleteBtn)
   
   contactItem.appendChild(contactName)
   contactItem.appendChild(company)
   contactItem.appendChild(email)
   contactItem.appendChild(phoneNo)
   contactItem.appendChild(notes)
-  contactItem.appendChild(editBtn)
-  contactItem.appendChild(deleteBtn)
+  contactItem.insertAdjacentElement('beforeend', buttonContainer)
   page.appendChild(contactList)
   generateModal()
+
+  const modalDeleteBtn = document.getElementById("modalDeleteBtn")
+  modalDeleteBtn.addEventListener("click", () => {
+    const contactId = document.getElementById("modalContainer").dataset.id
+    document.querySelector(".modal-backdrop").classList = ""
+    deleteContact(contactId)
+  })
 }
 
 export { renderContactDisplay, renderContacts, renderSingleContact, createButtonContainer, displayAllContactsBtn } 
