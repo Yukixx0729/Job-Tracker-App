@@ -7,17 +7,17 @@ const jobContainer = document.createElement("div")
 jobContainer.className = "row justify-content-evenly"
 jobContainer.id = "jobListContainer"
 
-const colors = ["#c3acb1", "#7f9990", "#b9d6c8", "#e1caca", "#d1909c"];
+const colors = ["#c3acb1", "#7f9990", "#b9d6c8", "#e1caca", "#d1909c"]
 
 const getRandomColor = () => {
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-};
+  const randomIndex = Math.floor(Math.random() * colors.length)
+  return colors[randomIndex];
+}
 
 const generateModal = () => {
-    const modalDiv = document.createElement('div')
-    modalDiv.id = "modalBigDiv"
-    modalDiv.innerHTML = `
+  const modalDiv = document.createElement('div')
+  modalDiv.id = "modalBigDiv"
+  modalDiv.innerHTML = `
     <div class="modal fade" id="modalContainer" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content" id="">
@@ -173,6 +173,7 @@ const displayJobList = (id) => {
               if (confirm("Are you sure you want to delete this job?"))
                 return axios.delete(`/jobs/${id}`).then((res) => {
                   jobDiv.remove()
+                  displayJobList()
                 })
             })
             modalContainer.style.display = 'block';

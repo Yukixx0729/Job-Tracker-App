@@ -57,7 +57,6 @@ const renderAddContactAndLetterButtons = () => {
 }
 
 const renderContactDisplay = (res) => {
-  // displayAllContactsBtn()
   const contacts = res.data
   const contactList = document.createElement("ul")
   contactList.className = "list-group mx-auto"
@@ -69,28 +68,30 @@ const renderContactDisplay = (res) => {
   contactList.appendChild(contactItem)
 
   const contactHeader = document.createElement("div")
-  contactHeader.className = "d-flex w-100 justify-content-between align-items-center"
+  contactHeader.classList = "container d-flex w-100 justify-content-between align-items-center "
   contactHeader.addEventListener("click", () => toggleDetails(contactItem))
 
   const contactName = document.createElement("h5")
-  contactName.className = "mb-1"
-  contactName.textContent = `${contact.contact_name}  -  ${contact.company_name}`
+  contactName.className = "mb-1 row"
+  contactName.textContent = `${contact.contact_name}`
+  
+  const company = document.createElement("p")
+  company.className = "mb-1 row"
+  company.innerHTML = `${contact.company_name}`
 
   const contactDetailsBtn = document.createElement("button")
   contactDetailsBtn.className = "btn btn-sm contact-custom-btn"
   contactDetailsBtn.textContent = "+"
 
   contactHeader.appendChild(contactName)
+  contactHeader.appendChild(company)
   contactHeader.appendChild(contactDetailsBtn)
+  
   contactItem.appendChild(contactHeader)
 
   const contactDetails = document.createElement("div")
   contactDetails.className = "contact-details"
   contactDetails.style.display = "none"
-
-  const company = document.createElement("p")
-  company.className = "mb-1"
-  company.innerHTML = `<strong>Company:</strong> ${contact.company_name}`
 
   const email = document.createElement("p")
   email.className = "mb-1"
@@ -114,7 +115,7 @@ const renderContactDisplay = (res) => {
   deleteBtn.className = "deleteBtn"
   deleteBtn.addEventListener("click", () => deleteContact(contact.id))
       
-  contactDetails.appendChild(company)
+  // contactDetails.appendChild(company)
   contactDetails.appendChild(email)
   contactDetails.appendChild(phoneNo)
   contactDetails.appendChild(notes)
