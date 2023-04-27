@@ -14,33 +14,20 @@ const getRandomColor = () => {
     return colors[randomIndex];
 };
 
-const generateModal = (id) => {
-  return axios.get(`/jobs/${id}`)
-  .then((res) => {
-    const jobData = res.data
-    console.log(jobData)
-    const modalContainer = document.createElement('div')
-    modalContainer.classList = "modal fade"
-    modalContainer.id = "modalContainer"
-    modalContainer.tabindex = "-1"
-    modalContainer.role="dialog"
-    modalContainer.setAttribute('aria-labelledby', "modalLabel")
-    modalContainer.setAttribute('aria-hidden', 'true')
-    modalContainer.innerHTML = `
+const generateModal = () => {
+    const modalDiv = document.createElement('div')
+    modalDiv.innerHTML = `
+    <div class="modal fade" id="modalContainer" tabindex="-1" role="dialog" aria-labelledby="modalLavel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content" id=${jobData.id}>
+      <div class="modal-content" id="">
         <div class="modal-header">
-          <h5 class="modal-title row"> ${jobData.title} </h5>
+          <h5 class="modal-title row"> </h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h8 class=""> ${jobData.company} </h8>
+          <h8 class="modal-company"> </h8>
         </div>
         <div class="modal-body">
-        <p> <span id=subheading> Due: </span>${new Date (jobData.due_date).toLocaleDateString()} </p>
-        <p> <span id=subheading> Location: </span>${jobData.location} </p>
-        <a href="${jobData.job_url}"> Link to job </a>
-        <p> <span id=subheading> Description: </span>${jobData.description} </p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -48,17 +35,11 @@ const generateModal = (id) => {
         </div>
       </div>
     </div>
-    `
-    p.appendChild(modalContainer)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+    </div>
+  `
+    p.appendChild(modalDiv)
   }
-  
-
-
-  
+    
 const displayJobList = (id) => {
   jobContainer.innerHTML = ""
   p.innerHTML = ""
@@ -182,9 +163,29 @@ const displayJobList = (id) => {
             console.log(event.target)
             jobDiv.classList.remove("is-dragging")
         })
+
+        
         jobDiv.addEventListener("click", (event) => {
           const jobId = event.currentTarget.dataset.id
-          generateModal(jobId)
+          axios.get(`/jobs/${jobId}`)
+          .then((res) => {
+            const jobData = res.data;
+            console.log(jobData);
+            modalContainer.querySelector('.modal-content').id = jobData.id;
+            modalContainer.querySelector('.modal-title').textContent = jobData.title;
+            modalContainer.querySelector('.modal-company').textContent = jobData.company
+            modalContainer.querySelector('.modal-body').innerHTML = `
+              <p> <span class=subheading> Due: </span>${new Date (jobData.due_date).toLocaleDateString()} </p>
+              <p> <span class=subheading> Stage: </span> ${jobData.stages}
+              <p> <span class=subheading> Location: </span>${jobData.location} </p>
+              <a href="${jobData.job_url}"> Link to job </a>
+              <p> <span class=subheading> Description: </span>${jobData.description} </p>
+            `;
+            modalContainer.style.display = 'block';
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         })
     })
   }
@@ -192,6 +193,7 @@ const displayJobList = (id) => {
     createColumn("Phone Interview")
     createColumn("Interview")
     createColumn("Complete")
+    generateModal()
   })
   p.appendChild(jobContainer)
 }
