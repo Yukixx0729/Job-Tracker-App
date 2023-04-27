@@ -121,27 +121,6 @@ const displayJobList = (id) => {
         jobTitle.textContent = `${title}`
         jobCompany.innerHTML = `<span id=subheading> Company: </span>${company}`
         jobDueDate.innerHTML = `<span id=subheading> Due: </span>${dueDate.toLocaleDateString()}`
-  
-        // const editButton = document.createElement("button")
-        // jobDiv.appendChild(editButton)
-        // editButton.textContent = "Edit"
-        // editButton.addEventListener("click", () => {
-        //   return axios.get(`/jobs/${id}`).then((res) => {
-        //     p.innerHTML = ""
-        //     editJob(res)
-            
-        //   })
-        // })
-  
-        // const deleteButton = document.createElement("button")
-        // jobDiv.appendChild(deleteButton)
-        // deleteButton.textContent = "Delete"
-        // deleteButton.addEventListener("click", () => {
-        //   if (confirm("Are you sure you want to delete this job?"))
-        //     return axios.delete(`/jobs/${id}`).then((res) => {
-        //       jobDiv.remove()
-        //     })
-        // })
         column.appendChild(jobDiv)
 
         jobDiv.addEventListener("dragstart", (event) => {
@@ -184,7 +163,6 @@ const displayJobList = (id) => {
               return axios.get(`/jobs/${id}`).then((res) => {
                 p.innerHTML = ""
                 editJob(res)
-                $('#modalBigDiv').modal('hide')
               })
             })
           
