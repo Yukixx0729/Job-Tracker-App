@@ -33,6 +33,31 @@ const displayAllContactsBtn = () => {
   displayAllContactsBtn.addEventListener("click", renderContacts)
 }
 
+const showContactBySearch = (querySearch) => {
+  document.querySelector("ul").remove()
+  document.getElementById('modalBigDiv').remove()
+  return axios.get(`/contacts?search=${querySearch}`)
+  .then((res) => {
+    console.log(res)
+    renderContactDisplay(res)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
+const searchBar = () => {
+  const searchBar = document.createElement("input")
+  searchBar.type="search"
+  searchBar.placeholder="Search..."
+  searchBar.id = "searchBar"
+  searchBar.classList = "mb-1 mt-3 col-sm-3 col-11"
+  document.getElementById("nonLetterContainer").appendChild(searchBar)
+  searchBar.addEventListener("input", (event) => {
+    showContactBySearch(event.target.value)
+  } )
+}
+
 const showContactByLetter = (letter) => {
   page.innerHTML = ''
   createButtonContainer()
@@ -188,6 +213,7 @@ const renderContacts = () => {
   page.innerHTML = ""
   createButtonContainer()
   renderAddContactAndLetterButtons()
+  searchBar()
 
   return axios
   .get("/contacts")
