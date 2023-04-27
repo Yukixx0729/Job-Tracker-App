@@ -43,13 +43,13 @@ const renderAddContactAndLetterButtons = () => {
   page.appendChild(buttonContainer)
 
   const addContactBtnContainer = document.createElement("div")
-  addContactBtnContainer.classList = "row justify-content-end"
+  addContactBtnContainer.classList = "row justify-content-center justify-content-sm-end"
   buttonContainer.appendChild(addContactBtnContainer)
 
   const addContactBtn = document.createElement("button")
   addContactBtn.id = "addContactBtn"
   addContactBtn.textContent = "Add Contact +"
-  addContactBtn.classList= "btn btn-secondary mb-3 col-lg-2 col-sm-3 col-12"
+  addContactBtn.classList= "mb-1 mt-3 btn btn-secondary mb-3 col-lg-2 col-sm-3 col-11"
   addContactBtnContainer.appendChild(addContactBtn)
   addContactBtn.addEventListener("click", addContactForm)
 
