@@ -59,14 +59,11 @@ function editJob(jobData) {
         <option value="Practical Test" ${jobData.data.stages === 'Practical Test' ? 'selected' : ''}> Practical Test</option>
         <option value="Complete" ${jobData.data.stages === 'Complete' ? 'selected' : ''}>Complete</option>
         </select>
-        </div>
-      <div class="form-group"> 
       <button type="submit">Update</button>
       </div>
     </form>
   `;
-
- 
+  
     const container = document.createElement("div")
     container.innerHTML = editForm
 

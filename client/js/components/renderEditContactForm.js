@@ -33,8 +33,8 @@ const editContactForm = (id) => {
     <input type="number" name="phoneNumber" value="${contact.phone_number}"></input>
   </div>
   <div class="form-group"> 
-  <label for="notes"> Notes </label>
-  <textarea id="notes" name="notes" rows ="6" value="${contact.notes}"></textarea>
+    <label for="notes"> Notes </label>
+    <textarea id="notes" name="notes" rows="6"">${contact.notes}</textarea>
   </div>
   <div class="form-group"> 
     <button type ="submit"> Save </button>
