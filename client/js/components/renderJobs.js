@@ -148,12 +148,13 @@ const displayJobList = (id) => {
               <p> <span class=subheading> Due: </span>${new Date (jobData.due_date).toLocaleDateString()} </p>
               <p> <span class=subheading> Stage: </span> ${jobData.stages}
               <p> <span class=subheading> Location: </span>${jobData.location} </p>
-              <a href="${jobData.job_url}"> Link to job </a>
+              <a href="${jobData.job_url}" target=”_blank” > Link to job </a>
               <p> <span class=subheading> Description: </span>${jobData.description} </p>
             `;
             const modalFooter = document.querySelector(".modal-footer")
             modalFooter.innerHTML = ''
             
+          
             const editButton = document.createElement("button")
             modalFooter.appendChild(editButton)
             editButton.textContent = "Edit"
@@ -164,17 +165,49 @@ const displayJobList = (id) => {
                 editJob(res)
               })
             })
-          
+
+            
             const deleteButton = document.createElement("button")
             modalFooter.appendChild(deleteButton)
             deleteButton.textContent = "Delete"
             deleteButton.addEventListener("click", () => {
               document.querySelector(".modal-backdrop").classList = ""
-              if (confirm("Are you sure you want to delete this job?"))
-                return axios.delete(`/jobs/${id}`).then((res) => {
-                  jobDiv.remove()
-                  displayJobList()
-                })
+              deleteButton.style.display = "none"
+              editButton.style.display = "none"
+              const confirmBtn = document.createElement("button")
+              const cancelBtn = document.createElement("button")
+              const deleteTxt = document.createElement("p")
+              deleteTxt.innerText = `Are you sure you want to delete ${jobData.title} ? `
+              confirmBtn.textContent ="Yes"
+              cancelBtn.textContent ="Cancel"
+
+              modalFooter.appendChild(deleteTxt)
+              modalFooter.appendChild(confirmBtn)
+              modalFooter.appendChild(cancelBtn)
+
+              cancelBtn.addEventListener("click",() =>{
+                console.log('Hello!');
+
+                jobDiv.remove()
+                displayJobList()
+
+              })
+              
+              confirmBtn.addEventListener("click",() =>{
+                  axios
+                  .delete(`/jobs/${id}`)
+                  .then((res) => {
+                    jobDiv.remove()
+                    displayJobList()
+                 })
+                 .catch((err)=>{
+                  console.error(err);
+        
+                  const errMsg = document.createElement('p')
+                  errMsg.textContent = 'Something went wrong' 
+                  modalFooter.appendChild(errMsg);
+                 }) 
+              })
             })
             modalContainer.style.display = 'block';
           })
