@@ -8,9 +8,25 @@ const editToDoForm = (id) => {
   const dueDateObj = new Date(task.due_date);
   const formattedDueDate = dueDateObj.toISOString().substring(0, 10);
 
+  page.classList = "container"
+  const buttonContainer = document.createElement("div")
+
+  buttonContainer.classList = "row justify-content-center"
+  buttonContainer.id = "buttonContainer"
+  page.appendChild(buttonContainer)
+
+  const returnToJobListBtn = document.createElement("button")
+  returnToJobListBtn.id = "returnToJobListBtn"
+  returnToJobListBtn.textContent = "Cancel"
+  returnToJobListBtn.classList = "mb-1 mt-3 btn btn-secondary col-lg-2 col-md-3 col-sm-4 col-11"
+  buttonContainer.appendChild(returnToJobListBtn)
+  returnToJobListBtn.addEventListener("click", () => {
+    renderToDoList(id)})
+
   page.innerHTML = `
   <form id="update-todo-form">
-    <div class="form-group"> 
+    <div class="form-group">
+    <h2 id = "create-title" > Edit task </h2> 
       <label for="title">Title</label>  
       <input type="text" name="title" value="${task.title}"></input>
     </div>
@@ -44,8 +60,13 @@ const editToDoForm = (id) => {
     </div>
   </form>
   `
+  const container = document.createElement("div")
+  container.innerHTML = page
+
+  page.insertAdjacentElement('afterbegin',buttonContainer);
   document.getElementById("update-todo-form").addEventListener('submit', (event) => handleEditToDo(event, task.id))
   })
+  
 }
 
 function handleEditToDo(event, id) {

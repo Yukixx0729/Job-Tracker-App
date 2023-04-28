@@ -15,7 +15,7 @@ const editContactForm = (id) => {
 
     formContainer.innerHTML = `
     <form id="edit-contact-form">
-    <h2>Edit Contact</h2>
+    <h2 id = "create-title" > Edit contact </h2>
     <div class="form-group"> 
       <label for="contactName"> Name </label>
       <input type="text" name="contactName" value="${contact.contact_name}"></input>

@@ -27,7 +27,7 @@ const toggleDetails = (contactItem) => {
 const displayAllContactsBtn = () => {
   const displayAllContactsBtn = document.createElement("button")
   displayAllContactsBtn.id = "displayAllContactsBtn"
-  displayAllContactsBtn.textContent = "Return to Contacts"
+  displayAllContactsBtn.textContent = "Cancel"
   displayAllContactsBtn.classList = "mb-1 mt-3 btn btn-secondary col-sm-3 col-11"
   document.getElementById("nonLetterContainer").appendChild(displayAllContactsBtn)
   displayAllContactsBtn.addEventListener("click", renderContacts)
