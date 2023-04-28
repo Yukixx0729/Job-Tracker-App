@@ -78,7 +78,7 @@ const displayJobList = (id) => {
   addJobBtn.classList = "m-3 btn btn-secondary col-lg-2 col-sm-3 col-11"
   addJobBtnContainer.appendChild(addJobBtn)
   addJobBtn.addEventListener("click", () => {
-    p.removeChild(addJobBtn)
+    p.innerHTML = ''
     addJobForm(id)
   })
 
