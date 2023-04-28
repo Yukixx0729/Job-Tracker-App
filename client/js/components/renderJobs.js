@@ -64,7 +64,7 @@ const displayJobList = (id) => {
   p.className = ""
 
   const jobColumnContainer = document.createElement("div")
-  jobColumnContainer.className = "row h-100 flex-nowrap m-5 overflow-auto"
+  jobColumnContainer.className = "row h-100 flex-nowrap overflow-auto"
   jobColumnContainer.id = "jobColumnContainer"
   p.appendChild(jobColumnContainer)
 

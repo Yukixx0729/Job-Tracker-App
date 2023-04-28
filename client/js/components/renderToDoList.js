@@ -31,11 +31,17 @@ const generateModal = () => {
 const renderToDoList = (id) => {
   const page = document.getElementById("page");
   page.innerHTML = "";
+
+  const addTaskBtnContainer = document.createElement("div")
+  addTaskBtnContainer.classList = "row justify-content-center"
+  page.insertAdjacentElement('afterbegin', addTaskBtnContainer)
+
   const addTaskBtn = document.createElement("button");
-  addTaskBtn.textContent = "New Task";
-  page.appendChild(addTaskBtn);
-  addTaskBtn.classList.add("btn", "btn-secondary", "btn-sm");
+  addTaskBtn.textContent = "Add Task + ";
+  addTaskBtnContainer.appendChild(addTaskBtn);
+  addTaskBtn.classList = "m-3 btn btn-secondary col-lg-2 col-sm-3 col-11";
   addTaskBtn.addEventListener("click", () => {renderCreateToDoForm(id)});
+
   const container = document.createElement("div");
   container.classList.add("container");
   page.appendChild(container);
