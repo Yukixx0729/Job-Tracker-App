@@ -1,9 +1,25 @@
+import { createButtonContainer } from './renderContactsList.js'
 import displayJobList from'./renderJobs.js'
 
 function editJob(jobData) {
   console.log(jobData)
     const id = jobData.data.id
     const p = document.getElementById("page")
+    p.classList = "container"
+    const buttonContainer = document.createElement("div")
+
+    buttonContainer.classList = "row justify-content-center"
+    buttonContainer.id = "buttonContainer"
+    p.appendChild(buttonContainer)
+
+    const returnToJobListBtn = document.createElement("button")
+    returnToJobListBtn.id = "returnToJobListBtn"
+    returnToJobListBtn.textContent = "Cancel"
+    returnToJobListBtn.classList = "mb-1 mt-3 btn btn-secondary col-lg-2 col-md-3 col-sm-4 col-11"
+    buttonContainer.appendChild(returnToJobListBtn)
+    returnToJobListBtn.addEventListener("click", () => {
+    displayJobList(id)})
+
     const dueDateObj = new Date(jobData.data.due_date)
     const formattedDueDate = dueDateObj.toISOString().substring(0, 10)
     const editForm = `

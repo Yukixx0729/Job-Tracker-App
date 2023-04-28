@@ -1,4 +1,4 @@
-import { renderSingleContact, renderContacts, createButtonContainer, displayAllContactsBtn } from "./renderContactsList.js"
+import { renderSingleContact, createButtonContainer, displayAllContactsBtn } from "./renderContactsList.js"
 
 const editContactForm = (id) => {
   return axios.get(`/contacts/${id}`)
@@ -45,7 +45,6 @@ const editContactForm = (id) => {
   document.getElementById("nonLetterContainer").classList="row justify-content-center"
   document.getElementById("displayAllContactsBtn").classList = "mb-1 mt-3 btn btn-secondary col-md-3 col-sm-4 col-11"
   document.getElementById("edit-contact-form").addEventListener("submit", (event) => handleEditContact(event, contact.id))
-  // document.getElementById("displayAllContactsBtn").addEventListener("click", renderContacts)
   })
 }
 

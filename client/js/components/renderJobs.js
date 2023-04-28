@@ -1,5 +1,6 @@
 import addJobForm from'./addJob.js'
 import editJob from'./editJob.js'
+import { createButtonContainer } from './renderContactsList.js'
 
 const p = document.getElementById("page")
 
@@ -16,19 +17,16 @@ const generateModal = () => {
   modalDiv.innerHTML = `
     <div class="modal fade" id="modalContainer" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content" id="">
-        <div class="modal-header">
-          <h5 class="modal-title row"> </h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+      <div class="modal-content p-3" id="">
+        <div class="modal-header row justify-content-around">
+          <h5 class="modal-title col"> </h5>
+          <button type="button" class="btn-close col-1" data-bs-dismiss="modal" aria-label="Close">
           </button>
-          <h8 class="modal-company"> </h8>
+          <h8 class="modal-company row ml-5"> </h8>
         </div>
         <div class="modal-body">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
@@ -42,17 +40,24 @@ const displayJobList = (id) => {
   p.className = "container"
 
   const jobColumnContainer = document.createElement("div")
-  jobColumnContainer.className = "container-fluid"
+  jobColumnContainer.className = "container-fluid h-100"
+  jobColumnContainer.id = "jobColumnContainer"
   p.appendChild(jobColumnContainer)
 
   const columnNoWrapContainer = document.createElement("div")
-  columnNoWrapContainer.className = "row flex-nowrap overflow-auto"
+  columnNoWrapContainer.id = "noWrapContainer"
+  columnNoWrapContainer.className = "h-100 row flex-nowrap overflow-auto"
   jobColumnContainer.appendChild(columnNoWrapContainer)
+
+  const addJobBtnContainer = document.createElement("div")
+  addJobBtnContainer.classList = "row justify-content-sm-between justify-content-center"
+  p.insertAdjacentElement('afterbegin', addJobBtnContainer)
 
   const addJobBtn = document.createElement("button")
   addJobBtn.id = "addJobBtn"
-  addJobBtn.textContent = "Add Job"
-  p.insertAdjacentElement('afterBegin', addJobBtn)
+  addJobBtn.textContent = "Add Job +"
+  addJobBtn.classList = "m-3 btn btn-secondary col-lg-2 col-sm-3 col-11"
+  addJobBtnContainer.appendChild(addJobBtn)
   addJobBtn.addEventListener("click", () => {
     p.removeChild(addJobBtn)
     addJobForm(id)
@@ -60,18 +65,22 @@ const displayJobList = (id) => {
 
   axios.get(`/jobs`).then((result) => {
     const jobs = result.data.rows
-  
     const createColumn = (stages) => {
       const filteredJobs = jobs.filter((job) => job.stages === stages)
 
       const column = document.createElement("div")
-      column.id = `${stages}`
+      column.id = `${stages}-column`
       column.className = "jobColumns mh-100"
       column.classList.add("col-4", "col-md-3", "col-lg-2", "text-center", 'border', 'border-secondary', 'mb-2', 'mx-2')
       columnNoWrapContainer.appendChild(column)
+
+      const headingDiv = document.createElement("div")
+      headingDiv.id = "headingDiv"
+      column.appendChild(headingDiv)
+
       const heading = document.createElement("h3")
       heading.textContent = stages
-      column.appendChild(heading)
+      headingDiv.appendChild(heading)
 
       column.addEventListener("dragover", (event) => {
         event.preventDefault()
@@ -96,13 +105,18 @@ const displayJobList = (id) => {
         })
       })
 
+      const jobDivContainer = document.createElement("div")
+      jobDivContainer.classList = "row"
+      jobDivContainer.id = "jobDivContainer"
+      headingDiv.insertAdjacentElement('afterend', jobDivContainer)
+      
       filteredJobs.forEach((job) => {
         const id = job.id
         const title = job.title
         const company = job.company
         const dueDate = new Date(job.due_date)
         const stage = job.stages
-  
+
         const jobDiv = document.createElement("div")
         jobDiv.draggable = "true"
         jobDiv.classList = "job card"
@@ -125,8 +139,6 @@ const displayJobList = (id) => {
         jobCompany.textContent = `${company}`
         jobDueDate.innerHTML = `<em><span class="d-none d-xl-inline-block"> Due:</span> ${dueDate.toLocaleDateString()}</em>`
 
-        column.appendChild(jobDiv)
-
         jobDiv.addEventListener("dragstart", (event) => {
             console.log(event.target)
             jobDiv.classList.add("is-dragging")
@@ -136,7 +148,8 @@ const displayJobList = (id) => {
             console.log(event.target)
             jobDiv.classList.remove("is-dragging")
         })
-
+        
+        jobDivContainer.appendChild(jobDiv)
         
         jobDiv.addEventListener("click", (event) => {
           const jobId = event.currentTarget.dataset.id
@@ -156,10 +169,13 @@ const displayJobList = (id) => {
             `;
             const modalFooter = document.querySelector(".modal-footer")
             modalFooter.innerHTML = ''
+            modalFooter.classList = "row justify-content-around"
+            modalFooter.id = "modalFooter"
             
             const editButton = document.createElement("button")
             modalFooter.appendChild(editButton)
             editButton.textContent = "Edit"
+            editButton.className = "mb-3 editBtn btn-sm contact-edit-delete col-2"
             editButton.addEventListener("click", () => {
               document.querySelector(".modal-backdrop").classList = ""
               return axios.get(`/jobs/${id}`).then((res) => {
@@ -171,30 +187,42 @@ const displayJobList = (id) => {
             const deleteButton = document.createElement("button")
             modalFooter.appendChild(deleteButton)
             deleteButton.textContent = "Delete"
+            deleteButton.className = "mb-3 deleteBtn btn-sm contact-edit-delete col-2"
             deleteButton.addEventListener("click", () => {
-              document.querySelector(".modal-backdrop").classList = ""
-              if (confirm("Are you sure you want to delete this job?"))
+              modalContainer.style.display = 'block'
+              modalContainer.querySelector('.modal-company').textContent = "Are you sure you want to delete this job?"
+              const deleteModalFooter = document.querySelector(".modal-footer")
+              deleteModalFooter.innerHTML = ''
+              const deleteModalButtonContainer = document.createElement("div")
+              deleteModalButtonContainer.classList = "row justify-content-between"
+              deleteModalFooter.appendChild(deleteModalButtonContainer)
+              const deleteModalButton = document.createElement("button")
+              deleteModalButtonContainer.appendChild(deleteModalButton)
+              deleteModalButton.textContent = "Delete"
+              deleteModalButton.className = "deleteBtn btn-sm contact-edit-delete col-4"
+              deleteModalButton.addEventListener('click', () => {
+                document.querySelector(".modal-backdrop").classList = ""
+                modalContainer.style.display = 'block';              
                 return axios.delete(`/jobs/${id}`).then((res) => {
                   jobDiv.remove()
                   displayJobList()
                 })
+                .catch((err) => {
+                console.log(err);
+                })
+              })
             })
-            modalContainer.style.display = 'block';
           })
-          .catch((err) => {
-            console.log(err);
-          });
         })
-    })
-  }
-  createColumn("Saved")
-  createColumn("Applied")
-  createColumn("First Interview")
-  createColumn("Follow Up Interview")
-  createColumn("Practical Test")
-  createColumn("Complete")
-  generateModal()
-
+      })
+    }
+    createColumn("Saved")
+    createColumn("Applied")
+    createColumn("First Interview")
+    createColumn("Follow Up Interview")
+    createColumn("Practical Test")
+    createColumn("Complete")
+    generateModal()
   })
 }
 
