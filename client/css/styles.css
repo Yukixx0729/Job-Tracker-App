@@ -191,6 +191,49 @@ body {
   transform: translate3d(2px, 2px, 3px);
 }
 
+#cancelUpload {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: none;
+  font-size: 1rem;
+  width: 100%;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#cancelUpload:hover {
+  background-color: #dee2e6;
+}
+#submitUpload {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: none;
+  font-size: 1rem;
+  width: 100%;
+  background-color: #e1caca;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#submitUpload:hover {
+  background-color: #c5616b;
+}
+
+.cancelDeleteFile {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: none;
+  font-size: 1rem;
+  width: 100%;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancelDeleteFile:hover {
+  background-color: #dee2e6;
+}
+
 #uploadForm {
   border: 1px solid black;
   border-radius: 10px;

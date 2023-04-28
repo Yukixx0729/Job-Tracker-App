@@ -56,7 +56,7 @@ function handleDeleteFile(e) {
     <p> <label >Are you sure to delete the file?</label>
     <input type= "text" name = "id" value = ${e.target.id} Hidden></input>
     </p>
-    <button type="submit"> Delete file</button><button class="cancel"> Cancel </button>
+   <div class="justify-content-around with row"><button type="submit" class="col"> Delete file</button><button class="cancelDeleteFile col"> Cancel </button></div>
     </form>`;
     e.target.parentElement.appendChild(delForm);
     e.target.style.display = "none";
@@ -68,7 +68,7 @@ function handleDeleteFile(e) {
         renderFiles();
       });
     e.target.parentElement
-      .querySelector(".cancel")
+      .querySelector(".cancelDeleteFile")
       .addEventListener("click", (event) => {
         event.preventDefault();
         document.querySelector(".delFormContainer").remove();
@@ -76,7 +76,6 @@ function handleDeleteFile(e) {
       });
   } else {
     document.querySelector(".delFormContainer").remove();
-    console.log(document.querySelector(".deleteFile"));
     handleDeleteFile(e, id);
   }
 }
@@ -100,7 +99,7 @@ function renderUploadFileForm(id) {
     <input type="text" name="name" required/></div>
    <div><label for="file"> File(only pdf) </label>
     <input type="file" name="pdf" accept="application/pdf" required/></div>
-    <div><button type="submit">Upload</button>
+    <div><button type="submit" id="submitUpload">Upload</button>
     <button id="cancelUpload">Cancel</button></div>
   </form>`;
     document.getElementById("uploadFile").appendChild(uploadDiv);
