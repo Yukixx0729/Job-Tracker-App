@@ -24,7 +24,6 @@ function editJob(jobData) {
     const formattedDueDate = dueDateObj.toISOString().substring(0, 10)
     const editForm = `
     <form id="edit-job-form" data-id="${id}">
-    <p id ="error-container"></p>
     <input type="text" id="user_id" value =${jobData.data.user_id} hidden/>
       <div class="form-group"> 
         <label for="title">Title</label>  
@@ -88,16 +87,13 @@ function editJob(jobData) {
         user_id: user_id.value
     };
   
-    axios
-      .put(`/jobs/${id}`, jobData)
-      .then((res) => {
-        displayJobList(user_id.value)
-      })
-      .catch((err) => {
-        const errMsg = document.getElementById('error-container')
-        errMsg.textContent = 'The form is not filled out correctly.. Try again! ' 
-    
-      })
+    axios.put(`/jobs/${id}`, jobData).then((res) => {
+      displayJobList(user_id.value)
+  })
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send("Error editing job");
+  });
 })
 }
 
