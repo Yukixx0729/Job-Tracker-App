@@ -267,6 +267,12 @@ body {
   background-color: #f8f3f3 ;
   width: 100%;
 }
+select#color-selector option {
+  padding-left: 20px;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  background-position: 3px 50%;
+}
 
 /*Form styling */
 form {

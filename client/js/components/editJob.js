@@ -60,6 +60,16 @@ function editJob(jobData) {
         <option value="Complete" ${jobData.data.stages === 'Complete' ? 'selected' : ''}>Complete</option>
         </select>
         </div>
+        <div class="form-group"> 
+        <label for="colour">Colour</label>  
+        <select name="colour" class="form-control">
+        <option value="#7f9990" ${jobData.data.stages === '#7f9990' ? 'selected' : ''} data-color-preview='#7f9990'> </option>
+        <option value="#b9d6c8" ${jobData.data.stages === '#b9d6c8' ? 'selected' : ''} data-color-preview='#b9d6c8'> </option>
+        <option value="#e1caca" ${jobData.data.stages === '#e1caca' ? 'selected' : ''} data-color-preview='#e1caca'> </option>
+        <option value="#d1909c" ${jobData.data.stages === '#d1909c' ? 'selected' : ''} data-color-preview='#d1909c'> </option>
+        <option value="#c5616b" ${jobData.data.stages === '#c5616b' ? 'selected' : ''} data-color-preview='#c5616b'> </option>
+        </select>
+        </div>
       <div class="form-group"> 
       <button type="submit">Update</button>
       </div>
