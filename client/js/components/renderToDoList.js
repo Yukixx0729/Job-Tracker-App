@@ -1,4 +1,4 @@
-import renderCreateToDoForm from'./renderCreateToDoForm.js'
+import renderCreateToDoForm from './renderCreateToDoForm.js'
 import editToDoForm from'./renderEditToDoForm.js'
 import deleteToDo from'./deleteToDo.js'
 
@@ -31,38 +31,38 @@ const generateModal = () => {
 const renderToDoList = (id) => {
   const page = document.getElementById("page");
   page.innerHTML = "";
+
+  const addTaskBtnContainer = document.createElement("div")
+  addTaskBtnContainer.classList = "row justify-content-center"
+  page.insertAdjacentElement('afterbegin', addTaskBtnContainer)
+
   const addTaskBtn = document.createElement("button");
-  addTaskBtn.textContent = "New Task";
-  page.appendChild(addTaskBtn);
-  addTaskBtn.classList.add("btn", "btn-secondary", "btn-sm");
+  addTaskBtn.textContent = "Add Task + ";
+  addTaskBtnContainer.appendChild(addTaskBtn);
+  addTaskBtn.classList = "m-3 btn btn-secondary col-lg-2 col-sm-3 col-11";
   addTaskBtn.addEventListener("click", () => {renderCreateToDoForm(id)});
 
   const container = document.createElement("div");
   container.classList.add("container");
   page.appendChild(container);
-
   const row = document.createElement("div");
   row.classList.add("row");
   container.appendChild(row);
-
   const statuses = ["planned", "in progress", "completed"];
-
   statuses.forEach((status) => {
     const col = document.createElement("div");
     col.id = status
-    col.classList.add("col", "text-center", 'border', 'border-secondary', 'mb-2', 'mx-2');
+    col.classList.add("taskColumn", "col", "text-center", 'border', 'rounded', 'border-secondary', 'mb-2', 'mx-2');
     const title = document.createElement("h2");
     title.classList.add("text-center");
     title.innerText = status.charAt(0).toUpperCase() + status.slice(1);
     col.appendChild(title);
     row.appendChild(col);
-
     col.addEventListener("dragover", (event) => {
       event.preventDefault()
       const draggingJob = document.querySelector(".is-dragging")
       col.appendChild(draggingJob)
     })
-
     col.addEventListener("drop", (event) => {
       event.preventDefault()
       const todoId = event.dataTransfer.getData('text/plain')
@@ -78,7 +78,6 @@ const renderToDoList = (id) => {
         console.error(err)
       })
     })
-
     axios.get(`/todos`).then((res) => {
       const tasks = res.data;
       tasks.sort((a, b) => {
@@ -128,7 +127,6 @@ const renderToDoList = (id) => {
             .toString()
             .padStart(2, "0")}/${dueDateObj.getFullYear()}`;
           cardSubtitle.innerText = `Due: ${dueDateStr}`;
-
           if (task.job_id) {
             const jobId = document.createElement("p");
             jobId.classList.add("card-text");
@@ -138,7 +136,6 @@ const renderToDoList = (id) => {
               cardSubtitle.insertAdjacentElement('afterend', jobId);
             });
           }
-
           const cardText = document.createElement("p");
           cardText.classList.add("card-text");
           cardText.innerText = task.description;
@@ -168,16 +165,15 @@ const renderToDoList = (id) => {
           col.appendChild(card);
     
 
+
           card.addEventListener("mouseenter", () => {
             deleteBtn.classList.remove("hidden");
             editBtn.classList.remove("hidden");
           });
-
           card.addEventListener("mouseleave", () => {
             deleteBtn.classList.add("hidden");
             editBtn.classList.add("hidden");
           });
-
           card.addEventListener("dragstart", (event) => {
             card.classList.add("is-dragging")
             event.dataTransfer.setData('text/plain', task.id)

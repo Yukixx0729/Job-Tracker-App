@@ -298,12 +298,14 @@ body {
 }
 
 /* JOBS PAGE STYLING */
-.jobColumns {
+.jobColumns,
+.taskColumn {
   background-color: #f8f3f3;
   height: 65vh;
   overflow-y: scroll;
 }
-.jobColumns::-webkit-scrollbar {
+.jobColumns::-webkit-scrollbar,
+.taskColumn::-webkit-scrollbar {
   display: none;
 }
 #headingDiv {
