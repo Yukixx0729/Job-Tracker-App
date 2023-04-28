@@ -32,10 +32,12 @@ function addJobForm(id) {
         <div class="form-group"> 
           <label for="stages">Stage</label>  
           <select name="stages" class="form-control">
-            <option value="Application">Application</option>
-            <option value="Phone Interview">Phone interview</option>
-            <option value="Interview">Interview</option>
-            <option value="Complete">Complete</option>
+            <option value="Saved">Saved</option>
+            <option value="Applied">Applied</option>
+            <option value="First Interview">First interview</option>
+            <option value="Follow Up Interview" >Follow Up Interview</option>
+            <option value="Practical Test" > Practical Test</option>
+            <option value="Complete" >Complete</option>
           </select>
         </div>
         <div class="form-group">
