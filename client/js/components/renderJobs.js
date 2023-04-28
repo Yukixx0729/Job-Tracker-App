@@ -34,6 +34,30 @@ const generateModal = () => {
   ` 
   p.appendChild(modalDiv)  
 }
+
+const generateConfirmDeleteModal = () => {
+  const deleteModal = document.createElement('div')
+  deleteModal.id="deleteModal"
+  deleteModal.innerHTML = 
+  `
+  <div class="modal fade" id="deleteModalContainer" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content p-3" id="">
+      <div class="modal-header row justify-content-right">
+        <button type="button" class="btn-close col-1" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="row justify-content-center">
+        <h8 class="modal-company col ml-5"> "Are you sure you want to delete this job?" </h8>
+      </div>
+      <div id="delete-modal-footer">
+      </div>
+    </div>
+  </div>
+  </div>
+  `
+  p.appendChild(deleteModal)         
+}
     
 const displayJobList = (id) => {
   p.innerHTML = ""
@@ -188,19 +212,31 @@ const displayJobList = (id) => {
             modalFooter.appendChild(deleteButton)
             deleteButton.textContent = "Delete"
             deleteButton.className = "mb-3 deleteBtn btn-sm contact-edit-delete col-2"
-            deleteButton.addEventListener("click", () => {
-              modalContainer.style.display = 'block'
-              modalContainer.querySelector('.modal-company').textContent = "Are you sure you want to delete this job?"
-              const deleteModalFooter = document.querySelector(".modal-footer")
+            deleteButton.addEventListener("click", (event) => {
+              console.log(event.target)
+              const displayModal = document.getElementById("modalContainer")
+              displayModal.style.display = "none"
+              const mainModal = new bootstrap.Modal(displayModal)
+              document.querySelector(".modal-backdrop").classList = ""
+              mainModal.hide()
+              
+              const deleteModalElement = document.getElementById("deleteModalContainer")
+              const deleteModal = new bootstrap.Modal(deleteModalElement)
+              deleteModal.show()
+
+              const deleteModalFooter = document.getElementById("delete-modal-footer")
               deleteModalFooter.innerHTML = ''
               const deleteModalButtonContainer = document.createElement("div")
               deleteModalButtonContainer.classList = "row justify-content-between"
               deleteModalFooter.appendChild(deleteModalButtonContainer)
+              deleteModalFooter.classList="row justify-content-around"
+
               const deleteModalButton = document.createElement("button")
               deleteModalButtonContainer.appendChild(deleteModalButton)
               deleteModalButton.textContent = "Delete"
-              deleteModalButton.className = "deleteBtn btn-sm contact-edit-delete col-4"
+              deleteModalButton.className = "my-3 deleteBtn btn-sm contact-edit-delete col-2"
               deleteModalButton.addEventListener('click', () => {
+                deleteModal.hide()
                 document.querySelector(".modal-backdrop").classList = ""
                 modalContainer.style.display = 'block';              
                 return axios.delete(`/jobs/${id}`).then((res) => {
@@ -211,6 +247,10 @@ const displayJobList = (id) => {
                 console.log(err);
                 })
               })
+            })
+            const mainModal = new bootstrap.Modal(document.getElementById("modalContainer"))
+            mainModal._element.addEventListener('hidden.bs.modal', function (event) {
+            document.querySelector(".modal-backdrop").remove()
             })
           })
         })
@@ -223,6 +263,7 @@ const displayJobList = (id) => {
     createColumn("Practical Test")
     createColumn("Complete")
     generateModal()
+    generateConfirmDeleteModal()
   })
 }
 
