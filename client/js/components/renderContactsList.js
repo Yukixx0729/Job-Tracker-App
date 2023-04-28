@@ -113,7 +113,7 @@ const generateModal = () => {
           <p class="modal-text"> Are you sure you want to delete this contact? </p>
         </div>
         <div class="modal-footer row justify-content-center">
-          <button id="modalDeleteBtn" type="button" class="btn-sm contact-edit-delete col-sm-2 col-3">Delete</button>
+          <button id="modalDeleteBtn" type="button" class="btn-sm contact-edit-delete col-sm-2 col-4">Delete</button>
         </div>
       </div>
     </div>
@@ -130,8 +130,8 @@ const renderContactDisplay = (res) => {
 
   contacts.forEach((contact) => {
   const contactItem = document.createElement("li")
-  contactItem.className = "container list-group-item col-8 col-sm-11 col-lg-12"
-  contactItem.addEventListener("click", (event) => {
+  contactItem.className = "container list-group-item col-11 col-lg-12"
+  contactItem.addEventListener("click", () => {
     toggleDetails(contactItem)
   })
   contactList.appendChild(contactItem)

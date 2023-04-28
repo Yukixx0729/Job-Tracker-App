@@ -1,9 +1,25 @@
+import { createButtonContainer } from './renderContactsList.js'
 import displayJobList from'./renderJobs.js'
 
 function editJob(jobData) {
   console.log(jobData)
     const id = jobData.data.id
     const p = document.getElementById("page")
+    p.classList = "container"
+    const buttonContainer = document.createElement("div")
+
+    buttonContainer.classList = "row justify-content-center"
+    buttonContainer.id = "buttonContainer"
+    p.appendChild(buttonContainer)
+
+    const returnToJobListBtn = document.createElement("button")
+    returnToJobListBtn.id = "returnToJobListBtn"
+    returnToJobListBtn.textContent = "Cancel"
+    returnToJobListBtn.classList = "mb-1 mt-3 btn btn-secondary col-lg-2 col-md-3 col-sm-4 col-11"
+    buttonContainer.appendChild(returnToJobListBtn)
+    returnToJobListBtn.addEventListener("click", () => {
+    displayJobList(id)})
+
     const dueDateObj = new Date(jobData.data.due_date)
     const formattedDueDate = dueDateObj.toISOString().substring(0, 10)
     const editForm = `
@@ -36,9 +52,11 @@ function editJob(jobData) {
         <div class="form-group"> 
         <label for="stages">Stage</label>  
         <select name="stages" class="form-control">
-        <option value="Application" ${jobData.data.stages === 'Application' ? 'selected' : ''}>Application</option>
-        <option value="Phone Interview" ${jobData.data.stages === 'Phone Interview' ? 'selected' : ''}>Phone interview</option>
-        <option value="Interview" ${jobData.data.stages === 'Interview' ? 'selected' : ''}>Interview</option>
+        <option value="Saved" ${jobData.data.stages === 'Saved' ? 'selected' : ''}>Saved</option>
+        <option value="Applied" ${jobData.data.stages === 'Applied' ? 'selected' : ''}>Applied</option>
+        <option value="First Interview" ${jobData.data.stages === 'First Interview' ? 'selected' : ''}>First interview</option>
+        <option value="Follow Up Interview" ${jobData.data.stages === 'Follow Up Interview' ? 'selected' : ''}>Follow Up Interview</option>
+        <option value="Practical Test" ${jobData.data.stages === 'Practical Test' ? 'selected' : ''}> Practical Test</option>
         <option value="Complete" ${jobData.data.stages === 'Complete' ? 'selected' : ''}>Complete</option>
         </select>
         </div>
