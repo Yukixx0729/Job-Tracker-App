@@ -48,7 +48,7 @@ const generateConfirmDeleteModal = () => {
         </button>
       </div>
       <div class="row justify-content-center">
-        <h8 class="modal-company col ml-5"> "Are you sure you want to delete this job?" </h8>
+        <h6 class="modal-company col ml-5"> Are you sure you want to delete this job? </h6>
       </div>
       <div id="delete-modal-footer">
       </div>
@@ -61,20 +61,15 @@ const generateConfirmDeleteModal = () => {
     
 const displayJobList = (id) => {
   p.innerHTML = ""
-  p.className = "container"
+  p.className = ""
 
   const jobColumnContainer = document.createElement("div")
-  jobColumnContainer.className = "container-fluid h-100"
+  jobColumnContainer.className = "row h-100 flex-nowrap m-5 overflow-auto"
   jobColumnContainer.id = "jobColumnContainer"
   p.appendChild(jobColumnContainer)
 
-  const columnNoWrapContainer = document.createElement("div")
-  columnNoWrapContainer.id = "noWrapContainer"
-  columnNoWrapContainer.className = "h-100 row flex-nowrap overflow-auto"
-  jobColumnContainer.appendChild(columnNoWrapContainer)
-
   const addJobBtnContainer = document.createElement("div")
-  addJobBtnContainer.classList = "row justify-content-sm-between justify-content-center"
+  addJobBtnContainer.classList = "row justify-content-center"
   p.insertAdjacentElement('afterbegin', addJobBtnContainer)
 
   const addJobBtn = document.createElement("button")
@@ -91,18 +86,18 @@ const displayJobList = (id) => {
     const jobs = result.data.rows
     const createColumn = (stages) => {
       const filteredJobs = jobs.filter((job) => job.stages === stages)
-
       const column = document.createElement("div")
       column.id = `${stages}-column`
       column.className = "jobColumns mh-100"
-      column.classList.add("col-4", "col-md-3", "col-lg-2", "text-center", 'border', 'border-secondary', 'mb-2', 'mx-2')
-      columnNoWrapContainer.appendChild(column)
+      column.classList.add("col-11", "col-sm-4", "col-md-3", "col-lg-2", "text-center", 'border', 'rounded', 'border-secondary', 'mb-2', 'mx-2')
+      jobColumnContainer.appendChild(column)
 
       const headingDiv = document.createElement("div")
       headingDiv.id = "headingDiv"
-      column.appendChild(headingDiv)
+      headingDiv.classList = "d-flex align-items-center justify-content-center"
+      column.insertAdjacentElement('afterbegin', headingDiv)
 
-      const heading = document.createElement("h3")
+      const heading = document.createElement("h4")
       heading.textContent = stages
       headingDiv.appendChild(heading)
 
@@ -128,11 +123,6 @@ const displayJobList = (id) => {
           console.error(error)
         })
       })
-
-      const jobDivContainer = document.createElement("div")
-      jobDivContainer.classList = "row"
-      jobDivContainer.id = "jobDivContainer"
-      headingDiv.insertAdjacentElement('afterend', jobDivContainer)
       
       filteredJobs.forEach((job) => {
         const id = job.id
@@ -143,7 +133,7 @@ const displayJobList = (id) => {
 
         const jobDiv = document.createElement("div")
         jobDiv.draggable = "true"
-        jobDiv.classList = "job card"
+        jobDiv.classList = "job row"
         
         const randomColor = getRandomColor();
         jobDiv.style.backgroundColor = randomColor;
@@ -163,6 +153,8 @@ const displayJobList = (id) => {
         jobCompany.textContent = `${company}`
         jobDueDate.innerHTML = `<em><span class="d-none d-xl-inline-block"> Due:</span> ${dueDate.toLocaleDateString()}</em>`
 
+        column.appendChild(jobDiv)
+
         jobDiv.addEventListener("dragstart", (event) => {
             console.log(event.target)
             jobDiv.classList.add("is-dragging")
@@ -172,8 +164,6 @@ const displayJobList = (id) => {
             console.log(event.target)
             jobDiv.classList.remove("is-dragging")
         })
-        
-        jobDivContainer.appendChild(jobDiv)
         
         jobDiv.addEventListener("click", (event) => {
           const jobId = event.currentTarget.dataset.id
