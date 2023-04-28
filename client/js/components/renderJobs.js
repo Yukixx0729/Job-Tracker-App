@@ -261,5 +261,4 @@ const displayJobList = (id) => {
     generateConfirmDeleteModal()
   })
 }
-
 export default displayJobList
