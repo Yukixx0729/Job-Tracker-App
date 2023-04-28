@@ -1,6 +1,32 @@
-import renderCreateToDoForm from'./renderCreateToDoForm.js'
+import renderCreateToDoForm from './renderCreateToDoForm.js'
 import editToDoForm from'./renderEditToDoForm.js'
 import deleteToDo from'./deleteToDo.js'
+
+const generateModal = () => {
+  const modalDiv = document.createElement('div')
+  modalDiv.id = "modalBigDiv"
+  modalDiv.innerHTML = 
+  `
+  <div class="modal fade" id="modalContainer" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog container" role="document">
+      <div class="modal-content p-3" id="">
+        <div class="modal-header row justify-content-end">
+        <button type="button" class="btn-close col-1" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-text"> Are you sure you want to delete this contact? </p>
+        </div>
+        <div class="modal-footer row justify-content-center">
+          <button id="modalDeleteBtn" type="button" class="btn-sm contact-edit-delete col-sm-2 col-4">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  ` 
+  page.appendChild(modalDiv)  
+}
+
 
 const renderToDoList = (id) => {
   const page = document.getElementById("page");
@@ -10,17 +36,13 @@ const renderToDoList = (id) => {
   page.appendChild(addTaskBtn);
   addTaskBtn.classList.add("btn", "btn-secondary", "btn-sm");
   addTaskBtn.addEventListener("click", () => {renderCreateToDoForm(id)});
-
   const container = document.createElement("div");
   container.classList.add("container");
   page.appendChild(container);
-
   const row = document.createElement("div");
   row.classList.add("row");
   container.appendChild(row);
-
   const statuses = ["planned", "in progress", "completed"];
-
   statuses.forEach((status) => {
     const col = document.createElement("div");
     col.id = status
@@ -30,13 +52,11 @@ const renderToDoList = (id) => {
     title.innerText = status.charAt(0).toUpperCase() + status.slice(1);
     col.appendChild(title);
     row.appendChild(col);
-
     col.addEventListener("dragover", (event) => {
       event.preventDefault()
       const draggingJob = document.querySelector(".is-dragging")
       col.appendChild(draggingJob)
     })
-
     col.addEventListener("drop", (event) => {
       event.preventDefault()
       const todoId = event.dataTransfer.getData('text/plain')
@@ -52,7 +72,6 @@ const renderToDoList = (id) => {
         console.error(err)
       })
     })
-
     axios.get(`/todos`).then((res) => {
       const tasks = res.data;
       tasks.sort((a, b) => {
@@ -102,7 +121,6 @@ const renderToDoList = (id) => {
             .toString()
             .padStart(2, "0")}/${dueDateObj.getFullYear()}`;
           cardSubtitle.innerText = `Due: ${dueDateStr}`;
-
           if (task.job_id) {
             const jobId = document.createElement("p");
             jobId.classList.add("card-text");
@@ -112,14 +130,22 @@ const renderToDoList = (id) => {
               cardSubtitle.insertAdjacentElement('afterend', jobId);
             });
           }
-
           const cardText = document.createElement("p");
           cardText.classList.add("card-text");
           cardText.innerText = task.description;
+
           const deleteBtn = document.createElement("button");
           deleteBtn.textContent = "Delete";
           deleteBtn.classList.add("btn", "btn-outline-dark", "btn-sm", "hidden", "card-btn");
-          deleteBtn.addEventListener("click", () => deleteToDo(task.id));
+          deleteBtn.dataset.id = task.id
+          deleteBtn.setAttribute('data-bs-toggle', 'modal')
+          deleteBtn.setAttribute('data-bs-target', '#modalContainer')
+
+          deleteBtn.addEventListener("click", (event) => {
+            modalContainer.style.display = 'block'
+            modalContainer.dataset.id = event.currentTarget.dataset.id
+          })
+
           const editBtn = document.createElement("button");
           editBtn.textContent = "Edit";
           editBtn.classList.add("btn", "btn-outline-dark", "btn-sm", "mx-2", "hidden", "card-btn");
@@ -132,16 +158,15 @@ const renderToDoList = (id) => {
           card.appendChild(cardBody);
           col.appendChild(card);
 
+
           card.addEventListener("mouseenter", () => {
             deleteBtn.classList.remove("hidden");
             editBtn.classList.remove("hidden");
           });
-
           card.addEventListener("mouseleave", () => {
             deleteBtn.classList.add("hidden");
             editBtn.classList.add("hidden");
           });
-
           card.addEventListener("dragstart", (event) => {
             card.classList.add("is-dragging")
             event.dataTransfer.setData('text/plain', task.id)
@@ -152,6 +177,14 @@ const renderToDoList = (id) => {
         });
     });
   });
+  generateModal()
+  const modalDeleteBtn = document.getElementById("modalDeleteBtn")
+  modalDeleteBtn.addEventListener("click", () => {
+    const toDo = document.getElementById("modalContainer").dataset.id
+    document.querySelector(".modal-backdrop").classList = ""
+    deleteToDo(toDo)
+  })
+  modalDeleteBtn.addEventListener
 };
 
 export default renderToDoList;
