@@ -2,6 +2,32 @@ import renderCreateToDoForm from'./renderCreateToDoForm.js'
 import editToDoForm from'./renderEditToDoForm.js'
 import deleteToDo from'./deleteToDo.js'
 
+const generateModal = () => {
+  const modalDiv = document.createElement('div')
+  modalDiv.id = "modalBigDiv"
+  modalDiv.innerHTML = 
+  `
+  <div class="modal fade" id="modalContainer" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog container" role="document">
+      <div class="modal-content p-3" id="">
+        <div class="modal-header row justify-content-end">
+        <button type="button" class="btn-close col-1" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-text"> Are you sure you want to delete this contact? </p>
+        </div>
+        <div class="modal-footer row justify-content-center">
+          <button id="modalDeleteBtn" type="button" class="btn-sm contact-edit-delete col-sm-2 col-4">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  ` 
+  page.appendChild(modalDiv)  
+}
+
+
 const renderToDoList = (id) => {
   const page = document.getElementById("page");
   page.innerHTML = "";
@@ -116,10 +142,19 @@ const renderToDoList = (id) => {
           const cardText = document.createElement("p");
           cardText.classList.add("card-text");
           cardText.innerText = task.description;
+
           const deleteBtn = document.createElement("button");
           deleteBtn.textContent = "Delete";
           deleteBtn.classList.add("btn", "btn-outline-dark", "btn-sm", "hidden", "card-btn");
-          deleteBtn.addEventListener("click", () => deleteToDo(task.id));
+          deleteBtn.dataset.id = task.id
+          deleteBtn.setAttribute('data-bs-toggle', 'modal')
+          deleteBtn.setAttribute('data-bs-target', '#modalContainer')
+
+          deleteBtn.addEventListener("click", (event) => {
+            modalContainer.style.display = 'block'
+            modalContainer.dataset.id = event.currentTarget.dataset.id
+          })
+
           const editBtn = document.createElement("button");
           editBtn.textContent = "Edit";
           editBtn.classList.add("btn", "btn-outline-dark", "btn-sm", "mx-2", "hidden", "card-btn");
@@ -131,6 +166,7 @@ const renderToDoList = (id) => {
           cardBody.appendChild(editBtn);
           card.appendChild(cardBody);
           col.appendChild(card);
+    
 
           card.addEventListener("mouseenter", () => {
             deleteBtn.classList.remove("hidden");
@@ -152,6 +188,14 @@ const renderToDoList = (id) => {
         });
     });
   });
+  generateModal()
+  const modalDeleteBtn = document.getElementById("modalDeleteBtn")
+  modalDeleteBtn.addEventListener("click", () => {
+    const toDo = document.getElementById("modalContainer").dataset.id
+    document.querySelector(".modal-backdrop").classList = ""
+    deleteToDo(toDo)
+  })
+  modalDeleteBtn.addEventListener
 };
 
 export default renderToDoList;
