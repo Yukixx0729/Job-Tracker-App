@@ -2,6 +2,14 @@ import renderToDoList from'./renderToDoList.js'
 
 const renderCreateToDoForm = (id) => {
     const header = document.getElementById('page')
+    header.classList = "container"
+    const buttonContainer = document.createElement("div")
+
+    buttonContainer.classList = "row justify-content-center"
+    buttonContainer.id = "buttonContainer"
+    
+
+  
 
     axios.get('/jobs')
     .then(res => {
@@ -15,7 +23,7 @@ const renderCreateToDoForm = (id) => {
 
       header.innerHTML = `
         <form id="create-todo-form">
-          <h2>Create new task </h2>
+          <h2 id = "create-title" >Create task </h2>
           <div class="form-group"> 
             <label for="title">Title</label>  
             <input type="text" name="title"></input>
@@ -58,6 +66,16 @@ const renderCreateToDoForm = (id) => {
       `;
 
       document.getElementById("create-todo-form").addEventListener("submit", handleFormSubmit);
+      
+      const returnToJobListBtn = document.createElement("button")
+      returnToJobListBtn.id = "returnToJobListBtn"
+      returnToJobListBtn.textContent = "Cancel"
+      returnToJobListBtn.classList = "mb-1 mt-3 btn btn-secondary col-lg-2 col-md-3 col-sm-4 col-11"
+      buttonContainer.appendChild(returnToJobListBtn)
+      header.insertAdjacentElement('afterbegin',buttonContainer)
+      returnToJobListBtn.addEventListener("click", () => {
+      renderToDoList(id)})
+      
     })
     .catch(err => {
       console.error(err);

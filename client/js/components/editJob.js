@@ -24,6 +24,7 @@ function editJob(jobData) {
     const formattedDueDate = dueDateObj.toISOString().substring(0, 10)
     const editForm = `
     <form id="edit-job-form" data-id="${id}">
+    <h2 id = "create-title" > Edit job </h2> 
     <input type="text" id="user_id" value =${jobData.data.user_id} hidden/>
       <div class="form-group"> 
         <label for="title">Title</label>  

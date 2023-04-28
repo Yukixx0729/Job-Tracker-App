@@ -1,10 +1,30 @@
 import displayJobList from'./renderJobs.js'
 
 function addJobForm(id) {
+
   const header = document.getElementById("page")
+  header.classList = "container"
+  const buttonContainer = document.createElement("div")
+
+  buttonContainer.classList = "row justify-content-center"
+  buttonContainer.id = "buttonContainer"
+  header.appendChild(buttonContainer)
+
+  const returnToJobListBtn = document.createElement("button")
+  returnToJobListBtn.id = "returnToJobListBtn"
+  returnToJobListBtn.textContent = "Cancel"
+  returnToJobListBtn.classList = "mb-1 mt-3 btn btn-secondary col-lg-2 col-md-3 col-sm-4 col-11"
+  buttonContainer.appendChild(returnToJobListBtn)
+  console.log(returnToJobListBtn)
+  returnToJobListBtn.addEventListener("click", () => {
+    
+  displayJobList(id)
+})
+
   const form = `
     <form id="add-job-form">
     <input type="text" id="user_id" value =${id} hidden/>
+    <h2 id = "create-title" > Add Job </h2>
         <div class="form-group"> 
         <label for="title">Title</label>  
         <input type="text" name="title"></input>
@@ -45,15 +65,19 @@ function addJobForm(id) {
         </div>
     </form>
       `
+    const container = document.createElement("div")
+    container.innerHTML = form
 
-  if (!header.contains(document.getElementById("add-job-form"))) {
-    header.innerHTML += form;
+    header.appendChild(container);
+
+  // if (!header.contains(document.getElementById("add-job-form"))) {
+  //   header.innerHTML += form;
     document
       .getElementById("add-job-form")
       .addEventListener("submit", handleFormSubmitJob)
-  } else {
-    header.removeChild(document.getElementById("add-job-form"))
-  }
+  // } else {
+  //   header.removeChild(document.getElementById("add-job-form"))
+  // }
 }
   
 function handleFormSubmitJob(event) {
@@ -74,7 +98,7 @@ function handleFormSubmitJob(event) {
   }
   return axios.post("/jobs", body)
   .then((res) => {
-    console.log(res)
+   
     displayJobList(user_id.value)
   })
 }
