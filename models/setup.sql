@@ -98,6 +98,11 @@ VALUES
   ('Cute Manager', 'Nike', 'Sydney', 'Plan and execute marketing campaigns for the company.', 'https://jobs.nike.com/', '2023-07-12', 'Practical Test', 4),
   ('Hungry Designer', 'Apple', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-05-10', 'Complete', 4),
   ('Sleepy Engineer', 'Google', 'Melbourne', 'Develop and maintain software applications.', 'https://www.google.com/careers', '2023-06-04', 'Application', 4),
+  ('Graphic Designer', 'Apple', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-05-10', 'Complete', 4),
+  ('Fancy Engineer', 'Google', 'Melbourne', 'Develop and maintain software applications.', 'https://www.google.com/careers', '2023-05-04', 'Follow Up Interview', 4),
+  ('Cute Manager', 'Nike', 'Sydney', 'Plan and execute marketing campaigns for the company.', 'https://jobs.nike.com/', '2023-07-12', 'Practical Test', 4),
+  ('Hungry Designer', 'Apple', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-05-10', 'Complete', 4),
+  ('Sleepy Engineer', 'Google', 'Melbourne', 'Develop and maintain software applications.', 'https://www.google.com/careers', '2023-06-04', 'Application', 4),
   ('Dopey Manager', 'Nike', 'Sydney', 'Plan and execute marketing campaigns for the company.', 'https://jobs.nike.com/', '2023-04-29', 'Phone Interview', 4),
   ('Nerdy Designer', 'Apple', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-04-30', 'Complete', 4);
 
