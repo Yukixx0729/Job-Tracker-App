@@ -32,14 +32,19 @@ export const renderHeader = (user) => {
   header.addEventListener("click", (event) => {
     const target = event.target;
 
-    const activeNav = document.querySelector(".active")
+    const activeNav = document.querySelector(".active");
     if (activeNav) {
-      activeNav.classList.remove("active")
+      activeNav.classList.remove("active");
     }
-    if (target.id !== "homepage" && target.id !== "nav-bar" && target.id !== "nav-container" && target.id!== "header-nav-row") {
-      target.classList.add("active")
+    if (
+      target.id !== "homepage" &&
+      target.id !== "nav-bar" &&
+      target.id !== "nav-container" &&
+      target.id !== "header-nav-row"
+    ) {
+      target.classList.add("active");
     }
-    
+
     if (target.className.includes("logout-btn")) {
       fetch("/users/login", {
         method: "DELETE",
@@ -83,7 +88,7 @@ export const renderQuote = () => {
 
   return axios.get("https://api.goprogram.ai/inspiration").then((res) => {
     quote.innerHTML = `<p id="quote" class="row justify-content-center" >${res.data.quote}</p> <p id="author" class="row justify-content-center">${res.data.author}</p>`;
-    page.insertAdjacentElement("beforebegin", quoteContainer);
+    page.appendChild(quoteContainer);
     renderDueJobAndTodo();
   });
 };
@@ -113,8 +118,12 @@ async function renderDueJobAndTodo() {
     });
   // console.log("funny", dueDataTodo);
   const reminderTitle = document.createElement("div");
-  reminderTitle.innerHTML = `<h3>Due in 7 days:</h3>`;
-  container.appendChild(reminderTitle);
+  reminderTitle.innerHTML = `<h3>📌Due in 7 days</h3>`;
+  reminderTitle.id = "reminder";
+  document
+    .getElementById("quote-row")
+    .insertAdjacentElement("afterend", reminderTitle);
+  // container.appendChild(reminderTitle);
   if (!dueDataJob.rowCount && !dueDataTodo.length) {
     const reminder = document.createElement("div");
     reminder.innerHTML = "Nothing to worry about yet.";

@@ -89,6 +89,11 @@ body {
   background-color: #e1caca;
 }
 
+#reminder {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: -100px;
+}
 /* FILES PAGE */
 #uploadFile {
   margin-top: 40px;
@@ -124,14 +129,14 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 100px;
+  margin-top: 100px;
 }
 
 .dueItem {
   list-style: none;
   margin: 30px;
   padding: 10px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
@@ -238,11 +243,11 @@ body {
   margin-bottom: 0.5rem;
 }
 .contact-custom-btn {
-  background-color:#f8f3f3;
+  background-color: #f8f3f3;
 }
 
 .contact-edit-delete {
-  background-color:#d1909c;
+  background-color: #d1909c;
 }
 
 #searchBar {
@@ -251,20 +256,20 @@ body {
 
 /* JOBS PAGE STYLING */
 .jobColumns {
-  background-color: #f8f3f3 ;
+  background-color: #f8f3f3;
   height: 65vh;
   overflow-y: scroll;
 }
-.jobColumns::-webkit-scrollbar{
+.jobColumns::-webkit-scrollbar {
   display: none;
 }
 #headingDiv {
   height: 12%;
-  text-align:center;
+  text-align: center;
   font-family: "Roboto", sans-serif;
   position: sticky;
   top: 0;
-  background-color: #f8f3f3 ;
+  background-color: #f8f3f3;
   width: 100%;
 }
 
@@ -299,7 +304,7 @@ textarea {
   font-size: 1rem;
   box-shadow: 0 0 0 1px #ddd;
   width: 100%;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 textarea {
