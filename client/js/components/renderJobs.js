@@ -182,7 +182,7 @@ const displayJobList = (id) => {
               <p> <span class=subheading> Description: </span>${jobData.description} </p>
             `;
             const modalFooter = document.querySelector(".modal-footer")
-            modalFooter.innerHTML = ''
+            // modalFooter.innerHTML = ''
             modalFooter.classList = "row justify-content-around"
             modalFooter.id = "modalFooter"
             
