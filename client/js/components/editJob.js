@@ -36,9 +36,11 @@ function editJob(jobData) {
         <div class="form-group"> 
         <label for="stages">Stage</label>  
         <select name="stages" class="form-control">
-        <option value="Application" ${jobData.data.stages === 'Application' ? 'selected' : ''}>Application</option>
-        <option value="Phone Interview" ${jobData.data.stages === 'Phone Interview' ? 'selected' : ''}>Phone interview</option>
-        <option value="Interview" ${jobData.data.stages === 'Interview' ? 'selected' : ''}>Interview</option>
+        <option value="Saved" ${jobData.data.stages === 'Saved' ? 'selected' : ''}>Saved</option>
+        <option value="Applied" ${jobData.data.stages === 'Applied' ? 'selected' : ''}>Applied</option>
+        <option value="First Interview" ${jobData.data.stages === 'First Interview' ? 'selected' : ''}>First interview</option>
+        <option value="Follow Up Interview" ${jobData.data.stages === 'Follow Up Interview' ? 'selected' : ''}>Follow Up Interview</option>
+        <option value="Practical Test" ${jobData.data.stages === 'Practical Test' ? 'selected' : ''}> Practical Test</option>
         <option value="Complete" ${jobData.data.stages === 'Complete' ? 'selected' : ''}>Complete</option>
         </select>
         </div>

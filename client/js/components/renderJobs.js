@@ -3,10 +3,6 @@ import editJob from'./editJob.js'
 
 const p = document.getElementById("page")
 
-const jobContainer = document.createElement("div")
-jobContainer.className = "row justify-content-evenly"
-jobContainer.id = "jobListContainer"
-
 const colors = ["#c3acb1", "#7f9990", "#b9d6c8", "#e1caca", "#d1909c"]
 
 const getRandomColor = () => {
@@ -42,16 +38,22 @@ const generateModal = () => {
 }
     
 const displayJobList = (id) => {
-  jobContainer.innerHTML = ""
   p.innerHTML = ""
   p.className = "container"
+
+  const jobColumnContainer = document.createElement("div")
+  jobColumnContainer.className = "container-fluid"
+  p.appendChild(jobColumnContainer)
+
+  const columnNoWrapContainer = document.createElement("div")
+  columnNoWrapContainer.className = "row flex-nowrap overflow-auto"
+  jobColumnContainer.appendChild(columnNoWrapContainer)
 
   const addJobBtn = document.createElement("button")
   addJobBtn.id = "addJobBtn"
   addJobBtn.textContent = "Add Job"
-  p.appendChild(addJobBtn)
+  p.insertAdjacentElement('afterBegin', addJobBtn)
   addJobBtn.addEventListener("click", () => {
-    jobContainer.innerHTML = ""
     p.removeChild(addJobBtn)
     addJobForm(id)
   })
@@ -61,12 +63,13 @@ const displayJobList = (id) => {
   
     const createColumn = (stages) => {
       const filteredJobs = jobs.filter((job) => job.stages === stages)
+
       const column = document.createElement("div")
       column.id = `${stages}`
-      column.className = "col mh-100"
-      column.classList.add("col", "text-center", 'border', 'border-secondary', 'mb-2', 'mx-2')
-      jobContainer.appendChild(column)
-      const heading = document.createElement("h2")
+      column.className = "jobColumns mh-100"
+      column.classList.add("col-4", "col-md-3", "col-lg-2", "text-center", 'border', 'border-secondary', 'mb-2', 'mx-2')
+      columnNoWrapContainer.appendChild(column)
+      const heading = document.createElement("h3")
       heading.textContent = stages
       column.appendChild(heading)
 
@@ -102,7 +105,7 @@ const displayJobList = (id) => {
   
         const jobDiv = document.createElement("div")
         jobDiv.draggable = "true"
-        jobDiv.classList = "job"
+        jobDiv.classList = "job card"
         
         const randomColor = getRandomColor();
         jobDiv.style.backgroundColor = randomColor;
@@ -112,15 +115,15 @@ const displayJobList = (id) => {
         jobDiv.setAttribute('data-bs-toggle', 'modal')
         jobDiv.setAttribute('data-bs-target', '#modalContainer')
 
-        const jobTitle = document.createElement("h4")
-        const jobCompany = document.createElement("p")
+        const jobTitle = document.createElement("h5")
+        const jobCompany = document.createElement("h6")
         const jobDueDate = document.createElement("p")
         jobDiv.appendChild(jobTitle)
         jobDiv.appendChild(jobCompany)
         jobDiv.appendChild(jobDueDate)
         jobTitle.textContent = `${title}`
-        jobCompany.innerHTML = `<span id=subheading> Company: </span>${company}`
-        jobDueDate.innerHTML = `<span id=subheading> Due: </span>${dueDate.toLocaleDateString()}`
+        jobCompany.textContent = `${company}`
+        jobDueDate.innerHTML = `<em><span class="d-none d-xl-inline-block"> Due:</span> ${dueDate.toLocaleDateString()}</em>`
 
         column.appendChild(jobDiv)
 
@@ -184,14 +187,15 @@ const displayJobList = (id) => {
         })
     })
   }
-    createColumn("Application")
-    createColumn("Phone Interview")
-    createColumn("Interview")
-    createColumn("Complete")
-    generateModal()
+  createColumn("Saved")
+  createColumn("Applied")
+  createColumn("First Interview")
+  createColumn("Follow Up Interview")
+  createColumn("Practical Test")
+  createColumn("Complete")
+  generateModal()
 
   })
-  p.appendChild(jobContainer)
 }
 
 export default displayJobList

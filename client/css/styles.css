@@ -1,6 +1,6 @@
-* {
+/* * {
   box-sizing: border-box;
-}
+} */
 body {
   background: #f7eaea;
 }
@@ -233,7 +233,7 @@ body {
 }
 .contact-details {
   padding: 1rem;
-  background-color: #f7eaea;
+  background-color: #f8f3f3;
   border: 1px solid #dee2e6;
   border-top: none;
 }
@@ -251,6 +251,12 @@ body {
 #searchBar {
   border-radius: 0.5rem;
 }
+
+/* JOBS PAGE STYLING */
+.jobColumns {
+  background-color: #f8f3f3 ;
+}
+
 
 /*Form styling */
 form {
