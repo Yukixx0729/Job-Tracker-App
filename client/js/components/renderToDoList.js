@@ -52,7 +52,7 @@ const renderToDoList = (id) => {
   statuses.forEach((status) => {
     const col = document.createElement("div");
     col.id = status
-    col.classList.add("col", "text-center", 'border', 'border-secondary', 'mb-2', 'mx-2');
+    col.classList.add("taskColumn", "col", "text-center", 'border', 'rounded', 'border-secondary', 'mb-2', 'mx-2');
     const title = document.createElement("h2");
     title.classList.add("text-center");
     title.innerText = status.charAt(0).toUpperCase() + status.slice(1);
