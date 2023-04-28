@@ -2,6 +2,21 @@ const express = require("express");
 const db = require("../models/job");
 const router = express.Router();
 
+function validateJob(req, res, next) {
+  const {
+    title,
+    company,
+    location,
+    description,
+    due_date,
+    stages,
+  } = req.body;
+
+  if (!title || !company || !location || !description || !due_date || !stages ) {
+    return res.status(400).json({ message: "Missing required field(s)" });
+  }
+  next();
+}
 const {
   getAllJobs,
   getJobById,
@@ -32,7 +47,7 @@ router.get("/", (req, res) => {
   });
 });
 
-router.post("/", (req, res) => {
+router.post("/", validateJob, (req, res) => {
   const {
     title,
     company,
@@ -79,7 +94,7 @@ router.post("/", (req, res) => {
   });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id",validateJob, (req, res) => {
   const id = Number(req.params.id);
   const { title, company, location, description, job_url, due_date, stages } =
     req.body;

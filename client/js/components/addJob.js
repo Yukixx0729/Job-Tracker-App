@@ -4,6 +4,7 @@ function addJobForm(id) {
   const header = document.getElementById("page")
   const form = `
     <form id="add-job-form">
+    <p id ="error-container"></p>
     <input type="text" id="user_id" value =${id} hidden/>
         <div class="form-group"> 
         <label for="title">Title</label>  
@@ -76,6 +77,10 @@ function handleFormSubmitJob(event) {
   .then((res) => {
     console.log(res)
     displayJobList(user_id.value)
+  }) .catch((err) => {
+    const errMsg = document.getElementById('error-container')
+    errMsg.textContent = 'The form is not filled out correctly.. Try again! ' 
+
   })
 }
 

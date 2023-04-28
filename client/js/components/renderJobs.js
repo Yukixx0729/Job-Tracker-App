@@ -178,7 +178,7 @@ const displayJobList = (id) => {
               <p> <span class=subheading> Due: </span>${new Date (jobData.due_date).toLocaleDateString()} </p>
               <p> <span class=subheading> Stage: </span> ${jobData.stages}
               <p> <span class=subheading> Location: </span>${jobData.location} </p>
-              <a href="${jobData.job_url}"> Link to job </a>
+              <a href="${jobData.job_url}" target=”_blank” > Link to job </a>
               <p> <span class=subheading> Description: </span>${jobData.description} </p>
             `;
             const modalFooter = document.querySelector(".modal-footer")
@@ -186,6 +186,7 @@ const displayJobList = (id) => {
             modalFooter.classList = "row justify-content-around"
             modalFooter.id = "modalFooter"
             
+          
             const editButton = document.createElement("button")
             modalFooter.appendChild(editButton)
             editButton.textContent = "Edit"
@@ -197,7 +198,8 @@ const displayJobList = (id) => {
                 editJob(res)
               })
             })
-          
+
+            
             const deleteButton = document.createElement("button")
             modalFooter.appendChild(deleteButton)
             deleteButton.textContent = "Delete"
@@ -208,39 +210,42 @@ const displayJobList = (id) => {
               displayModal.style.display = "none"
               const mainModal = new bootstrap.Modal(displayModal)
               document.querySelector(".modal-backdrop").classList = ""
-              mainModal.hide()
-              
-              const deleteModalElement = document.getElementById("deleteModalContainer")
-              const deleteModal = new bootstrap.Modal(deleteModalElement)
-              deleteModal.show()
+              deleteButton.style.display = "none"
+              editButton.style.display = "none"
+              const confirmBtn = document.createElement("button")
+              const cancelBtn = document.createElement("button")
+              const deleteTxt = document.createElement("p")
+              deleteTxt.innerText = `Are you sure you want to delete ${jobData.title} ? `
+              confirmBtn.textContent ="Yes"
+              cancelBtn.textContent ="Cancel"
 
-              const deleteModalFooter = document.getElementById("delete-modal-footer")
-              deleteModalFooter.innerHTML = ''
-              const deleteModalButtonContainer = document.createElement("div")
-              deleteModalButtonContainer.classList = "row justify-content-between"
-              deleteModalFooter.appendChild(deleteModalButtonContainer)
-              deleteModalFooter.classList="row justify-content-around"
+              modalFooter.appendChild(deleteTxt)
+              modalFooter.appendChild(confirmBtn)
+              modalFooter.appendChild(cancelBtn)
 
-              const deleteModalButton = document.createElement("button")
-              deleteModalButtonContainer.appendChild(deleteModalButton)
-              deleteModalButton.textContent = "Delete"
-              deleteModalButton.className = "my-3 deleteBtn btn-sm contact-edit-delete col-2"
-              deleteModalButton.addEventListener('click', () => {
-                deleteModal.hide()
-                document.querySelector(".modal-backdrop").classList = ""
-                modalContainer.style.display = 'block';              
-                return axios.delete(`/jobs/${id}`).then((res) => {
-                  jobDiv.remove()
-                  displayJobList()
-                })
-                .catch((err) => {
-                console.log(err);
-                })
+              cancelBtn.addEventListener("click",() =>{
+                console.log('Hello!');
+
+                jobDiv.remove()
+                displayJobList()
+
               })
-            })
-            const mainModal = new bootstrap.Modal(document.getElementById("modalContainer"))
-            mainModal._element.addEventListener('hidden.bs.modal', function (event) {
-            document.querySelector(".modal-backdrop").remove()
+              
+              confirmBtn.addEventListener("click",() =>{
+                  axios
+                  .delete(`/jobs/${id}`)
+                  .then((res) => {
+                    jobDiv.remove()
+                    displayJobList()
+                 })
+                 .catch((err)=>{
+                  console.error(err);
+        
+                  const errMsg = document.createElement('p')
+                  errMsg.textContent = 'Something went wrong' 
+                  modalFooter.appendChild(errMsg);
+                 }) 
+              })
             })
           })
         })
