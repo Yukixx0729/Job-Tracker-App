@@ -36,8 +36,8 @@ Users can navigate through their job board, tasks, contacts, and files. They can
 ##### Future implementation:
 - Make the app responsive to small screens
 - Include option to archive jobs and tasks (other than only deleting)
-- Add return button to all pages when adding or deleting something.
-- Pre-set colours when adding a job, instead of random colour generation.
+- Pre-set colours when adding a job, instead of random colour generation
+- Calendar integration
 - Deploy the app live
 
 
