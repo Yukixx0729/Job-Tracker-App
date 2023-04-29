@@ -1,29 +1,27 @@
-import { createButtonContainer } from './renderContactsList.js'
 import displayJobList from'./renderJobs.js'
 
 function editJob(jobData) {
-  console.log(jobData)
-    const id = jobData.data.id
-    const p = document.getElementById("page")
-    p.classList = "container"
-    const buttonContainer = document.createElement("div")
+  const id = jobData.data.id
+  const p = document.getElementById("page")
+  p.classList = "container"
+  const buttonContainer = document.createElement("div")
 
-    buttonContainer.classList = "row justify-content-center"
-    buttonContainer.id = "buttonContainer"
-    p.appendChild(buttonContainer)
+  buttonContainer.classList = "row justify-content-center"
+  buttonContainer.id = "buttonContainer"
+  p.appendChild(buttonContainer)
 
-    const returnToJobListBtn = document.createElement("button")
-    returnToJobListBtn.id = "returnToJobListBtn"
-    returnToJobListBtn.textContent = "Cancel"
-    returnToJobListBtn.classList = "mb-1 mt-3 btn btn-secondary col-lg-2 col-md-3 col-sm-4 col-11"
-    buttonContainer.appendChild(returnToJobListBtn)
-    returnToJobListBtn.addEventListener("click", () => {
-    displayJobList(id)})
+  const returnToJobListBtn = document.createElement("button")
+  returnToJobListBtn.id = "returnToJobListBtn"
+  returnToJobListBtn.textContent = "Cancel"
+  returnToJobListBtn.classList = "mb-1 mt-3 btn btn-secondary col-md-3 col-sm-4 col-11"
+  buttonContainer.appendChild(returnToJobListBtn)
+  returnToJobListBtn.addEventListener("click", () => {
+  displayJobList(id)})
 
-    const dueDateObj = new Date(jobData.data.due_date)
-    const formattedDueDate = dueDateObj.toISOString().substring(0, 10)
-    const editForm = `
-    <form id="edit-job-form" data-id="${id}">
+  const dueDateObj = new Date(jobData.data.due_date)
+  const formattedDueDate = dueDateObj.toISOString().substring(0, 10)
+  const editForm = `
+    <form id="edit-job-form" data-id="${id}" class="mt-4">
     <h2 id = "create-title" > Edit job </h2> 
     <input type="text" id="user_id" value =${jobData.data.user_id} hidden/>
       <div class="form-group"> 
@@ -63,38 +61,36 @@ function editJob(jobData) {
       <button type="submit">Update</button>
       </div>
     </form>
-  `;
+  `
   
-    const container = document.createElement("div")
-    container.innerHTML = editForm
-
-    p.appendChild(container);
-
-    container.querySelector("form").addEventListener("submit", (event) => {
-    event.preventDefault();
+  const container = document.createElement("div")
+  container.innerHTML = editForm
+  p.appendChild(container);
+  container.querySelector("form").addEventListener("submit", (event) => {
+  event.preventDefault();
      
-    const user_id = document.getElementById("user_id")
-    const formData = new FormData(event.target);
+  const user_id = document.getElementById("user_id")
+  const formData = new FormData(event.target);
   
-    const jobData = {
-        id:id,
-        title: formData.get("title"),
-        company: formData.get("company"),
-        location: formData.get("location"),
-        description: formData.get("description"),
-        job_url: formData.get("job_url"),
-        due_date: formData.get("due_date"),
-        stages: formData.get("stages"),
-        user_id: user_id.value
-    };
+  const jobData = {
+    id:id,
+    title: formData.get("title"),
+    company: formData.get("company"),
+    location: formData.get("location"),
+    description: formData.get("description"),
+    job_url: formData.get("job_url"),
+    due_date: formData.get("due_date"),
+    stages: formData.get("stages"),
+    user_id: user_id.value
+  }
   
-    axios.put(`/jobs/${id}`, jobData).then((res) => {
-      displayJobList(user_id.value)
+  axios.put(`/jobs/${id}`, jobData).then((res) => {
+    displayJobList(user_id.value)
   })
   .catch((error) => {
     console.error(error);
-    res.status(500).send("Error editing job");
-  });
+    res.status(500).send("Error editing job")
+  })
 })
 }
 

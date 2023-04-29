@@ -1,14 +1,11 @@
 import addJobForm from'./addJob.js'
 import editJob from'./editJob.js'
-import { createButtonContainer } from './renderContactsList.js'
 
 const p = document.getElementById("page")
-
 const colors = ["#c3acb1", "#7f9990", "#b9d6c8", "#e1caca", "#d1909c"]
-
 const getRandomColor = () => {
   const randomIndex = Math.floor(Math.random() * colors.length)
-  return colors[randomIndex];
+  return colors[randomIndex]
 }
 
 const generateModal = () => {
@@ -180,7 +177,7 @@ const displayJobList = (id) => {
               <p> <span class=subheading> Location: </span>${jobData.location} </p>
               <a href="${jobData.job_url}"> Link to job </a>
               <p> <span class=subheading> Description: </span>${jobData.description} </p>
-            `;
+            `
             const modalFooter = document.querySelector(".modal-footer")
             modalFooter.innerHTML = ''
             modalFooter.classList = "row justify-content-around"
@@ -234,7 +231,7 @@ const displayJobList = (id) => {
                   displayJobList()
                 })
                 .catch((err) => {
-                console.log(err);
+                console.log(err)
                 })
               })
             })

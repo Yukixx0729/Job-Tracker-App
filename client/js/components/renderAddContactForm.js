@@ -36,20 +36,16 @@ const addContactForm = () => {
     <button type ="submit"> Add Contact </button>
   <div class="form-group">   
   </form>
-`
-document.getElementById("buttonContainer").insertAdjacentElement('beforeend', formContainer)
-console.log(document.getElementById("add-contact-form"))
-document.getElementById("nonLetterContainer").classList="row justify-content-center"
-document.getElementById("displayAllContactsBtn").classList = "mb-1 mt-3 btn btn-secondary col-md-3 col-sm-4 col-11"
-document.getElementById("add-contact-form").addEventListener("submit", handleAddContact)
+  `
+  document.getElementById("buttonContainer").insertAdjacentElement('beforeend', formContainer)
+  document.getElementById("nonLetterContainer").classList="row justify-content-center"
+  document.getElementById("displayAllContactsBtn").classList = "mb-1 mt-3 btn btn-secondary col-md-3 col-sm-4 col-11"
+  document.getElementById("add-contact-form").addEventListener("submit", handleAddContact)
 }
 
 function handleAddContact(event) {
   event.preventDefault()
-  console.log(event)
-
   const formData = new FormData(event.target)
-  console.log(formData)
 
   const body = {
     contactName: formData.get("contactName"),
@@ -58,7 +54,6 @@ function handleAddContact(event) {
     phoneNumber: formData.get("phoneNumber"),
     notes: formData.get("notes")
   }
-  console.log(body)
 
   return axios.post('/contacts', body)
   .then(res => {
