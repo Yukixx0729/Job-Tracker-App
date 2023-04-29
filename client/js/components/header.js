@@ -23,7 +23,7 @@ export const renderHeader = (user) => {
   subheading.innerHTML = `
   <div class="container" id="welcome"> 
     <div class="row">
-      <h6 class="col justify-content-end"> Welcome ${user.user_name} </h6>
+      <h5 class="col justify-content-end"> Welcome ${user.user_name} </h5>
     </div>
   </div>
   `
@@ -36,12 +36,8 @@ export const renderHeader = (user) => {
     if (activeNav) {
       activeNav.classList.remove("active")
     }
-    if (
-      target.id !== "homepage" &&
-      target.id !== "nav-bar" &&
-      target.id !== "nav-container" &&
-      target.id !== "header-nav-row"
-    ) {
+    if ( target.id !== "homepage" && target.id !== "nav-bar" && target.id !== "nav-container" && target.id !== "header-nav-row") 
+    {
       target.classList.add("active")
     }
 
@@ -50,7 +46,7 @@ export const renderHeader = (user) => {
         method: "DELETE",
       }).then(() => {
         window.location = "/login.html"
-      });
+      })
     }
     const render = event.target.dataset.render
     switch (render) {
