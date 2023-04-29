@@ -38,7 +38,6 @@ const showContactBySearch = (querySearch) => {
   document.getElementById('modalBigDiv').remove()
   return axios.get(`/contacts?search=${querySearch}`)
   .then((res) => {
-    // console.log(res)
     renderContactDisplay(res)
   })
   .catch((err) => {
@@ -55,7 +54,7 @@ const searchBar = () => {
   document.getElementById("nonLetterContainer").appendChild(searchBar)
   searchBar.addEventListener("input", (event) => {
     showContactBySearch(event.target.value)
-  } )
+  })
 }
 
 const showContactByLetter = (letter) => {

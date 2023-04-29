@@ -3,10 +3,10 @@ import renderToDoList from'./renderToDoList.js'
 const editToDoForm = (id) => {
   return axios.get(`/todos/${id}`)
   .then(res => {
-  const page = document.getElementById('page');
+  const page = document.getElementById('page')
   const task = res.data
-  const dueDateObj = new Date(task.due_date);
-  const formattedDueDate = dueDateObj.toISOString().substring(0, 10);
+  const dueDateObj = new Date(task.due_date)
+  const formattedDueDate = dueDateObj.toISOString().substring(0, 10)
 
   page.classList = "container"
   const buttonContainer = document.createElement("div")
@@ -18,13 +18,14 @@ const editToDoForm = (id) => {
   const returnToJobListBtn = document.createElement("button")
   returnToJobListBtn.id = "returnToJobListBtn"
   returnToJobListBtn.textContent = "Cancel"
-  returnToJobListBtn.classList = "mb-1 mt-3 btn btn-secondary col-lg-2 col-md-3 col-sm-4 col-11"
+  returnToJobListBtn.classList = "mb-1 mt-3 btn btn-secondary col-md-3 col-sm-4 col-11"
   buttonContainer.appendChild(returnToJobListBtn)
   returnToJobListBtn.addEventListener("click", () => {
-    renderToDoList(id)})
+    renderToDoList(id)
+  })
 
   page.innerHTML = `
-  <form id="update-todo-form">
+  <form id="update-todo-form" class="mt-4">
     <div class="form-group">
     <h2 id = "create-title" > Edit task </h2> 
       <label for="title">Title</label>  
@@ -63,19 +64,14 @@ const editToDoForm = (id) => {
   const container = document.createElement("div")
   container.innerHTML = page
 
-  page.insertAdjacentElement('afterbegin',buttonContainer);
+  page.insertAdjacentElement('afterbegin',buttonContainer)
   document.getElementById("update-todo-form").addEventListener('submit', (event) => handleEditToDo(event, task.id))
   })
-  
 }
 
 function handleEditToDo(event, id) {
-  console.log(id)
-  event.preventDefault();
-  console.log(event)
-  const formData = new FormData(event.target);
-  
-  console.log(formData);
+  event.preventDefault()
+  const formData = new FormData(event.target)
   
   const body = {
     title: formData.get('title'),
@@ -83,15 +79,14 @@ function handleEditToDo(event, id) {
     due_date: formData.get('due_date'),
     priority: formData.get('priority'),
     status: formData.get('status'),
-  };
-  console.log(body)
+  }
   return axios.put(`/todos/${id}`, body)
   .then(res => {
-    console.log(res.status);
-    renderToDoList(user_id.value);
+    console.log(res.status)
+    renderToDoList(user_id.value)
   })
   .catch(err => {
-    console.error(err);
+    console.error(err)
   })
 }
 

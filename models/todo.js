@@ -1,45 +1,27 @@
-const db = require("./db.js");
+const db = require("./db.js")
 
 const getAllToDos = () => {
-  return db.query("SELECT * FROM to_do;").then((result) => result.rows);
-};
+  return db.query("SELECT * FROM to_do;").then((result) => result.rows)
+}
 
 const getAllToDosByUserId = (user_id) => {
-  return db
-    .query("SELECT * FROM to_do WHERE user_id =$1;", [user_id])
-    .then((result) => result.rows);
-};
+  return db.query("SELECT * FROM to_do WHERE user_id =$1;", [user_id])
+    .then((result) => result.rows)
+}
 
 const getToDoById = (id) => {
-    return db
-      .query(`SELECT * FROM to_do WHERE id=${id};`)
-      .then((result) => result.rows[0]);
-  };
+  return db.query(`SELECT * FROM to_do WHERE id=${id};`)
+    .then((result) => result.rows[0])
+}
 
 const deleteToDoById = (id) => {
-  return db.query("DELETE from to_do WHERE id=$1", [id]);
-};
+  return db.query("DELETE from to_do WHERE id=$1", [id])
+}
 
-const createToDo = (
-  title,
-  description,
-  due_date,
-  priority,
-  status,
-  user_id, 
-  job_id
-) => {
-  const sql = `INSERT INTO to_do (title, description, due_date, priority, status, user_id, job_id) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id;`;
-  return db.query(sql, [
-    title,
-    description,
-    due_date,
-    priority,
-    status,
-    user_id,
-    job_id
-  ]);
-};
+const createToDo = ( title, description, due_date, priority, status, user_id, job_id ) => {
+  const sql = `INSERT INTO to_do (title, description, due_date, priority, status, user_id, job_id) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id;`
+  return db.query(sql, [ title, description, due_date, priority, status, user_id, job_id ])
+}
 
 const updateToDo = (id, title, description, due_date, priority, status) => {
   let sql
@@ -54,8 +36,8 @@ const updateToDo = (id, title, description, due_date, priority, status) => {
             RETURNING *;`
     params = [id, title, description, due_date, priority, status]
   }
-  return db.query(sql, params).then((result) => result.rows[0]);
-};
+  return db.query(sql, params).then((result) => result.rows[0])
+}
 
 module.exports = {
   getAllToDos,
@@ -64,4 +46,4 @@ module.exports = {
   createToDo,
   updateToDo,
   getAllToDosByUserId,
-};
+}

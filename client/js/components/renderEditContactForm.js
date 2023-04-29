@@ -15,31 +15,31 @@ const editContactForm = (id) => {
 
     formContainer.innerHTML = `
     <form id="edit-contact-form">
-    <h2 id = "create-title" > Edit contact </h2>
-    <div class="form-group"> 
-      <label for="contactName"> Name </label>
-      <input type="text" name="contactName" value="${contact.contact_name}"></input>
-    </div>
-    <div class="form-group"> 
-      <label for="companyName"> Company </label>
-      <input type="text" name="companyName" value="${contact.company_name}"></input>
-    </div>
-    <div class="form-group"> 
-      <label for="email"> Email </label>
-      <input type="email" name="email" value="${contact.email}"></input>
-    </div>
-    <div class="form-group"> 
-    <label for="phoneNumber"> Phone No. </label>
-    <input type="number" name="phoneNumber" value="${contact.phone_number}"></input>
-  </div>
-  <div class="form-group"> 
-    <label for="notes"> Notes </label>
-    <textarea id="notes" name="notes" rows="6"">${contact.notes}</textarea>
-  </div>
-  <div class="form-group"> 
-    <button type ="submit"> Save </button>
-  </div>
-  </form>
+      <h2 id = "create-title" > Edit contact </h2>
+      <div class="form-group"> 
+        <label for="contactName"> Name </label>
+        <input type="text" name="contactName" value="${contact.contact_name}"></input>
+      </div>
+      <div class="form-group"> 
+        <label for="companyName"> Company </label>
+        <input type="text" name="companyName" value="${contact.company_name}"></input>
+      </div>
+      <div class="form-group"> 
+        <label for="email"> Email </label>
+        <input type="email" name="email" value="${contact.email}"></input>
+      </div>
+      <div class="form-group"> 
+        <label for="phoneNumber"> Phone No. </label>
+        <input type="number" name="phoneNumber" value="${contact.phone_number}"></input>
+      </div>
+      <div class="form-group"> 
+        <label for="notes"> Notes </label>
+        <textarea id="notes" name="notes" rows="6"">${contact.notes}</textarea>
+      </div>
+      <div class="form-group"> 
+        <button type ="submit"> Save </button>
+      </div>
+    </form>
   `
   document.getElementById("buttonContainer").insertAdjacentElement('beforeend', formContainer)
   document.getElementById("nonLetterContainer").classList="row justify-content-center"
@@ -50,10 +50,7 @@ const editContactForm = (id) => {
 
 function handleEditContact(event, id) {
   event.preventDefault()
-  console.log(event)
-
   const formData = new FormData(event.target)
-  console.log(formData)
 
   const body = {
     contactName: formData.get("contactName"),
@@ -62,7 +59,6 @@ function handleEditContact(event, id) {
     phoneNumber: formData.get("phoneNumber"),
     notes: formData.get("notes")
   }
-  console.log(body)
 
   return axios.put(`/contacts/${id}`, body)
   .then(() => {

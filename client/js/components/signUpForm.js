@@ -1,9 +1,6 @@
 const signUp = (event) => {
   event.preventDefault()
-  console.log(event)
-
   const formData = new FormData(event.target)
-  console.log(formData)
 
   const body = {
     userName: formData.get("userName"),
@@ -11,14 +8,11 @@ const signUp = (event) => {
     password: formData.get("password"),
     passwordCheck: formData.get("passwordCheck")
   }
-
-  console.log(body)
-
   return axios.post('/users/signup', body)
   .then(res => {
     console.log(res)
     signUpMsg.textContent = "Sign up successful!"
-    loginLink.innerHTML = `<a href="/login.html">Login here</a>`
+    return window.location.replace("/login.html")
   })
   .catch(err => {
     console.log(err)
