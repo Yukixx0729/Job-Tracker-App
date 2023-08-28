@@ -91,6 +91,7 @@ function handleFormSubmitJob(event) {
   return axios.post("/jobs", body)
   .then((res) => {
     displayJobList(user_id.value)
+
   })
 }
 

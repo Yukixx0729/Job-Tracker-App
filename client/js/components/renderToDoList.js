@@ -149,6 +149,8 @@ const renderToDoList = (id) => {
           deleteBtn.addEventListener("click", (event) => {
             modalContainer.style.display = 'block'
             modalContainer.dataset.id = event.currentTarget.dataset.id
+            document.body.classList.remove("modal-open")
+            document.body.style = ""
           })
 
           const editBtn = document.createElement("button")

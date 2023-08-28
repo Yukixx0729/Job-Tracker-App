@@ -191,8 +191,7 @@ const displayJobList = (id) => {
             editButton.addEventListener("click", () => {
               document.querySelector(".modal-backdrop").classList = ""
               document.body.classList.remove("modal-open")
-              document.body.style.overflow = ''
-              document.body.style.paddingRight = ''
+              document.body.style = ""
               return axios.get(`/jobs/${id}`).then((res) => {
                 p.innerHTML = ""
                 editJob(res)
@@ -206,8 +205,7 @@ const displayJobList = (id) => {
             deleteButton.addEventListener("click", (event) => {
               console.log(event.target)
               document.body.classList.remove("modal-open")
-              document.body.style.overflow = ''
-              document.body.style.paddingRight = ''
+              document.body.style = ""
               const displayModal = document.getElementById("modalContainer")
               displayModal.style.display = "none"
               const mainModal = new bootstrap.Modal(displayModal)
@@ -233,8 +231,7 @@ const displayJobList = (id) => {
               deleteModalButton.addEventListener('click', () => {
                 deleteModal.hide()
                 document.body.classList.remove("modal-open")
-                document.body.style.overflow = ''
-                document.body.style.paddingRight = ''
+                document.body.style = ""
                 document.querySelector(".modal-backdrop").classList = ""
                 modalContainer.style.display = 'block';              
                 return axios.delete(`/jobs/${id}`).then((res) => {
@@ -250,8 +247,7 @@ const displayJobList = (id) => {
             mainModal._element.addEventListener('hidden.bs.modal', function (event) {
             document.querySelector(".modal-backdrop").remove()
             document.body.classList.remove("modal-open")
-            document.body.style.overflow = ''
-            document.body.style.paddingRight = ''
+            document.body.style = ""
             })
           })
         })
