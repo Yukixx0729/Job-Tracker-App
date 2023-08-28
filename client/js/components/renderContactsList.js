@@ -188,6 +188,8 @@ const renderContactDisplay = (res) => {
   deleteBtn.addEventListener("click", (event) => {
     modalContainer.style.display = 'block'
     modalContainer.dataset.id = event.currentTarget.dataset.id
+    document.body.classList.remove("modal-open")
+    document.body.style = ""
   })
   buttonContainer.appendChild(deleteBtn)
       
@@ -204,6 +206,8 @@ const renderContactDisplay = (res) => {
   modalDeleteBtn.addEventListener("click", () => {
     const contactId = document.getElementById("modalContainer").dataset.id
     document.querySelector(".modal-backdrop").classList = ""
+    document.body.classList.remove("modal-open")
+    document.body.style = ""
     deleteContact(contactId)
   })
 }
