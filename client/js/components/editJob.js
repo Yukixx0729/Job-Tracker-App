@@ -68,6 +68,8 @@ function editJob(jobData) {
   p.appendChild(container);
   container.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault();
+
+  document.body.classList.remove("modal-open")
      
   const user_id = document.getElementById("user_id")
   const formData = new FormData(event.target);

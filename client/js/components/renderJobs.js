@@ -75,6 +75,7 @@ const displayJobList = (id) => {
   addJobBtn.classList = "m-3 btn btn-secondary col-lg-2 col-sm-3 col-11"
   addJobBtnContainer.appendChild(addJobBtn)
   addJobBtn.addEventListener("click", () => {
+    document.body.classList.remove("modal-open")
     p.innerHTML = ''
     addJobForm(id)
   })
@@ -189,6 +190,9 @@ const displayJobList = (id) => {
             editButton.className = "mb-3 editBtn btn-sm contact-edit-delete col-2"
             editButton.addEventListener("click", () => {
               document.querySelector(".modal-backdrop").classList = ""
+              document.body.classList.remove("modal-open")
+              document.body.style.overflow = ''
+              document.body.style.paddingRight = ''
               return axios.get(`/jobs/${id}`).then((res) => {
                 p.innerHTML = ""
                 editJob(res)
@@ -201,6 +205,9 @@ const displayJobList = (id) => {
             deleteButton.className = "mb-3 deleteBtn btn-sm contact-edit-delete col-2"
             deleteButton.addEventListener("click", (event) => {
               console.log(event.target)
+              document.body.classList.remove("modal-open")
+              document.body.style.overflow = ''
+              document.body.style.paddingRight = ''
               const displayModal = document.getElementById("modalContainer")
               displayModal.style.display = "none"
               const mainModal = new bootstrap.Modal(displayModal)
@@ -210,6 +217,7 @@ const displayJobList = (id) => {
               const deleteModalElement = document.getElementById("deleteModalContainer")
               const deleteModal = new bootstrap.Modal(deleteModalElement)
               deleteModal.show()
+              document.body.classList.remove("modal-open")
 
               const deleteModalFooter = document.getElementById("delete-modal-footer")
               deleteModalFooter.innerHTML = ''
@@ -224,6 +232,9 @@ const displayJobList = (id) => {
               deleteModalButton.className = "my-3 deleteBtn btn-sm contact-edit-delete col-2"
               deleteModalButton.addEventListener('click', () => {
                 deleteModal.hide()
+                document.body.classList.remove("modal-open")
+                document.body.style.overflow = ''
+                document.body.style.paddingRight = ''
                 document.querySelector(".modal-backdrop").classList = ""
                 modalContainer.style.display = 'block';              
                 return axios.delete(`/jobs/${id}`).then((res) => {
@@ -238,6 +249,9 @@ const displayJobList = (id) => {
             const mainModal = new bootstrap.Modal(document.getElementById("modalContainer"))
             mainModal._element.addEventListener('hidden.bs.modal', function (event) {
             document.querySelector(".modal-backdrop").remove()
+            document.body.classList.remove("modal-open")
+            document.body.style.overflow = ''
+            document.body.style.paddingRight = ''
             })
           })
         })
