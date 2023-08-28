@@ -81,6 +81,10 @@ export const renderQuote = () => {
   quote.id = "quoteBox"
   quote.classList = "row justify-content-center"
   quoteContainer.appendChild(quote)
+  // quote.innerHTML = `<p id="quote" class="row justify-content-center" >Amazing things are meant to happen</p> <p id="author" class="row justify-content-center">Someone wise</p>`
+
+  page.appendChild(quoteContainer)
+  renderDueJobAndTodo()
 
   return axios.get("https://api.goprogram.ai/inspiration").then((res) => {
     quote.innerHTML = `<p id="quote" class="row justify-content-center" >${res.data.quote}</p> <p id="author" class="row justify-content-center">${res.data.author}</p>`

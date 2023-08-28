@@ -93,18 +93,18 @@ INSERT INTO jobs (title, company, location, description, job_url, due_date, stag
 VALUES
   ('Software Engineer', 'Google', 'Melbourne', 'Develop and maintain software applications.', 'https://www.google.com/careers', '2023-06-01', 'Applied', 4),
   ('Marketing Manager', 'Nike', 'Sydney', 'Plan and execute marketing campaigns for the company.', 'https://jobs.nike.com/', '2023-07-15', 'First Interview', 4),
-  ('Graphic Designer', 'Apple', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-05-10', 'Complete', 4),
-  ('Fancy Engineer', 'Google', 'Melbourne', 'Develop and maintain software applications.', 'https://www.google.com/careers', '2023-05-04', 'Follow Up Interview', 4),
-  ('Cute Manager', 'Nike', 'Sydney', 'Plan and execute marketing campaigns for the company.', 'https://jobs.nike.com/', '2023-07-12', 'Practical Test', 4),
-  ('Hungry Designer', 'Apple', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-05-10', 'Complete', 4),
-  ('Sleepy Engineer', 'Google', 'Melbourne', 'Develop and maintain software applications.', 'https://www.google.com/careers', '2023-06-04', 'Application', 4),
-  ('Graphic Designer', 'Apple', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-05-10', 'Complete', 4),
-  ('Fancy Engineer', 'Google', 'Melbourne', 'Develop and maintain software applications.', 'https://www.google.com/careers', '2023-05-04', 'Follow Up Interview', 4),
-  ('Cute Manager', 'Nike', 'Sydney', 'Plan and execute marketing campaigns for the company.', 'https://jobs.nike.com/', '2023-07-12', 'Practical Test', 4),
-  ('Hungry Designer', 'Apple', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-05-10', 'Complete', 4),
-  ('Sleepy Engineer', 'Google', 'Melbourne', 'Develop and maintain software applications.', 'https://www.google.com/careers', '2023-06-04', 'Application', 4),
-  ('Dopey Manager', 'Nike', 'Sydney', 'Plan and execute marketing campaigns for the company.', 'https://jobs.nike.com/', '2023-04-29', 'Phone Interview', 4),
-  ('Nerdy Designer', 'Apple', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-04-30', 'Complete', 4);
+  ('Graphic Designer', 'Woolies', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-05-10', 'Complete', 4),
+  ('Fancy Engineer', 'Coles', 'Melbourne', 'Develop and maintain software applications.', 'https://www.google.com/careers', '2023-05-04', 'Follow Up Interview', 4),
+  ('Snr Manager', 'Nike', 'Sydney', 'Plan and execute marketing campaigns for the company.', 'https://jobs.nike.com/', '2023-07-12', 'Practical Test', 4),
+  ('Jnr Designer', 'CBA', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-05-10', 'Complete', 4),
+  ('Mid-level Engineer', 'NAB', 'Melbourne', 'Develop and maintain software applications.', 'https://www.google.com/careers', '2023-06-04', 'Applied', 4),
+  ('UI Designer', 'ANZ', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-05-10', 'Complete', 4),
+  ('Amazing Engineer', 'ALDI', 'Melbourne', 'Develop and maintain software applications.', 'https://www.google.com/careers', '2023-05-04', 'Follow Up Interview', 4),
+  ('Mean Manager', 'Atlassian', 'Sydney', 'Plan and execute marketing campaigns for the company.', 'https://jobs.nike.com/', '2023-07-12', 'Practical Test', 4),
+  ('Awesome Designer', 'Apple', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-05-10', 'Complete', 4),
+  ('Sleepy Engineer', 'Google', 'Melbourne', 'Develop and maintain software applications.', 'https://www.google.com/careers', '2023-06-04', 'Applied', 4),
+  ('Engineering Manager', 'Nike', 'Sydney', 'Plan and execute marketing campaigns for the company.', 'https://jobs.nike.com/', '2023-04-29', 'First Interview', 4),
+  ('UX Designer', 'Apple', 'Brisbane', 'Create visual designs for various digital and print mediums.', 'https://www.apple.com/jobs/us/design', '2023-04-30', 'Complete', 4);
 
 INSERT INTO to_do (title, description, due_date, priority, status, user_id, job_id) 
 VALUES 
@@ -114,6 +114,15 @@ VALUES
 
 INSERT INTO contacts (contact_name, company_name, email, phone_number, notes, user_id)
 VALUES 
+  ('Alice Smith', 'ABC Inc.', 'alice@abc.com', 0400111222, 'Met at conference', 1),
+  ('Bob Johnson', 'XYZ Corp.', 'bob@xyz.com', 0400111333, 'Potential client', 2),
+  ('Charlie Brown', 'DEF Co.', 'charlie@def.com', 0400111333, 'Former colleague', 3),
+  ('Alice Smith', 'ABC Inc.', 'alice@abc.com', 0400111222, 'Met at conference', 1),
+  ('Bob Johnson', 'XYZ Corp.', 'bob@xyz.com', 0400111333, 'Potential client', 2),
+  ('Charlie Brown', 'DEF Co.', 'charlie@def.com', 0400111333, 'Former colleague', 3),
+  ('Alice Smith', 'ABC Inc.', 'alice@abc.com', 0400111222, 'Met at conference', 1),
+  ('Bob Johnson', 'XYZ Corp.', 'bob@xyz.com', 0400111333, 'Potential client', 2),
+  ('Charlie Brown', 'DEF Co.', 'charlie@def.com', 0400111333, 'Former colleague', 3),
   ('Alice Smith', 'ABC Inc.', 'alice@abc.com', 0400111222, 'Met at conference', 1),
   ('Bob Johnson', 'XYZ Corp.', 'bob@xyz.com', 0400111333, 'Potential client', 2),
   ('Charlie Brown', 'DEF Co.', 'charlie@def.com', 0400111333, 'Former colleague', 3);
